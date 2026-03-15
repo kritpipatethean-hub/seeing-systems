@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6: Applications & Case Studies — Seeing Systems</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    .chapter-page { background: linear-gradient(180deg, #0a1628 0%, #1a1a2e 30%); }
+    .chapter-header { border-bottom: 3px solid var(--ch6-color); }
+    .coming-soon-container {
+      text-align: center;
+      padding: 80px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .coming-soon-container .icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.6;
+    }
+    .coming-soon-container h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: var(--ch6-color);
+    }
+    .coming-soon-container p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body class="chapter-page fade-in">
+
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="th">TH</button>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="../../index.html" class="nav-brand">Seeing Systems</a>
+    <ul class="nav-links">
+      <li><a href="../../index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="../../index.html#chapters" data-i18n="nav.chapters">Chapters</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar-overlay"></div>
+  <div class="sidebar">
+    <button class="sidebar-close">&times;</button>
+    <h3>Chapters</h3>
+    <ul class="sidebar-chapters">
+      <li><a href="../ch1/index.html"><span class="ch-num" data-i18n="ch1.label">Chapter 1</span><span data-i18n="ch1.title">Introduction to System Dynamics</span></a></li>
+      <li><a href="../ch2/index.html"><span class="ch-num" data-i18n="ch2.label">Chapter 2</span><span data-i18n="ch2.title">Stocks, Flows & Building Blocks</span></a></li>
+      <li><a href="../ch3/index.html"><span class="ch-num" data-i18n="ch3.label">Chapter 3</span><span data-i18n="ch3.title">Feedback Loops</span></a></li>
+      <li><a href="../ch4/index.html"><span class="ch-num" data-i18n="ch4.label">Chapter 4</span><span data-i18n="ch4.title">Behavior Patterns</span></a></li>
+      <li><a href="../ch5/index.html"><span class="ch-num" data-i18n="ch5.label">Chapter 5</span><span data-i18n="ch5.title">Model Building Process</span></a></li>
+      <li><a href="index.html" style="background:rgba(255,255,255,0.1);"><span class="ch-num" data-i18n="ch6.label">Chapter 6</span><span data-i18n="ch6.title">Applications & Case Studies</span></a></li>
+    </ul>
+  </div>
+
+  <!-- Chapter Header -->
+  <header class="chapter-header">
+    <div class="ch-label" data-i18n="ch6.label">Chapter 6</div>
+    <h1 data-i18n="ch6.title">Applications & Case Studies</h1>
+    <p class="ch-desc" data-i18n="ch6.desc">See System Dynamics in action through real-world case studies in public health, business, environment, and policy.</p>
+  </header>
+
+  <!-- Coming Soon Content -->
+  <section class="chapter-sections">
+    <div class="coming-soon-container">
+      <div class="icon">🚧</div>
+      <h2 data-i18n="coming_soon">Coming Soon</h2>
+      <p data-i18n="ch6.desc">See System Dynamics in action through real-world case studies in public health, business, environment, and policy.</p>
+    </div>
+
+    <!-- Navigation -->
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="../ch5/index.html" class="btn btn-secondary" style="padding: 14px 40px; font-size: 1rem;">
+        ← <span data-i18n="ch5.label">Chapter 5</span>: <span data-i18n="ch5.title">Model Building Process</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Seeing Systems. <span data-i18n="footer.text">Built for learning System Dynamics.</span></p>
+  </footer>
+
+  <script src="../../js/i18n.js"></script>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

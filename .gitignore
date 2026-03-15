@@ -1,0 +1,17 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Input data (source PDFs - not for web)
+input data/
+
+# Reference screenshots
+Web_Ex_Pic/
+
+# Node modules (if added later)
+node_modules/

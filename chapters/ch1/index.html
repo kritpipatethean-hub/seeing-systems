@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1: Introduction to System Dynamics — Seeing Systems</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- KaTeX for math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+  <style>
+    .chapter-page { background: linear-gradient(180deg, #0a1628 0%, #1a1a2e 30%); }
+    .chapter-header { border-bottom: 3px solid var(--ch1-color); }
+  </style>
+</head>
+<body class="chapter-page fade-in">
+
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="th">TH</button>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="../../index.html" class="nav-brand">Seeing Systems</a>
+    <ul class="nav-links">
+      <li><a href="../../index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="../../index.html#chapters" data-i18n="nav.chapters">Chapters</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar-overlay"></div>
+  <div class="sidebar">
+    <button class="sidebar-close">&times;</button>
+    <h3>Chapters</h3>
+    <ul class="sidebar-chapters">
+      <li><a href="index.html" style="background:rgba(255,255,255,0.1);"><span class="ch-num" data-i18n="ch1.label">Chapter 1</span><span data-i18n="ch1.title">Introduction to System Dynamics</span></a></li>
+      <li><a href="../ch2/index.html"><span class="ch-num" data-i18n="ch2.label">Chapter 2</span><span data-i18n="ch2.title">Stocks, Flows & Building Blocks</span></a></li>
+      <li><a href="../ch3/index.html"><span class="ch-num" data-i18n="ch3.label">Chapter 3</span><span data-i18n="ch3.title">Feedback Loops</span></a></li>
+      <li><a href="../ch4/index.html"><span class="ch-num" data-i18n="ch4.label">Chapter 4</span><span data-i18n="ch4.title">Behavior Patterns</span></a></li>
+      <li><a href="../ch5/index.html"><span class="ch-num" data-i18n="ch5.label">Chapter 5</span><span data-i18n="ch5.title">Model Building Process</span></a></li>
+      <li><a href="../ch6/index.html"><span class="ch-num" data-i18n="ch6.label">Chapter 6</span><span data-i18n="ch6.title">Applications & Case Studies</span></a></li>
+    </ul>
+  </div>
+
+  <!-- Chapter Header -->
+  <header class="chapter-header">
+    <div class="ch-label" data-i18n="ch1.label">Chapter 1</div>
+    <h1 data-i18n="ch1.title">Introduction to System Dynamics</h1>
+    <p class="ch-desc" data-i18n="ch1.desc">Understand why systems behave in counterintuitive ways and how System Dynamics helps us think about complex problems.</p>
+  </header>
+
+  <!-- Topic Cards -->
+  <section class="chapter-sections">
+    <div class="topic-cards">
+      <a href="#what-is-sd" class="topic-card">
+        <div class="topic-icon" style="background: var(--ch1-color);">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-7.07l-2.83 2.83M9.76 14.24l-2.83 2.83m0-10.14l2.83 2.83m4.48 4.48l2.83 2.83"/></svg>
+        </div>
+        <div>
+          <h4 data-i18n="ch1.intro.title">What is System Dynamics?</h4>
+        </div>
+      </a>
+      <a href="#counterintuitive" class="topic-card">
+        <div class="topic-icon" style="background: var(--accent-1);">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        </div>
+        <div>
+          <h4 data-i18n="ch1.counterintuitive.title">Counterintuitive Behavior</h4>
+        </div>
+      </a>
+      <a href="#mental-models" class="topic-card">
+        <div class="topic-icon" style="background: var(--accent-3);">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M12 2a9 9 0 00-9 9c0 3.87 2.13 5.82 3.5 6.7V21h11v-3.3c1.37-.88 3.5-2.83 3.5-6.7a9 9 0 00-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+        </div>
+        <div>
+          <h4 data-i18n="ch1.mental.title">Mental Models & System Thinking</h4>
+        </div>
+      </a>
+    </div>
+
+    <!-- Section 1: What is System Dynamics? -->
+    <div id="what-is-sd" class="section-block">
+      <h2 data-i18n="ch1.intro.title">What is System Dynamics?</h2>
+
+      <p data-i18n="ch1.intro.p1">System Dynamics is a methodology for understanding how complex systems change over time. Founded by Jay W. Forrester at MIT in the 1950s, it uses computer simulation to reveal how the structure of a system—its feedback loops, delays, and nonlinearities—determines its behavior.</p>
+
+      <p data-i18n="ch1.intro.p2">Unlike traditional approaches that break problems into isolated parts, System Dynamics looks at the whole system and how its parts interact to create patterns of behavior over time.</p>
+
+      <div class="info-box">
+        <p data-i18n-html="ch1.info.key_insight" data-i18n-en="<strong>Key Insight:</strong> The structure of a system determines its behavior. To change behavior, you must change the structure—the feedback loops, delays, and information flows." data-i18n-th="<strong>ข้อค้นพบสำคัญ:</strong> โครงสร้างของระบบกำหนดพฤติกรรม หากต้องการเปลี่ยนพฤติกรรม ต้องเปลี่ยนโครงสร้าง—วงจรป้อนกลับ ความล่าช้า และกระแสข้อมูล">
+          <strong>Key Insight:</strong> The structure of a system determines its behavior. To change behavior, you must change the structure—the feedback loops, delays, and information flows.
+        </p>
+      </div>
+
+      <div class="equation">
+        $$\text{System Behavior} = f(\text{Structure: Feedback Loops, Delays, Nonlinearities})$$
+      </div>
+
+      <h3 style="color: var(--accent-2); margin-top: 30px;" data-i18n="ch1.timeline.title" data-i18n-en="Brief Timeline" data-i18n-th="ไทม์ไลน์โดยย่อ">Brief Timeline</h3>
+
+      <div style="display:grid; grid-template-columns: 80px 1fr; gap: 10px; margin-top: 15px;">
+        <div style="color: var(--accent-4); font-weight: bold;">1950s</div>
+        <div style="color: var(--text-muted);" data-i18n="ch1.timeline.1950" data-i18n-en="Jay Forrester develops System Dynamics at MIT, initially for industrial management." data-i18n-th="Jay Forrester พัฒนาพลวัตระบบที่ MIT เริ่มแรกสำหรับการจัดการอุตสาหกรรม">Jay Forrester develops System Dynamics at MIT, initially for industrial management.</div>
+
+        <div style="color: var(--accent-4); font-weight: bold;">1961</div>
+        <div style="color: var(--text-muted);" data-i18n="ch1.timeline.1961" data-i18n-en="'Industrial Dynamics' published — the first major SD textbook." data-i18n-th="'Industrial Dynamics' ตีพิมพ์ — ตำรา SD เล่มสำคัญเล่มแรก">"Industrial Dynamics" published — the first major SD textbook.</div>
+
+        <div style="color: var(--accent-4); font-weight: bold;">1969</div>
+        <div style="color: var(--text-muted);" data-i18n="ch1.timeline.1969" data-i18n-en="'Urban Dynamics' applies SD to city growth and decay problems." data-i18n-th="'Urban Dynamics' ประยุกต์ SD กับปัญหาการเติบโตและเสื่อมถอยของเมือง">"Urban Dynamics" applies SD to city growth and decay problems.</div>
+
+        <div style="color: var(--accent-4); font-weight: bold;">1972</div>
+        <div style="color: var(--text-muted);" data-i18n="ch1.timeline.1972" data-i18n-en="'Limits to Growth' uses SD to model global resource depletion — becomes a worldwide bestseller." data-i18n-th="'Limits to Growth' ใช้ SD จำลองการหมดทรัพยากรโลก — เป็นหนังสือขายดีทั่วโลก">"Limits to Growth" uses SD to model global resource depletion — becomes a worldwide bestseller.</div>
+
+        <div style="color: var(--accent-4); font-weight: bold;">2000</div>
+        <div style="color: var(--text-muted);" data-i18n="ch1.timeline.2000" data-i18n-en="Sterman publishes 'Business Dynamics' — now the definitive SD textbook used worldwide." data-i18n-th="Sterman ตีพิมพ์ 'Business Dynamics' — ตำรา SD ที่ใช้กันทั่วโลก">Sterman publishes "Business Dynamics" — now the definitive SD textbook used worldwide.</div>
+
+        <div style="color: var(--accent-4); font-weight: bold;">Today</div>
+        <div style="color: var(--text-muted);" data-i18n="ch1.timeline.today" data-i18n-en="SD is applied to public health, tobacco control, climate change, supply chains, and more." data-i18n-th="SD ถูกนำไปใช้ในสาธารณสุข การควบคุมยาสูบ การเปลี่ยนแปลงสภาพอากาศ ห่วงโซ่อุปทาน และอื่นๆ">SD is applied to public health, tobacco control, climate change, supply chains, and more.</div>
+      </div>
+    </div>
+
+    <!-- Section 2: Counterintuitive Behavior -->
+    <div id="counterintuitive" class="section-block">
+      <h2 data-i18n="ch1.counterintuitive.title">Counterintuitive Behavior</h2>
+
+      <div class="content-row">
+        <div class="content-text">
+          <p data-i18n="ch1.counterintuitive.p1">One of the most important insights from System Dynamics is that complex systems often behave in ways that are counterintuitive. As Forrester (1971) observed, policies designed to fix social problems frequently make them worse.</p>
+
+          <p data-i18n="ch1.counterintuitive.p2">Try the simulation below: you are managing a city's population. Use the sliders to set policies and see how the system responds—often in unexpected ways!</p>
+
+          <div class="slider-group">
+            <label data-i18n="interactive.housing">Housing Investment <span id="housing-val">50%</span></label>
+            <input type="range" id="housing-slider" min="0" max="100" value="50">
+          </div>
+          <div class="slider-group">
+            <label data-i18n="interactive.jobs">Job Creation Programs <span id="jobs-val">50%</span></label>
+            <input type="range" id="jobs-slider" min="0" max="100" value="50">
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-primary" id="sim-run" data-i18n="interactive.run">Run Simulation</button>
+            <button class="btn btn-secondary" id="sim-reset" data-i18n="interactive.reset">Reset</button>
+          </div>
+        </div>
+
+        <div class="content-interactive" id="population-sim">
+          <div class="interactive-title" data-i18n="interactive.population">Population Simulation</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+
+      <div class="info-box warning" style="margin-top: 20px;">
+        <p>
+          <span data-i18n="ch1.counter.insight" data-i18n-en="Notice how increasing housing investment beyond a certain point can actually attract so many people that quality of life drops. This is the 'fixes that fail' archetype — a common pattern in complex systems." data-i18n-th="สังเกตว่าการเพิ่มการลงทุนที่อยู่อาศัยเกินจุดหนึ่งจริงๆ แล้วดึงดูดคนจำนวนมากจนคุณภาพชีวิตลดลง นี่คือ 'การแก้ไขที่ล้มเหลว' — รูปแบบที่พบบ่อยในระบบซับซ้อน">
+            Notice how increasing housing investment beyond a certain point can actually attract so many people that quality of life drops. This is the "fixes that fail" archetype — a common pattern in complex systems.
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: Mental Models -->
+    <div id="mental-models" class="section-block">
+      <h2 data-i18n="ch1.mental.title">Mental Models & System Thinking</h2>
+
+      <div class="content-row">
+        <div class="content-text">
+          <p data-i18n="ch1.mental.p1">Every decision we make is based on mental models—our internal pictures of how the world works. System Dynamics makes these mental models explicit through diagrams and equations, allowing us to test our assumptions with simulation.</p>
+
+          <p data-i18n="ch1.mental.p2">As Sterman (2000) argues, "the most important thing we can do is improve the mental models of decision makers." Click on the diagram elements below to explore how a simple causal loop works.</p>
+
+          <div id="causal-info" style="display:none; background: rgba(0,180,216,0.1); border-left: 3px solid var(--accent-2); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 15px; color: var(--text-light); font-size: 0.9rem;">
+          </div>
+
+          <p style="margin-top:15px; font-size: 0.85rem;" data-i18n="interactive.click_node">Click on any node to learn more</p>
+        </div>
+
+        <div class="content-interactive" id="causal-loop">
+          <div class="interactive-title" data-i18n="interactive.causal">Causal Loop Diagram</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+
+      <h3 style="color: var(--accent-2); margin-top: 30px;" data-i18n="ch1.sd_process.title" data-i18n-en="The System Dynamics Process" data-i18n-th="กระบวนการพลวัตระบบ">The System Dynamics Process</h3>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+        <div style="background: var(--bg-darker); border-radius: 10px; padding: 20px; text-align: center; border-top: 3px solid var(--ch1-color);">
+          <div style="font-size: 2rem; margin-bottom: 8px;">1</div>
+          <div style="font-weight: bold; margin-bottom: 5px;" data-i18n="ch1.step1.title" data-i18n-en="Problem Articulation" data-i18n-th="กำหนดปัญหา">Problem Articulation</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="ch1.step1.desc" data-i18n-en="Define the problem, key variables, and time horizon" data-i18n-th="กำหนดปัญหา ตัวแปรสำคัญ และช่วงเวลา">Define the problem, key variables, and time horizon</div>
+        </div>
+        <div style="background: var(--bg-darker); border-radius: 10px; padding: 20px; text-align: center; border-top: 3px solid var(--accent-3);">
+          <div style="font-size: 2rem; margin-bottom: 8px;">2</div>
+          <div style="font-weight: bold; margin-bottom: 5px;" data-i18n="ch1.step2.title" data-i18n-en="Dynamic Hypothesis" data-i18n-th="สมมติฐานเชิงพลวัต">Dynamic Hypothesis</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="ch1.step2.desc" data-i18n-en="Map causal loops and stock-flow structures" data-i18n-th="วาดวงจรเหตุ-ผลและโครงสร้างสต็อก-กระแส">Map causal loops and stock-flow structures</div>
+        </div>
+        <div style="background: var(--bg-darker); border-radius: 10px; padding: 20px; text-align: center; border-top: 3px solid var(--accent-4);">
+          <div style="font-size: 2rem; margin-bottom: 8px;">3</div>
+          <div style="font-weight: bold; margin-bottom: 5px;" data-i18n="ch1.step3.title" data-i18n-en="Formulation" data-i18n-th="สร้างสมการ">Formulation</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="ch1.step3.desc" data-i18n-en="Write equations and build the simulation model" data-i18n-th="เขียนสมการและสร้างแบบจำลอง">Write equations and build the simulation model</div>
+        </div>
+        <div style="background: var(--bg-darker); border-radius: 10px; padding: 20px; text-align: center; border-top: 3px solid var(--accent-1);">
+          <div style="font-size: 2rem; margin-bottom: 8px;">4</div>
+          <div style="font-weight: bold; margin-bottom: 5px;" data-i18n="ch1.step4.title" data-i18n-en="Testing & Policy Design" data-i18n-th="ทดสอบและออกแบบนโยบาย">Testing & Policy Design</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="ch1.step4.desc" data-i18n-en="Validate, test scenarios, and design interventions" data-i18n-th="ตรวจสอบ ทดสอบสถานการณ์ และออกแบบการแทรกแซง">Validate, test scenarios, and design interventions</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="references">
+      <h3 data-i18n="nav.references">References</h3>
+      <ol>
+        <li>Forrester, J. W. (1971). Counterintuitive Behavior of Social Systems. <em>Technology Review</em>, 73(3), 52–68.</li>
+        <li>Sterman, J. D. (2000). <em>Business Dynamics: Systems Thinking and Modeling for a Complex World</em>. McGraw-Hill.</li>
+        <li>Darabi, N., & Hosseinichimeh, N. (2020). System Dynamics Modeling in Health and Medicine: A Systematic Literature Review. <em>System Dynamics Review</em>, 36(2), 168–209.</li>
+        <li>Radzicki, M. J., & Tauheed, L. (2009). In Defense of System Dynamics: A Response to Professor Hayden. <em>Journal of Economic Issues</em>, 43(4), 1039–1042.</li>
+      </ol>
+    </div>
+
+    <!-- Next Chapter -->
+    <div style="text-align: center; margin-top: 60px;">
+      <a href="../ch2/index.html" class="btn btn-primary" style="padding: 14px 40px; font-size: 1rem;">
+        <span data-i18n="ch2.label">Chapter 2</span>: <span data-i18n="ch2.title">Stocks, Flows & Building Blocks</span> →
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Seeing Systems. <span data-i18n="footer.text">Built for learning System Dynamics.</span></p>
+  </footer>
+
+  <script src="../../js/i18n.js"></script>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/chapters/ch1.js"></script>
+</body>
+</html>
