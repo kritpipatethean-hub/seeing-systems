@@ -934,7 +934,7 @@ function initDriftSim() {
 
   function runSim() {
     const erosion = parseInt(erosionSlider.value) / 100;
-    const steps = 100;
+    const steps = 150;
     const data = { time: [], performance: [], goal: [] };
 
     let perf = 90;
@@ -946,17 +946,19 @@ function initDriftSim() {
       data.performance.push(perf);
       data.goal.push(goal);
 
-      // Random shocks push performance down
-      const shock = (Math.random() - 0.4) * 3;
-      // Performance tries to reach goal, but slowly
-      perf += (goal - perf) * 0.08 + shock;
-      perf = Math.max(5, Math.min(100, perf));
+      // Random shocks push performance down (biased negative)
+      const shock = (Math.random() - 0.55) * 4;
+      // Performance tries to reach goal, but slowly and imperfectly
+      perf += (goal - perf) * 0.1 + shock;
+      perf = Math.max(0, Math.min(100, perf));
 
-      // Goal erodes toward current performance when perf < goal
+      // Goal erodes toward current performance — this is the trap!
+      // Higher erosion = goal drops faster to match poor performance
       if (perf < goal) {
-        goal += (perf - goal) * erosion * 0.06;
+        goal += (perf - goal) * erosion * 0.25;
       }
-      goal = Math.max(5, goal);
+      // Even without erosion, small natural drift
+      goal = Math.max(0, goal);
     }
 
     simData = data;
@@ -966,7 +968,6 @@ function initDriftSim() {
     if (resultPanel) {
       const isTH = i18n.currentLang === 'th';
       const finalPerf = data.performance[data.performance.length - 1];
-      const finalGoal = data.goal[data.goal.length - 1];
       const drop = originalGoal - finalPerf;
       let verdict, color;
       if (drop < 10) {
@@ -1016,19 +1017,21 @@ function initDriftSim() {
     const plotH = h - pad.top - pad.bottom;
     const maxTime = simData.time[simData.time.length - 1];
 
-    // Original goal reference line
+    // Original goal reference line — draw BELOW the data so it doesn't overlap
     const origY = pad.top + plotH - (90 / 100) * plotH;
-    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    ctx.lineWidth = 1;
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
     ctx.moveTo(pad.left, origY);
     ctx.lineTo(w - pad.right, origY);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    // Label pinned to top-right corner, away from data lines
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
     ctx.font = '11px sans-serif';
     ctx.textAlign = 'right';
-    ctx.fillText(i18n.currentLang === 'th' ? 'มาตรฐานเดิม (90)' : 'Original Standard (90)', w - pad.right - 5, origY - 3);
+    ctx.fillText(i18n.currentLang === 'th' ? 'มาตรฐานเดิม (90)' : 'Original Standard (90)', w - pad.right - 5, origY - 10);
 
     // Grid
     ctx.strokeStyle = 'rgba(74,85,104,0.2)';
