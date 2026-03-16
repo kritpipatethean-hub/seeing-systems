@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBehaviorPatterns();
   initFishingSim();
   initEscalation();
+  initWealthSim();
 });
 
 // =============================================
@@ -53,12 +54,12 @@ function initBathtub() {
     const inflow = parseInt(inflowSlider.value);
     const outflow = parseInt(outflowSlider.value);
 
-    // Smooth stock change
-    const net = (inflow - outflow) * 0.015;
+    // Smooth stock change — slower to show gradual nature of stocks
+    const net = (inflow - outflow) * 0.01;
     waterLevel = Math.max(0, Math.min(100, waterLevel + net));
 
-    // Smooth visual interpolation
-    displayLevel += (waterLevel - displayLevel) * 0.08;
+    // Smooth visual interpolation — lower = smoother
+    displayLevel += (waterLevel - displayLevel) * 0.04;
 
     history.push(waterLevel);
     if (history.length > maxHistory) history.shift();
@@ -132,36 +133,55 @@ function initBathtub() {
       ctx.fill();
     }
 
-    // Inflow stream
+    // Inflow arrow + stream
+    const inflowX = tubX + tubW * 0.3;
     if (inflow > 0) {
-      const streamW = Math.max(2, inflow / 10);
-      const streamX = tubX + tubW * 0.3;
+      const streamW = Math.max(3, inflow / 8);
       ctx.fillStyle = `rgba(6,214,160,${0.3 + inflow / 150})`;
-      ctx.fillRect(streamX - streamW / 2, tubY - 25, streamW, Math.max(0, waterY - tubY + 25));
-      // Droplets animation
-      for (let d = 0; d < 3; d++) {
-        const dropY = (tubY - 20 + (Date.now() * 0.1 + d * 30) % (waterY - tubY + 20));
+      // Stream with animated particles
+      const streamTop = tubY - 30;
+      const streamBot = Math.max(streamTop + 5, waterY);
+      ctx.fillRect(inflowX - streamW / 2, streamTop, streamW, streamBot - streamTop);
+      // Droplet particles falling
+      for (let d = 0; d < 4; d++) {
+        const speed = 0.08 + (inflow / 500);
+        const dropY = streamTop + ((Date.now() * speed + d * 50) % (streamBot - streamTop));
+        const dropX = inflowX + Math.sin(Date.now() * 0.003 + d) * 3;
         ctx.beginPath();
-        ctx.arc(streamX + (d - 1) * 4, dropY, 2, 0, Math.PI * 2);
+        ctx.arc(dropX, dropY, 2.5, 0, Math.PI * 2);
         ctx.fill();
       }
+      // Arrow head pointing down
+      ctx.beginPath();
+      ctx.moveTo(inflowX - 8, streamTop + 2);
+      ctx.lineTo(inflowX, streamTop + 14);
+      ctx.lineTo(inflowX + 8, streamTop + 2);
+      ctx.fillStyle = '#06d6a0';
+      ctx.fill();
     }
 
-    // Outflow stream
+    // Outflow arrow + stream
+    const outflowX = tubX + tubW * 0.7;
     if (outflow > 0 && displayLevel > 0) {
-      const streamW = Math.max(2, outflow / 10);
-      const streamX = tubX + tubW * 0.7;
+      const streamW = Math.max(3, outflow / 8);
       ctx.fillStyle = `rgba(233,69,96,${0.3 + outflow / 150})`;
-      ctx.fillRect(streamX - streamW / 2, tubY + tubH, streamW, 20);
+      ctx.fillRect(outflowX - streamW / 2, tubY + tubH, streamW, 25);
+      // Arrow head pointing down
+      ctx.beginPath();
+      ctx.moveTo(outflowX - 8, tubY + tubH + 15);
+      ctx.lineTo(outflowX, tubY + tubH + 27);
+      ctx.lineTo(outflowX + 8, tubY + tubH + 15);
+      ctx.fillStyle = '#e94560';
+      ctx.fill();
     }
 
-    // Labels
-    ctx.font = '11px sans-serif';
+    // Labels with clear arrows
+    ctx.font = 'bold 11px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillStyle = '#06d6a0';
-    ctx.fillText(`${i18n.currentLang === 'th' ? 'เข้า' : 'In'}: ${inflow}`, tubX + tubW * 0.3, tubY - 30);
+    ctx.fillText(`▼ ${i18n.currentLang === 'th' ? 'เข้า' : 'Inflow'}: ${inflow}`, inflowX, tubY - 35);
     ctx.fillStyle = '#e94560';
-    ctx.fillText(`${i18n.currentLang === 'th' ? 'ออก' : 'Out'}: ${outflow}`, tubX + tubW * 0.7, tubY + tubH + 40);
+    ctx.fillText(`▼ ${i18n.currentLang === 'th' ? 'ออก' : 'Outflow'}: ${outflow}`, outflowX, tubY + tubH + 45);
 
     // Stock label
     ctx.fillStyle = 'rgba(255,255,255,0.9)';
@@ -327,7 +347,7 @@ function initBehaviorPatterns() {
     const totalFrames = data.length;
 
     function step() {
-      frame = Math.min(frame + 2, totalFrames);
+      frame = Math.min(frame + 1, totalFrames);  // slower: +1 instead of +2
       drawPatternFrame(ctx, canvas, data, frame, color, refLines);
       if (frame < totalFrames) {
         currentAnim = requestAnimationFrame(step);
@@ -381,6 +401,15 @@ function drawPatternFrame(ctx, canvas, data, frameCount, color, refLines) {
   ctx.font = '11px sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText(i18n.currentLang === 'th' ? 'เวลา' : 'Time', pad.left + plotW / 2, h - 5);
+
+  // Y-axis label
+  ctx.save();
+  ctx.translate(12, pad.top + plotH / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillStyle = '#a0aec0';
+  ctx.textAlign = 'center';
+  ctx.fillText(i18n.currentLang === 'th' ? 'ค่า' : 'Value', 0, 0);
+  ctx.restore();
 
   // Reference lines
   (refLines || []).forEach(ref => {
@@ -470,7 +499,7 @@ function initFishingSim() {
     let fishPop = 1000;
     const K = 1200;
     const r = 0.12;
-    const catchPerBoat = 0.9;
+    const catchPerBoat = 1.2;  // higher catch rate = collapse more visible at lower boat counts
 
     for (let i = 0; i <= steps; i++) {
       const t = i * dt;
@@ -863,5 +892,211 @@ function initEscalation() {
     aggrVal.textContent = '50%';
     if (escResult) escResult.style.display = 'none';
     drawEsc(0);
+  });
+}
+
+
+// =============================================
+// 5. Success to the Successful — Wealth Sim
+// =============================================
+function initWealthSim() {
+  const container = document.getElementById('wealth-sim');
+  if (!container) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 500;
+  canvas.height = 300;
+  canvas.style.width = '100%';
+  canvas.style.maxWidth = '500px';
+  canvas.style.height = 'auto';
+  canvas.style.display = 'block';
+  canvas.style.margin = '0 auto';
+
+  const vizArea = container.querySelector('.viz-area') || container;
+  vizArea.innerHTML = '';
+  vizArea.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  const biasSlider = document.getElementById('wealth-bias-slider');
+  const biasVal = document.getElementById('wealth-bias-val');
+  const runBtn = document.getElementById('wealth-run');
+  const resetBtn = document.getElementById('wealth-reset');
+  const resultPanel = document.getElementById('wealth-result');
+
+  let simData = null;
+  let animFrame = 0;
+  let isRunning = false;
+
+  biasSlider?.addEventListener('input', () => biasVal.textContent = biasSlider.value + '%');
+
+  function runSim() {
+    const bias = parseInt(biasSlider.value) / 100;
+    const rounds = 80;
+    const data = { round: [], a: [], b: [] };
+
+    let wA = 50, wB = 50;
+
+    for (let i = 0; i <= rounds; i++) {
+      data.round.push(i);
+      data.a.push(wA);
+      data.b.push(wB);
+
+      const total = wA + wB || 1;
+      // Richer player gets a bias-weighted higher probability
+      const probA = 0.5 + bias * 0.4 * ((wA - wB) / total);
+      const stake = 2 + (wA + wB) * 0.02;
+
+      if (Math.random() < probA) {
+        wA += stake;
+        wB = Math.max(0.5, wB - stake);
+      } else {
+        wB += stake;
+        wA = Math.max(0.5, wA - stake);
+      }
+    }
+
+    simData = data;
+    animFrame = 0;
+    isRunning = true;
+
+    if (resultPanel) {
+      const isTH = i18n.currentLang === 'th';
+      const finalA = data.a[data.a.length - 1];
+      const finalB = data.b[data.b.length - 1];
+      const ratio = Math.max(finalA, finalB) / Math.max(0.1, Math.min(finalA, finalB));
+      let verdict, color;
+      if (ratio < 2) {
+        verdict = isTH ? '✓ ค่อนข้างเท่าเทียม — อัตราส่วน ' + ratio.toFixed(1) + ':1' : '✓ Roughly equal — ratio ' + ratio.toFixed(1) + ':1';
+        color = '#06d6a0';
+      } else if (ratio < 5) {
+        verdict = isTH ? '⚠ ไม่เท่าเทียม — อัตราส่วน ' + ratio.toFixed(1) + ':1' : '⚠ Unequal — ratio ' + ratio.toFixed(1) + ':1';
+        color = '#ffd166';
+      } else {
+        verdict = isTH ? '✗ ผูกขาด! — อัตราส่วน ' + ratio.toFixed(0) + ':1' : '✗ Monopoly! — ratio ' + ratio.toFixed(0) + ':1';
+        color = '#e94560';
+      }
+      resultPanel.innerHTML = `<strong>${verdict}</strong>`;
+      resultPanel.style.display = 'block';
+      resultPanel.style.borderLeftColor = color;
+      resultPanel.style.background = `${color}15`;
+    }
+
+    animateWealth();
+  }
+
+  function animateWealth() {
+    if (!isRunning || !simData) return;
+    animFrame = Math.min(animFrame + 1, simData.round.length);
+    drawWealth(animFrame);
+    if (animFrame < simData.round.length) requestAnimationFrame(animateWealth);
+  }
+
+  function drawWealth(frameCount) {
+    const w = canvas.width, h = canvas.height;
+    const pad = { top: 35, right: 20, bottom: 40, left: 50 };
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#16213e';
+    ctx.fillRect(0, 0, w, h);
+
+    if (!simData || frameCount === 0) {
+      ctx.fillStyle = '#a0aec0';
+      ctx.font = '14px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(i18n.currentLang === 'th' ? 'กดปุ่ม "เริ่มจำลอง"' : 'Press "Run Simulation"', w / 2, h / 2);
+      return;
+    }
+
+    const n = Math.min(frameCount, simData.round.length);
+    const plotW = w - pad.left - pad.right;
+    const plotH = h - pad.top - pad.bottom;
+    const maxVal = Math.max(Math.max(...simData.a), Math.max(...simData.b)) * 1.1;
+    const maxRound = simData.round[simData.round.length - 1];
+
+    // Equal line (starting point)
+    const equalY = pad.top + plotH - (50 / maxVal) * plotH;
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, equalY);
+    ctx.lineTo(w - pad.right, equalY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.font = '9px sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(i18n.currentLang === 'th' ? 'เท่ากัน' : 'Equal', pad.left + 5, equalY - 3);
+
+    // Axes
+    ctx.strokeStyle = '#4a5568';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, pad.top);
+    ctx.lineTo(pad.left, h - pad.bottom);
+    ctx.lineTo(w - pad.right, h - pad.bottom);
+    ctx.stroke();
+
+    ctx.fillStyle = '#a0aec0';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(i18n.currentLang === 'th' ? 'รอบ' : 'Round', pad.left + plotW / 2, h - 5);
+
+    // Player A line
+    ctx.strokeStyle = '#00b4d8';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const x = pad.left + (simData.round[i] / maxRound) * plotW;
+      const y = pad.top + plotH - (simData.a[i] / maxVal) * plotH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Player B line
+    ctx.strokeStyle = '#e94560';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const x = pad.left + (simData.round[i] / maxRound) * plotW;
+      const y = pad.top + plotH - (simData.b[i] / maxVal) * plotH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Legend
+    ctx.textAlign = 'left';
+    ctx.font = '11px sans-serif';
+    const labelA = i18n.currentLang === 'th' ? 'ผู้เล่น A' : 'Player A';
+    const labelB = i18n.currentLang === 'th' ? 'ผู้เล่น B' : 'Player B';
+
+    ctx.strokeStyle = '#00b4d8'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(pad.left + 10, pad.top - 15); ctx.lineTo(pad.left + 30, pad.top - 15); ctx.stroke();
+    ctx.fillStyle = '#edf2f7'; ctx.fillText(labelA, pad.left + 35, pad.top - 11);
+
+    ctx.strokeStyle = '#e94560';
+    ctx.beginPath(); ctx.moveTo(pad.left + 120, pad.top - 15); ctx.lineTo(pad.left + 140, pad.top - 15); ctx.stroke();
+    ctx.fillText(labelB, pad.left + 145, pad.top - 11);
+
+    // Y-axis label
+    ctx.save();
+    ctx.translate(12, pad.top + plotH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillStyle = '#a0aec0';
+    ctx.textAlign = 'center';
+    ctx.fillText(i18n.currentLang === 'th' ? 'ทรัพย์สิน' : 'Wealth', 0, 0);
+    ctx.restore();
+  }
+
+  drawWealth(0);
+
+  runBtn?.addEventListener('click', runSim);
+  resetBtn?.addEventListener('click', () => {
+    simData = null;
+    isRunning = false;
+    animFrame = 0;
+    biasSlider.value = 40;
+    biasVal.textContent = '40%';
+    if (resultPanel) resultPanel.style.display = 'none';
+    drawWealth(0);
   });
 }

@@ -259,6 +259,43 @@
       </div>
     </div>
 
+    <!-- Section 5: Success to the Successful Interactive -->
+    <div class="section-block">
+      <h3 style="color: var(--ch5-color); margin-top: 10px;" data-i18n-en="Try It: Success to the Successful" data-i18n-th="ลองเลย: ผู้ชนะได้ทุกอย่าง">Try It: Success to the Successful</h3>
+
+      <div class="content-row">
+        <div class="content-text">
+          <p data-i18n-en="Imagine two players start with equal wealth. Each round, a coin is flipped — but the richer player has a <em>slightly higher</em> chance of winning. This small advantage compounds into massive inequality. Adjust how much advantage wealth gives." data-i18n-th="ลองจินตนาการผู้เล่นสองคนเริ่มด้วยทรัพย์สินเท่ากัน ในแต่ละรอบ โยนเหรียญ — แต่ผู้เล่นที่รวยกว่ามีโอกาสชนะ<em>สูงกว่าเล็กน้อย</em> ข้อได้เปรียบเล็กๆ นี้ทบต้นจนเกิดความเหลื่อมล้ำมหาศาล ลองปรับว่าความร่ำรวยให้ข้อได้เปรียบมากแค่ไหน">Imagine two players start with equal wealth.</p>
+
+          <div class="slider-group">
+            <label data-i18n-en="Wealth Advantage" data-i18n-th="ข้อได้เปรียบจากความร่ำรวย">Wealth Advantage</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;" data-i18n-en="Fair" data-i18n-th="ยุติธรรม">Fair</span>
+              <input type="range" id="wealth-bias-slider" min="0" max="100" value="40" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;" data-i18n-en="Rigged" data-i18n-th="ได้เปรียบมาก">Rigged</span>
+              <span id="wealth-bias-val" style="min-width: 40px; text-align: center; color: var(--ch5-color); font-weight: bold;">40%</span>
+            </div>
+          </div>
+
+          <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn btn-primary" id="wealth-run" data-i18n="interactive.run">Run Simulation</button>
+            <button class="btn btn-secondary" id="wealth-reset" data-i18n="interactive.reset">Reset</button>
+          </div>
+
+          <div id="wealth-result" style="display:none; margin-top: 15px; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.9rem;"></div>
+        </div>
+
+        <div class="content-interactive" id="wealth-sim">
+          <div class="interactive-title" style="color: var(--ch5-color);" data-i18n-en="Success to the Successful" data-i18n-th="ผู้ชนะได้ทุกอย่าง">Success to the Successful</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top: 20px; border-left-color: var(--ch5-color);">
+        <p data-i18n-en="<strong>Try it:</strong> Set advantage to 0% (fair coin) — wealth stays roughly equal. Then try 60% or 80% — one player dominates within a few rounds. The same pattern drives wealth inequality, market monopolies, and social media algorithms that amplify popular content. <strong>The way out:</strong> Redistribution mechanisms (progressive tax, antitrust, platform regulation)." data-i18n-th="<strong>ลองดู:</strong> ตั้งข้อได้เปรียบ 0% (เหรียญยุติธรรม) — ทรัพย์สินอยู่ใกล้เคียงกัน จากนั้นลอง 60% หรือ 80% — ฝ่ายหนึ่งครอบงำภายในไม่กี่รอบ รูปแบบเดียวกันขับเคลื่อนความเหลื่อมล้ำ การผูกขาดตลาด และอัลกอริทึมโซเชียลมีเดียที่ขยายเนื้อหายอดนิยม <strong>ทางออก:</strong> กลไกกระจายรายได้ (ภาษีก้าวหน้า กฎหมายต่อต้านการผูกขาด การกำกับแพลตฟอร์ม)"><strong>Try it:</strong> Set advantage to 0% vs 80%.</p>
+      </div>
+    </div>
+
     <!-- References -->
     <div class="references">
       <h3 data-i18n="nav.references">References</h3>
