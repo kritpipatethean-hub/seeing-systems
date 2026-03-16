@@ -23,10 +23,10 @@ function initBathtub() {
   if (!container) return;
 
   const canvas = document.createElement('canvas');
-  canvas.width = 500;
-  canvas.height = 340;
+  canvas.width = 520;
+  canvas.height = 400;
   canvas.style.width = '100%';
-  canvas.style.maxWidth = '500px';
+  canvas.style.maxWidth = '520px';
   canvas.style.height = 'auto';
   canvas.style.display = 'block';
   canvas.style.margin = '0 auto';
@@ -99,7 +99,7 @@ function initBathtub() {
     const outflow = parseInt(outflowSlider.value);
 
     // --- Bathtub visualization ---
-    const tubX = 30, tubY = 40, tubW = 180, tubH = 240;
+    const tubX = 30, tubY = 55, tubW = 180, tubH = 240;
 
     // Tub walls
     ctx.strokeStyle = '#4a5568';
@@ -177,7 +177,7 @@ function initBathtub() {
     }
 
     // Labels with clear arrows
-    ctx.font = 'bold 11px sans-serif';
+    ctx.font = 'bold 13px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillStyle = '#06d6a0';
     ctx.fillText(`▼ ${i18n.currentLang === 'th' ? 'เข้า' : 'Inflow'}: ${inflow}`, inflowX, tubY - 35);
@@ -186,14 +186,14 @@ function initBathtub() {
 
     // Stock label
     ctx.fillStyle = 'rgba(255,255,255,0.9)';
-    ctx.font = 'bold 16px sans-serif';
+    ctx.font = 'bold 20px sans-serif';
     ctx.fillText(`${displayLevel.toFixed(0)}%`, tubX + tubW / 2, tubY + tubH / 2);
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     ctx.fillStyle = 'rgba(255,255,255,0.5)';
     ctx.fillText(i18n.currentLang === 'th' ? 'สต็อก' : 'Stock', tubX + tubW / 2, tubY + tubH / 2 + 16);
 
     // --- History chart (right side) ---
-    const chartX = 240, chartY = 40, chartW = 240, chartH = 240;
+    const chartX = 250, chartY = 55, chartW = 250, chartH = 250;
 
     // Background area
     ctx.fillStyle = 'rgba(15,52,96,0.3)';
@@ -221,11 +221,11 @@ function initBathtub() {
 
     // Y labels
     ctx.fillStyle = '#4a5568';
-    ctx.font = '10px sans-serif';
+    ctx.font = '12px sans-serif';
     ctx.textAlign = 'right';
-    ctx.fillText('100', chartX - 5, chartY + 4);
-    ctx.fillText('50', chartX - 5, chartY + chartH / 2 + 4);
-    ctx.fillText('0', chartX - 5, chartY + chartH + 4);
+    ctx.fillText('100', chartX - 5, chartY + 5);
+    ctx.fillText('50', chartX - 5, chartY + chartH / 2 + 5);
+    ctx.fillText('0', chartX - 5, chartY + chartH + 5);
 
     // History line with gradient
     if (history.length > 1) {
@@ -250,9 +250,9 @@ function initBathtub() {
 
     // Chart label
     ctx.fillStyle = '#a0aec0';
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(i18n.currentLang === 'th' ? 'ระดับน้ำตามเวลา' : 'Water Level Over Time', chartX + chartW / 2, chartY + chartH + 20);
+    ctx.fillText(i18n.currentLang === 'th' ? 'ระดับน้ำตามเวลา' : 'Water Level Over Time', chartX + chartW / 2, chartY + chartH + 22);
   }
 
   draw();
@@ -268,10 +268,10 @@ function initBehaviorPatterns() {
   if (!container) return;
 
   const canvas = document.createElement('canvas');
-  canvas.width = 500;
-  canvas.height = 300;
+  canvas.width = 520;
+  canvas.height = 350;
   canvas.style.width = '100%';
-  canvas.style.maxWidth = '500px';
+  canvas.style.maxWidth = '520px';
   canvas.style.height = 'auto';
   canvas.style.display = 'block';
   canvas.style.margin = '0 auto';
@@ -366,7 +366,7 @@ function initBehaviorPatterns() {
 
 function drawPatternFrame(ctx, canvas, data, frameCount, color, refLines) {
   const w = canvas.width, h = canvas.height;
-  const pad = { top: 30, right: 20, bottom: 40, left: 50 };
+  const pad = { top: 45, right: 25, bottom: 45, left: 55 };
 
   ctx.clearRect(0, 0, w, h);
   ctx.fillStyle = '#16213e';
@@ -399,20 +399,21 @@ function drawPatternFrame(ctx, canvas, data, frameCount, color, refLines) {
   ctx.stroke();
 
   ctx.fillStyle = '#a0aec0';
-  ctx.font = '11px sans-serif';
+  ctx.font = '13px sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText(i18n.currentLang === 'th' ? 'เวลา' : 'Time', pad.left + plotW / 2, h - 5);
+  ctx.fillText(i18n.currentLang === 'th' ? 'เวลา' : 'Time', pad.left + plotW / 2, h - 8);
 
   // Y-axis label
   ctx.save();
-  ctx.translate(12, pad.top + plotH / 2);
+  ctx.translate(14, pad.top + plotH / 2);
   ctx.rotate(-Math.PI / 2);
   ctx.fillStyle = '#a0aec0';
+  ctx.font = '13px sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText(i18n.currentLang === 'th' ? 'ค่า' : 'Value', 0, 0);
   ctx.restore();
 
-  // Reference lines
+  // Reference lines — label at right edge, above line to avoid overlap
   (refLines || []).forEach(ref => {
     const y = pad.top + plotH - ((ref.value - minVal) / range) * plotH;
     ctx.strokeStyle = ref.color + '66';
@@ -424,9 +425,9 @@ function drawPatternFrame(ctx, canvas, data, frameCount, color, refLines) {
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = ref.color;
-    ctx.font = '10px sans-serif';
+    ctx.font = 'bold 12px sans-serif';
     ctx.textAlign = 'right';
-    ctx.fillText(ref.label[i18n.currentLang] || ref.label.en, w - pad.right - 5, y - 5);
+    ctx.fillText(ref.label[i18n.currentLang] || ref.label.en, w - pad.right - 5, y - 8);
   });
 
   // Animated data line
@@ -466,10 +467,10 @@ function initFishingSim() {
   if (!container) return;
 
   const canvas = document.createElement('canvas');
-  canvas.width = 500;
-  canvas.height = 340;
+  canvas.width = 520;
+  canvas.height = 350;
   canvas.style.width = '100%';
-  canvas.style.maxWidth = '500px';
+  canvas.style.maxWidth = '520px';
   canvas.style.height = 'auto';
   canvas.style.display = 'block';
   canvas.style.margin = '0 auto';
@@ -555,7 +556,7 @@ function initFishingSim() {
 
   function drawFish(frameCount) {
     const w = canvas.width, h = canvas.height;
-    const pad = { top: 40, right: 20, bottom: 45, left: 55 };
+    const pad = { top: 45, right: 25, bottom: 45, left: 55 };
 
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = '#16213e';
@@ -563,7 +564,7 @@ function initFishingSim() {
 
     if (!simData || frameCount === 0) {
       ctx.fillStyle = '#a0aec0';
-      ctx.font = '14px sans-serif';
+      ctx.font = '15px sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(i18n.currentLang === 'th' ? 'กดปุ่ม "เริ่มจำลอง"' : 'Press "Run Simulation"', w / 2, h / 2);
       return;
@@ -590,7 +591,7 @@ function initFishingSim() {
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = '#e94560';
-    ctx.font = '9px sans-serif';
+    ctx.font = '11px sans-serif';
     ctx.textAlign = 'left';
     ctx.fillText(i18n.currentLang === 'th' ? 'เขตอันตราย' : 'Danger Zone', pad.left + 5, dangerY - 3);
 
@@ -627,14 +628,14 @@ function initFishingSim() {
     ctx.stroke();
 
     ctx.fillStyle = '#a0aec0';
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(i18n.currentLang === 'th' ? 'เวลา (ปี)' : 'Time (years)', pad.left + plotW / 2, h - 5);
 
     // Y ticks
     ctx.textAlign = 'right';
     ctx.fillStyle = '#4a5568';
-    ctx.font = '10px sans-serif';
+    ctx.font = '12px sans-serif';
     for (let v = 0; v <= maxFish; v += 200) {
       const y = pad.top + plotH - (v / maxFish) * plotH;
       ctx.fillText(v.toString(), pad.left - 8, y + 4);
@@ -678,7 +679,7 @@ function initFishingSim() {
 
     // Legend
     ctx.textAlign = 'left';
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     const fishLabel = i18n.currentLang === 'th' ? 'ประชากรปลา' : 'Fish Population';
     const harvestLabel = i18n.currentLang === 'th' ? 'ปริมาณจับ (×10)' : 'Harvest (×10)';
 
@@ -714,10 +715,10 @@ function initEscalation() {
   if (!container) return;
 
   const canvas = document.createElement('canvas');
-  canvas.width = 500;
-  canvas.height = 300;
+  canvas.width = 520;
+  canvas.height = 350;
   canvas.style.width = '100%';
-  canvas.style.maxWidth = '500px';
+  canvas.style.maxWidth = '520px';
   canvas.style.height = 'auto';
   canvas.style.display = 'block';
   canvas.style.margin = '0 auto';
@@ -795,7 +796,7 @@ function initEscalation() {
 
   function drawEsc(frameCount) {
     const w = canvas.width, h = canvas.height;
-    const pad = { top: 35, right: 20, bottom: 40, left: 50 };
+    const pad = { top: 45, right: 25, bottom: 45, left: 55 };
 
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = '#16213e';
@@ -803,7 +804,7 @@ function initEscalation() {
 
     if (!simData || frameCount === 0) {
       ctx.fillStyle = '#a0aec0';
-      ctx.font = '14px sans-serif';
+      ctx.font = '15px sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(i18n.currentLang === 'th' ? 'กดปุ่ม "เริ่มจำลอง"' : 'Press "Run Simulation"', w / 2, h / 2);
       return;
@@ -833,7 +834,7 @@ function initEscalation() {
     ctx.stroke();
 
     ctx.fillStyle = '#a0aec0';
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(i18n.currentLang === 'th' ? 'เวลา' : 'Time', pad.left + plotW / 2, h - 5);
 
@@ -861,7 +862,7 @@ function initEscalation() {
 
     // Legend
     ctx.textAlign = 'left';
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     const labelA = i18n.currentLang === 'th' ? 'ประเทศ A' : 'Country A';
     const labelB = i18n.currentLang === 'th' ? 'ประเทศ B' : 'Country B';
 
@@ -878,6 +879,7 @@ function initEscalation() {
     ctx.rotate(-Math.PI / 2);
     ctx.fillStyle = '#a0aec0';
     ctx.textAlign = 'center';
+    ctx.font = '13px sans-serif';
     ctx.fillText(i18n.currentLang === 'th' ? 'ค่าใช้จ่ายทหาร' : 'Military Spending', 0, 0);
     ctx.restore();
   }
@@ -905,10 +907,10 @@ function initDriftSim() {
   if (!container) return;
 
   const canvas = document.createElement('canvas');
-  canvas.width = 500;
-  canvas.height = 300;
+  canvas.width = 520;
+  canvas.height = 350;
   canvas.style.width = '100%';
-  canvas.style.maxWidth = '500px';
+  canvas.style.maxWidth = '520px';
   canvas.style.height = 'auto';
   canvas.style.display = 'block';
   canvas.style.margin = '0 auto';
@@ -995,7 +997,7 @@ function initDriftSim() {
 
   function drawDrift(frameCount) {
     const w = canvas.width, h = canvas.height;
-    const pad = { top: 35, right: 20, bottom: 40, left: 50 };
+    const pad = { top: 45, right: 25, bottom: 45, left: 55 };
 
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = '#16213e';
@@ -1003,7 +1005,7 @@ function initDriftSim() {
 
     if (!simData || frameCount === 0) {
       ctx.fillStyle = '#a0aec0';
-      ctx.font = '14px sans-serif';
+      ctx.font = '15px sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(i18n.currentLang === 'th' ? 'กดปุ่ม "เริ่มจำลอง"' : 'Press "Run Simulation"', w / 2, h / 2);
       return;
@@ -1024,9 +1026,9 @@ function initDriftSim() {
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = 'rgba(255,255,255,0.3)';
-    ctx.font = '9px sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText(i18n.currentLang === 'th' ? 'มาตรฐานเดิม (90)' : 'Original Standard (90)', pad.left + 5, origY - 3);
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(i18n.currentLang === 'th' ? 'มาตรฐานเดิม (90)' : 'Original Standard (90)', w - pad.right - 5, origY - 3);
 
     // Grid
     ctx.strokeStyle = 'rgba(74,85,104,0.2)';
@@ -1051,14 +1053,14 @@ function initDriftSim() {
     // Y ticks
     ctx.textAlign = 'right';
     ctx.fillStyle = '#4a5568';
-    ctx.font = '10px sans-serif';
+    ctx.font = '12px sans-serif';
     for (let v = 0; v <= 100; v += 25) {
       const y = pad.top + plotH - (v / 100) * plotH;
       ctx.fillText(v.toString(), pad.left - 8, y + 4);
     }
 
     ctx.fillStyle = '#a0aec0';
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(i18n.currentLang === 'th' ? 'เวลา' : 'Time', pad.left + plotW / 2, h - 5);
 
@@ -1088,7 +1090,7 @@ function initDriftSim() {
 
     // Legend
     ctx.textAlign = 'left';
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     const perfLabel = i18n.currentLang === 'th' ? 'ผลงานจริง' : 'Performance';
     const goalLabel = i18n.currentLang === 'th' ? 'เป้าหมาย/มาตรฐาน' : 'Goal/Standard';
 
@@ -1133,10 +1135,10 @@ function initWealthSim() {
   if (!container) return;
 
   const canvas = document.createElement('canvas');
-  canvas.width = 500;
-  canvas.height = 300;
+  canvas.width = 520;
+  canvas.height = 350;
   canvas.style.width = '100%';
-  canvas.style.maxWidth = '500px';
+  canvas.style.maxWidth = '520px';
   canvas.style.height = 'auto';
   canvas.style.display = 'block';
   canvas.style.margin = '0 auto';
@@ -1222,7 +1224,7 @@ function initWealthSim() {
 
   function drawWealth(frameCount) {
     const w = canvas.width, h = canvas.height;
-    const pad = { top: 35, right: 20, bottom: 40, left: 50 };
+    const pad = { top: 45, right: 25, bottom: 45, left: 55 };
 
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = '#16213e';
@@ -1230,7 +1232,7 @@ function initWealthSim() {
 
     if (!simData || frameCount === 0) {
       ctx.fillStyle = '#a0aec0';
-      ctx.font = '14px sans-serif';
+      ctx.font = '15px sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(i18n.currentLang === 'th' ? 'กดปุ่ม "เริ่มจำลอง"' : 'Press "Run Simulation"', w / 2, h / 2);
       return;
@@ -1252,7 +1254,7 @@ function initWealthSim() {
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = 'rgba(255,255,255,0.3)';
-    ctx.font = '9px sans-serif';
+    ctx.font = '11px sans-serif';
     ctx.textAlign = 'left';
     ctx.fillText(i18n.currentLang === 'th' ? 'เท่ากัน' : 'Equal', pad.left + 5, equalY - 3);
 
@@ -1266,7 +1268,7 @@ function initWealthSim() {
     ctx.stroke();
 
     ctx.fillStyle = '#a0aec0';
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(i18n.currentLang === 'th' ? 'รอบ' : 'Round', pad.left + plotW / 2, h - 5);
 
@@ -1294,7 +1296,7 @@ function initWealthSim() {
 
     // Legend
     ctx.textAlign = 'left';
-    ctx.font = '11px sans-serif';
+    ctx.font = '13px sans-serif';
     const labelA = i18n.currentLang === 'th' ? 'ผู้เล่น A' : 'Player A';
     const labelB = i18n.currentLang === 'th' ? 'ผู้เล่น B' : 'Player B';
 
