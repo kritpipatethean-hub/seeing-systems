@@ -56,16 +56,18 @@ a:hover {
 
 /* --- Language Switcher --- */
 .lang-switcher {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
   display: flex;
   gap: 5px;
-  background: rgba(0,0,0,0.5);
-  padding: 5px 10px;
+  background: rgba(0,0,0,0.3);
+  padding: 4px 8px;
   border-radius: 20px;
-  backdrop-filter: blur(10px);
+}
+
+/* Nav right group: links + lang switcher inline */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
 .lang-btn {
@@ -748,9 +750,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
     font-size: 2rem;
   }
 
+  .nav-right {
+    gap: 10px;
+  }
+
   .lang-switcher {
+    position: fixed;
     top: 12px;
     right: 60px;
+    z-index: 1000;
   }
 }
 
