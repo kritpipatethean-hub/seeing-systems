@@ -3,31 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapter 2: SD: The Language of Feedback — Seeing Systems</title>
+  <title>Chapter 2: SD — The Language of Feedback — Seeing Systems</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
   <style>
     .chapter-page { background: linear-gradient(180deg, #0a1628 0%, #1a1a2e 30%); }
     .chapter-header { border-bottom: 3px solid var(--ch2-color); }
-    .coming-soon-container {
-      text-align: center;
-      padding: 80px 20px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .coming-soon-container .icon {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      opacity: 0.6;
-    }
-    .coming-soon-container h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      color: var(--ch2-color);
-    }
-    .coming-soon-container p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
+    .pattern-btn.active { background: var(--accent-4); color: #1a1a2e; border-color: var(--accent-4); }
   </style>
 </head>
 <body class="chapter-page fade-in">
@@ -71,31 +56,198 @@
   <header class="chapter-header">
     <div class="ch-label" data-i18n="ch2.label">Chapter 2</div>
     <h1 data-i18n="ch2.title">SD: The Language of Feedback</h1>
-    <p class="ch-desc" data-i18n="ch2.desc">Master the tools and language of System Dynamics — stock-flow diagrams, behavior patterns, and system archetypes.</p>
+    <p class="ch-desc" data-i18n="ch2.desc">Master the tools and language of System Dynamics — stock-flow diagrams, behavior patterns, system archetypes, and leverage points.</p>
   </header>
 
-  <!-- Coming Soon Content -->
+  <!-- Topic Cards -->
   <section class="chapter-sections">
-    <div class="coming-soon-container">
-      <div class="icon">🚧</div>
-      <h2 data-i18n="coming_soon">Coming Soon</h2>
-      <p data-i18n="ch2.desc">Master the tools and language of System Dynamics — stock-flow diagrams, behavior patterns, and system archetypes.</p>
+    <div class="topic-cards">
+      <a href="#stocks-flows" class="topic-card">
+        <div class="topic-icon" style="background: var(--ch2-color);">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 6V4h10v2M7 18v2h10v-2"/></svg>
+        </div>
+        <div><h4 data-i18n-en="Stocks & Flows" data-i18n-th="สต็อกและกระแส">Stocks & Flows</h4></div>
+      </a>
+      <a href="#behavior-patterns" class="topic-card">
+        <div class="topic-icon" style="background: var(--accent-4);">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+        </div>
+        <div><h4 data-i18n-en="Behavior Patterns" data-i18n-th="รูปแบบพฤติกรรม">Behavior Patterns</h4></div>
+      </a>
+      <a href="#system-traps" class="topic-card">
+        <div class="topic-icon" style="background: var(--accent-1);">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        </div>
+        <div><h4 data-i18n-en="System Traps" data-i18n-th="กับดักของระบบ">System Traps</h4></div>
+      </a>
     </div>
 
-    <!-- Back to Chapter 1 -->
-    <div style="text-align: center; margin-top: 40px;">
-      <a href="../ch1/index.html" class="btn btn-secondary" style="padding: 14px 40px; font-size: 1rem;">
-        ← <span data-i18n="ch1.label">Chapter 1</span>: <span data-i18n="ch1.title">Thinking in Systems</span>
+    <!-- Section 1: Stocks & Flows -->
+    <div id="stocks-flows" class="section-block">
+      <h2 data-i18n-en="Stocks & Flows: The Building Blocks" data-i18n-th="สต็อกและกระแส: องค์ประกอบพื้นฐาน">Stocks & Flows: The Building Blocks</h2>
+
+      <p data-i18n-en="A <strong>stock</strong> is anything you can see, count, or measure at a given moment — water in a bathtub, money in a bank, population of a city. A <strong>flow</strong> is the rate that changes the stock over time — the faucet filling or drain emptying." data-i18n-th="<strong>สต็อก</strong>คือสิ่งที่คุณเห็น นับ หรือวัดได้ ณ เวลาใดเวลาหนึ่ง — น้ำในอ่าง เงินในธนาคาร ประชากรของเมือง <strong>กระแส</strong>คืออัตราที่เปลี่ยนแปลงสต็อกตามเวลา — ก๊อกน้ำเติมหรือท่อระบาย">A <strong>stock</strong> is anything you can see, count, or measure at a given moment.</p>
+
+      <div class="equation">
+        $$\text{Stock}(t) = \text{Stock}(t_0) + \int_{t_0}^{t} [\text{Inflow}(s) - \text{Outflow}(s)] \, ds$$
+      </div>
+
+      <p data-i18n-en="In simple terms: a stock <strong>rises</strong> when inflow exceeds outflow, <strong>falls</strong> when outflow exceeds inflow, and reaches <strong>dynamic equilibrium</strong> when they are equal." data-i18n-th="พูดง่ายๆ: สต็อก<strong>เพิ่มขึ้น</strong>เมื่อกระแสเข้ามากกว่ากระแสออก <strong>ลดลง</strong>เมื่อกระแสออกมากกว่ากระแสเข้า และถึง<strong>ดุลยภาพเชิงพลวัต</strong>เมื่อเท่ากัน">In simple terms: a stock rises when inflow exceeds outflow.</p>
+
+      <div class="content-row">
+        <div class="content-text">
+          <p data-i18n-en="Try the <strong>bathtub model</strong> — the most fundamental SD example. Adjust the faucet (inflow) and drain (outflow) rates to see how the water level (stock) changes in real-time." data-i18n-th="ลอง<strong>แบบจำลองอ่างอาบน้ำ</strong> — ตัวอย่าง SD พื้นฐานที่สุด ปรับก๊อกน้ำ (กระแสเข้า) และท่อระบาย (กระแสออก) เพื่อดูว่าระดับน้ำ (สต็อก) เปลี่ยนแบบเรียลไทม์">Try the <strong>bathtub model</strong>.</p>
+
+          <div class="slider-group">
+            <label data-i18n-en="Inflow (faucet)" data-i18n-th="กระแสเข้า (ก๊อกน้ำ)">Inflow (faucet)</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">0</span>
+              <input type="range" id="bathtub-inflow" min="0" max="100" value="60" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">100</span>
+              <span id="bathtub-inflow-val" style="min-width: 30px; text-align: center; color: var(--accent-3); font-weight: bold;">60</span>
+            </div>
+          </div>
+
+          <div class="slider-group">
+            <label data-i18n-en="Outflow (drain)" data-i18n-th="กระแสออก (ท่อระบาย)">Outflow (drain)</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">0</span>
+              <input type="range" id="bathtub-outflow" min="0" max="100" value="40" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">100</span>
+              <span id="bathtub-outflow-val" style="min-width: 30px; text-align: center; color: var(--accent-1); font-weight: bold;">40</span>
+            </div>
+          </div>
+
+          <div id="bathtub-status" style="margin-top: 10px; padding: 8px 14px; border-radius: 8px; background: rgba(6,214,160,0.1); border-left: 3px solid var(--accent-3); font-size: 0.9rem;"></div>
+        </div>
+
+        <div class="content-interactive" id="bathtub-sim">
+          <div class="interactive-title" style="color: var(--ch2-color);" data-i18n-en="Bathtub Model" data-i18n-th="แบบจำลองอ่างอาบน้ำ">Bathtub Model</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top: 20px;">
+        <p data-i18n-en="<strong>Key Insight:</strong> Stocks change <em>slowly</em> because flows take time. This is why policies don't produce instant results — there is always momentum. A population can't stop growing instantly even if birth rates drop today." data-i18n-th="<strong>ข้อค้นพบสำคัญ:</strong> สต็อกเปลี่ยน<em>ช้า</em>เพราะกระแสต้องใช้เวลา นี่คือเหตุผลที่นโยบายไม่ให้ผลทันที — มีแรงเฉื่อยอยู่เสมอ ประชากรไม่สามารถหยุดเติบโตทันทีแม้อัตราเกิดลดลงวันนี้"><strong>Key Insight:</strong> Stocks change <em>slowly</em> because flows take time.</p>
+      </div>
+    </div>
+
+    <!-- Section 2: Behavior Patterns -->
+    <div id="behavior-patterns" class="section-block">
+      <h2 data-i18n-en="Behavior Patterns: What Systems Do" data-i18n-th="รูปแบบพฤติกรรม: ระบบทำอะไรบ้าง">Behavior Patterns: What Systems Do</h2>
+
+      <p data-i18n-en="Every system produces a recognizable <strong>behavior pattern</strong> over time. These patterns emerge from the feedback loop structure. Click each pattern to see its shape and learn what causes it:" data-i18n-th="ทุกระบบสร้าง<strong>รูปแบบพฤติกรรม</strong>ที่จดจำได้ตามเวลา รูปแบบเหล่านี้เกิดจากโครงสร้างวงจรป้อนกลับ คลิกแต่ละรูปแบบเพื่อดูรูปร่างและเรียนรู้สาเหตุ:">Every system produces a recognizable <strong>behavior pattern</strong> over time.</p>
+
+      <div id="pattern-selector" style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
+        <button class="btn btn-secondary pattern-btn active" data-pattern="exponential" data-i18n-en="Exponential Growth" data-i18n-th="เติบโตแบบทวีคูณ">Exponential Growth</button>
+        <button class="btn btn-secondary pattern-btn" data-pattern="goal-seeking" data-i18n-en="Goal-Seeking" data-i18n-th="แสวงหาเป้าหมาย">Goal-Seeking</button>
+        <button class="btn btn-secondary pattern-btn" data-pattern="oscillation" data-i18n-en="Oscillation" data-i18n-th="การแกว่ง">Oscillation</button>
+        <button class="btn btn-secondary pattern-btn" data-pattern="s-shaped" data-i18n-en="S-Shaped Growth" data-i18n-th="เติบโตแบบ S">S-Shaped Growth</button>
+      </div>
+
+      <div class="content-row">
+        <div class="content-text">
+          <div id="pattern-description"></div>
+        </div>
+
+        <div class="content-interactive" id="pattern-chart">
+          <div class="interactive-title" style="color: var(--accent-4);" id="pattern-chart-title">Behavior Pattern</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: System Traps -->
+    <div id="system-traps" class="section-block">
+      <h2 data-i18n-en="System Traps: When Structure Creates Problems" data-i18n-th="กับดักของระบบ: เมื่อโครงสร้างสร้างปัญหา">System Traps: When Structure Creates Problems</h2>
+
+      <p data-i18n-en="Certain feedback structures repeatedly produce problematic behavior — Meadows calls these <strong>system traps</strong>. The same patterns appear in economics, ecology, politics, and business. Recognizing the trap is the first step to escaping it." data-i18n-th="โครงสร้างป้อนกลับบางอย่างสร้างพฤติกรรมที่เป็นปัญหาซ้ำแล้วซ้ำเล่า — Meadows เรียกว่า<strong>กับดักของระบบ</strong> รูปแบบเดียวกันปรากฏในเศรษฐศาสตร์ นิเวศวิทยา การเมือง และธุรกิจ การจดจำกับดักคือก้าวแรกสู่การหลุดพ้น">Certain feedback structures repeatedly produce problematic behavior.</p>
+
+      <h3 style="color: var(--accent-1); margin-top: 25px;" data-i18n-en="Tragedy of the Commons" data-i18n-th="โศกนาฏกรรมของทรัพยากรร่วม">Tragedy of the Commons</h3>
+
+      <div class="content-row">
+        <div class="content-text">
+          <p data-i18n-en="When a resource is <strong>shared</strong>, each user benefits directly from using it but shares the cost of overuse with everyone. The rational choice for each individual leads to collective ruin." data-i18n-th="เมื่อทรัพยากร<strong>ใช้ร่วมกัน</strong> ผู้ใช้แต่ละคนได้ประโยชน์โดยตรงจากการใช้ แต่แบ่งต้นทุนจากการใช้เกินกับทุกคน ทางเลือกที่สมเหตุสมผลสำหรับแต่ละคนนำไปสู่ความหายนะร่วมกัน">When a resource is <strong>shared</strong>, each user benefits directly.</p>
+
+          <p data-i18n-en="You control the number of <strong>fishing boats</strong>. More boats catch more fish (profit up), but if everyone overfishes, the fish population collapses." data-i18n-th="คุณควบคุมจำนวน<strong>เรือประมง</strong> เรือมากขึ้นจับปลาได้มากขึ้น (กำไรเพิ่ม) แต่ถ้าทุกคนจับเกิน ประชากรปลาล่มสลาย">You control the number of <strong>fishing boats</strong>.</p>
+
+          <div class="slider-group">
+            <label data-i18n-en="Number of Fishing Boats" data-i18n-th="จำนวนเรือประมง">Number of Fishing Boats</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">5</span>
+              <input type="range" id="boats-slider" min="5" max="100" value="20" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">100</span>
+              <span id="boats-val" style="min-width: 30px; text-align: center; color: var(--accent-4); font-weight: bold;">20</span>
+            </div>
+          </div>
+
+          <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn btn-primary" id="fish-run" data-i18n="interactive.run">Run Simulation</button>
+            <button class="btn btn-secondary" id="fish-reset" data-i18n="interactive.reset">Reset</button>
+          </div>
+
+          <div id="fish-result" style="display:none; margin-top: 15px; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.9rem;"></div>
+        </div>
+
+        <div class="content-interactive" id="fish-sim">
+          <div class="interactive-title" style="color: var(--accent-1);" data-i18n-en="Tragedy of the Commons" data-i18n-th="โศกนาฏกรรมของทรัพยากรร่วม">Tragedy of the Commons</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+
+      <div class="info-box warning" style="margin-top: 20px;">
+        <p data-i18n-en="<strong>Try it:</strong> Run with 20 boats (sustainable), then 60 boats (overshoot), then 90 boats (collapse). The same pattern appears in carbon emissions, groundwater pumping, and antibiotic overuse." data-i18n-th="<strong>ลองดู:</strong> จำลองด้วย 20 ลำ (ยั่งยืน) จากนั้น 60 ลำ (เกินขีดจำกัด) จากนั้น 90 ลำ (ล่มสลาย) รูปแบบเดียวกันปรากฏในการปล่อยคาร์บอน การสูบน้ำบาดาล และการใช้ยาปฏิชีวนะเกิน"><strong>Try it:</strong> Run with 20, then 60, then 90 boats.</p>
+      </div>
+
+      <h3 style="color: var(--accent-4); margin-top: 40px;" data-i18n-en="Other Common System Traps" data-i18n-th="กับดักของระบบที่พบบ่อย">Other Common System Traps</h3>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;">
+        <div style="background: var(--bg-darker); border-radius: 10px; padding: 20px; border-top: 3px solid var(--accent-1);">
+          <div style="font-weight: bold; margin-bottom: 8px; color: var(--accent-1);" data-i18n-en="Fixes That Fail" data-i18n-th="การแก้ไขที่ล้มเหลว">Fixes That Fail</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" data-i18n-en="A policy reduces symptoms temporarily, but has side effects that worsen the problem. Example: Pesticides kill pests but also kill natural predators, leading to worse outbreaks." data-i18n-th="นโยบายลดอาการชั่วคราว แต่มีผลข้างเคียงทำให้ปัญหาแย่ลง ตัวอย่าง: ยาฆ่าแมลงฆ่าศัตรูพืชแต่ก็ฆ่าผู้ล่าตามธรรมชาติ ทำให้ระบาดหนักขึ้น">A policy reduces symptoms temporarily, but has side effects.</div>
+        </div>
+        <div style="background: var(--bg-darker); border-radius: 10px; padding: 20px; border-top: 3px solid var(--accent-4);">
+          <div style="font-weight: bold; margin-bottom: 8px; color: var(--accent-4);" data-i18n-en="Escalation" data-i18n-th="การยกระดับ">Escalation</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" data-i18n-en="Two competitors each try to stay ahead of the other, spiraling exponentially. Example: Arms races, price wars, advertising escalation." data-i18n-th="คู่แข่งสองฝ่ายพยายามนำหน้ากัน วนเวียนแบบทวีคูณ ตัวอย่าง: การแข่งอาวุธ สงครามราคา การยกระดับโฆษณา">Two competitors each try to stay ahead, spiraling exponentially.</div>
+        </div>
+        <div style="background: var(--bg-darker); border-radius: 10px; padding: 20px; border-top: 3px solid var(--accent-3);">
+          <div style="font-weight: bold; margin-bottom: 8px; color: var(--accent-3);" data-i18n-en="Drift to Low Performance" data-i18n-th="เลื่อนไหลสู่ผลงานต่ำ">Drift to Low Performance</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" data-i18n-en="When performance drops, goals are quietly lowered to match. Standards erode slowly like the boiled frog. Example: Declining school quality, eroding infrastructure." data-i18n-th="เมื่อผลงานลดลง เป้าหมายถูกลดลงเงียบๆ มาตรฐานกร่อนช้าๆ เหมือนกบต้ม ตัวอย่าง: คุณภาพโรงเรียนลดลง โครงสร้างพื้นฐานเสื่อมสภาพ">When performance drops, goals are quietly lowered to match.</div>
+        </div>
+        <div style="background: var(--bg-darker); border-radius: 10px; padding: 20px; border-top: 3px solid var(--ch5-color);">
+          <div style="font-weight: bold; margin-bottom: 8px; color: var(--ch5-color);" data-i18n-en="Success to the Successful" data-i18n-th="ผู้ชนะได้ทุกอย่าง">Success to the Successful</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" data-i18n-en="Winners receive rewards that help them win even more — a reinforcing loop of advantage. Example: Monopoly (board game and real life), wealth inequality." data-i18n-th="ผู้ชนะได้รับรางวัลที่ช่วยให้ชนะมากขึ้น — วงจรเสริมแรงของความได้เปรียบ ตัวอย่าง: เกมเศรษฐี (และชีวิตจริง) ความเหลื่อมล้ำ">Winners receive rewards that help them win even more.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="references">
+      <h3 data-i18n="nav.references">References</h3>
+      <ol>
+        <li>Meadows, D. H. (2008). <em>Thinking in Systems: A Primer</em>. Chelsea Green Publishing.</li>
+        <li>Radzicki, M. J., & Tauheed, L. (2009). In Defense of System Dynamics. <em>Journal of Economic Issues</em>, 43(1), 209–221.</li>
+        <li>Hardin, G. (1968). The Tragedy of the Commons. <em>Science</em>, 162(3859), 1243–1248.</li>
+      </ol>
+    </div>
+
+    <!-- Chapter Navigation -->
+    <div style="display: flex; justify-content: space-between; margin-top: 60px; flex-wrap: wrap; gap: 10px;">
+      <a href="../ch1/index.html" class="btn btn-secondary" style="padding: 14px 30px; font-size: 1rem;">
+        ← <span data-i18n="ch1.label">Chapter 1</span>
+      </a>
+      <a href="../ch3/index.html" class="btn btn-primary" style="padding: 14px 30px; font-size: 1rem;">
+        <span data-i18n="ch3.label">Chapter 3</span>: <span data-i18n="ch3.title">SD for Economics</span> →
       </a>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2026 Seeing Systems. <span data-i18n="footer.text">Built for learning System Dynamics.</span></p>
   </footer>
 
   <script src="../../js/i18n.js"></script>
   <script src="../../js/main.js"></script>
+  <script src="../../js/chapters/ch2.js"></script>
 </body>
 </html>
