@@ -23,45 +23,59 @@ const i18n = {
 
     // Chapter titles
     'ch1.label': { en: 'Chapter 1', th: 'บทที่ 1' },
-    'ch1.title': { en: 'Introduction to System Dynamics', th: 'รู้จักกับพลวัตระบบ' },
+    'ch1.title': { en: 'Thinking in Systems', th: 'การคิดเชิงระบบ' },
     'ch1.desc': {
-      en: 'Understand why systems behave in counterintuitive ways and how System Dynamics helps us think about complex problems.',
-      th: 'ทำความเข้าใจว่าทำไมระบบถึงมีพฤติกรรมที่ขัดกับสัญชาตญาณ และพลวัตระบบช่วยเราคิดเรื่องซับซ้อนได้อย่างไร'
+      en: 'Understand what systems are, how stocks, flows, and feedback loops work, and why complex systems behave in counterintuitive ways.',
+      th: 'ทำความเข้าใจว่าระบบคืออะไร สต็อก กระแส และวงจรป้อนกลับทำงานอย่างไร และทำไมระบบที่ซับซ้อนถึงมีพฤติกรรมที่ขัดกับสัญชาตญาณ'
     },
 
     'ch2.label': { en: 'Chapter 2', th: 'บทที่ 2' },
-    'ch2.title': { en: 'Stocks, Flows & Building Blocks', th: 'สต็อก กระแส และองค์ประกอบพื้นฐาน' },
+    'ch2.title': { en: 'SD: The Language of Feedback', th: 'พลวัตระบบ: ภาษาแห่งการป้อนกลับ' },
     'ch2.desc': {
-      en: 'Learn the fundamental building blocks: Stocks accumulate, Flows change them, and together they create dynamic behavior.',
-      th: 'เรียนรู้องค์ประกอบพื้นฐาน: สต็อกสะสม กระแสเปลี่ยนแปลง รวมกันสร้างพฤติกรรมที่เคลื่อนไหว'
+      en: 'Master the tools and language of System Dynamics — stock-flow diagrams, behavior patterns, system archetypes, and leverage points.',
+      th: 'เชี่ยวชาญเครื่องมือและภาษาของพลวัตระบบ — แผนภาพสต็อก-กระแส รูปแบบพฤติกรรม อาร์คีไทป์ของระบบ และจุดงัด'
     },
 
     'ch3.label': { en: 'Chapter 3', th: 'บทที่ 3' },
-    'ch3.title': { en: 'Feedback Loops', th: 'วงจรป้อนกลับ' },
+    'ch3.title': { en: 'SD for Economics', th: 'พลวัตระบบสำหรับเศรษฐศาสตร์' },
     'ch3.desc': {
-      en: 'Discover how reinforcing and balancing feedback loops drive the behavior of every system around us.',
-      th: 'ค้นพบว่าวงจรเสริมแรงและวงจรสมดุลขับเคลื่อนพฤติกรรมของทุกระบบรอบตัวเราอย่างไร'
+      en: 'Apply System Dynamics to economic modeling — Minsky cycles, debt dynamics, disequilibrium economics, and financial crisis prediction.',
+      th: 'ประยุกต์พลวัตระบบกับการสร้างแบบจำลองเศรษฐกิจ — วัฏจักร Minsky พลวัตหนี้ เศรษฐศาสตร์ไม่สมดุล และการพยากรณ์วิกฤตการเงิน'
     },
 
     'ch4.label': { en: 'Chapter 4', th: 'บทที่ 4' },
-    'ch4.title': { en: 'Behavior Patterns', th: 'รูปแบบพฤติกรรม' },
+    'ch4.title': { en: 'ABM: Thinking from the Bottom Up', th: 'ABM: คิดจากล่างขึ้นบน' },
     'ch4.desc': {
-      en: 'Explore the fundamental patterns: exponential growth, goal-seeking, oscillation, and S-shaped growth.',
-      th: 'สำรวจรูปแบบพื้นฐาน: การเติบโตแบบเลขชี้กำลัง การแสวงหาเป้าหมาย การแกว่ง และการเติบโตแบบ S'
+      en: 'Discover Agent-Based Modeling — how simple agent rules create complex emergent patterns in economies and societies.',
+      th: 'ค้นพบการสร้างแบบจำลองเชิงตัวแทน — กฎง่ายๆ ของตัวแทนสร้างรูปแบบที่ซับซ้อนในระบบเศรษฐกิจและสังคมได้อย่างไร'
     },
 
     'ch5.label': { en: 'Chapter 5', th: 'บทที่ 5' },
-    'ch5.title': { en: 'Model Building Process', th: 'กระบวนการสร้างแบบจำลอง' },
+    'ch5.title': { en: 'Agent-Based Computational Economics', th: 'เศรษฐศาสตร์เชิงคำนวณแบบตัวแทน' },
     'ch5.desc': {
-      en: 'Learn the systematic process: from problem articulation to model formulation, testing, and policy design.',
-      th: 'เรียนรู้กระบวนการอย่างเป็นระบบ: จากการกำหนดปัญหาสู่การสร้างแบบจำลอง การทดสอบ และการออกแบบนโยบาย'
+      en: 'Explore ACE — building economic models from the ground up with autonomous, learning agents that discover prices, form markets, and create institutions.',
+      th: 'สำรวจ ACE — การสร้างแบบจำลองเศรษฐกิจจากล่างขึ้นบนด้วยตัวแทนอัตโนมัติที่เรียนรู้ ค้นหาราคา สร้างตลาด และก่อตั้งสถาบัน'
     },
 
     'ch6.label': { en: 'Chapter 6', th: 'บทที่ 6' },
-    'ch6.title': { en: 'Applications & Case Studies', th: 'การประยุกต์และกรณีศึกษา' },
+    'ch6.title': { en: 'Hybrid SD+ABM Modeling', th: 'แบบจำลองแบบผสม SD+ABM' },
     'ch6.desc': {
-      en: 'See System Dynamics in action: tobacco control, public health, supply chains, and social systems.',
-      th: 'ดูพลวัตระบบในการใช้งานจริง: การควบคุมยาสูบ สาธารณสุข ห่วงโซ่อุปทาน และระบบสังคม'
+      en: 'Learn how to combine System Dynamics (top-down) and Agent-Based Modeling (bottom-up) for comprehensive simulation frameworks.',
+      th: 'เรียนรู้การผสมผสานพลวัตระบบ (บนลงล่าง) กับแบบจำลองเชิงตัวแทน (ล่างขึ้นบน) เพื่อกรอบการจำลองที่ครอบคลุม'
+    },
+
+    'ch7.label': { en: 'Chapter 7', th: 'บทที่ 7' },
+    'ch7.title': { en: 'Policy Applications', th: 'การประยุกต์ใช้นโยบาย' },
+    'ch7.desc': {
+      en: 'Apply simulation models to real-world policy evaluation — tobacco control, tax modeling, and public health impact in Thailand.',
+      th: 'ประยุกต์แบบจำลองกับการประเมินนโยบายจริง — การควบคุมยาสูบ แบบจำลองภาษี และผลกระทบสาธารณสุขในประเทศไทย'
+    },
+
+    'ch8.label': { en: 'Chapter 8', th: 'บทที่ 8' },
+    'ch8.title': { en: 'Building Your Own Models', th: 'สร้างแบบจำลองของคุณเอง' },
+    'ch8.desc': {
+      en: 'Learn the complete modeling process — from problem articulation to policy design — and start building your own SD, ABM, or hybrid models.',
+      th: 'เรียนรู้กระบวนการสร้างแบบจำลองทั้งหมด — จากการกำหนดปัญหาสู่การออกแบบนโยบาย — และเริ่มสร้างแบบจำลอง SD, ABM หรือแบบผสมของคุณเอง'
     },
 
     // Chapter 1 content

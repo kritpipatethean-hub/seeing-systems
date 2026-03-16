@@ -1,116 +1,74 @@
 [
   {
+    "id": "meadows2008",
+    "citation": "Meadows, D. H. (2008). Thinking in Systems: A Primer. Chelsea Green Publishing.",
+    "topic": ["systems thinking", "stocks and flows", "feedback loops", "leverage points"],
+    "chapters": [1, 2, 8]
+  },
+  {
     "id": "forrester1971",
     "citation": "Forrester, J. W. (1971). Counterintuitive Behavior of Social Systems. Technology Review, 73(3), 52–68.",
-    "topic": ["system dynamics", "social systems", "counterintuitive"],
-    "chapters": [1, 3, 6]
+    "topic": ["system dynamics", "social systems", "counterintuitive behavior"],
+    "chapters": [1, 2]
+  },
+  {
+    "id": "radzicki2009",
+    "citation": "Radzicki, M. J., & Tauheed, L. (2009). In Defense of System Dynamics: A Response to Professor Hayden. Journal of Economic Issues, 43(1), 209–221.",
+    "topic": ["system dynamics", "institutional economics", "heterodox economics"],
+    "chapters": [2, 3]
+  },
+  {
+    "id": "keen2013",
+    "citation": "Keen, S. (2013). Predicting the 'Global Financial Crisis': Post-Keynesian Macroeconomics. Economic Record, 89(285), 228–254.",
+    "topic": ["post-Keynesian", "financial crisis", "Minsky", "debt dynamics"],
+    "chapters": [3]
+  },
+  {
+    "id": "arthur2014",
+    "citation": "Arthur, W. B. (2014). Complexity and the Economy. Oxford University Press.",
+    "topic": ["complexity economics", "increasing returns", "path dependence", "emergence"],
+    "chapters": [4, 5]
+  },
+  {
+    "id": "tesfatsion2006",
+    "citation": "Tesfatsion, L. (2006). Agent-Based Computational Economics: A Constructive Approach to Economic Theory. In L. Tesfatsion & K. L. Judd (Eds.), Handbook of Computational Economics, Vol. 2 (pp. 831–880). Elsevier.",
+    "topic": ["agent-based computational economics", "ACE", "market emergence"],
+    "chapters": [5]
+  },
+  {
+    "id": "macal2010",
+    "citation": "Macal, C. M., & North, M. J. (2010). Tutorial on Agent-Based Modelling and Simulation. Journal of Simulation, 4(3), 151–162.",
+    "topic": ["agent-based modeling", "tutorial", "simulation"],
+    "chapters": [4]
+  },
+  {
+    "id": "wilensky2015",
+    "citation": "Wilensky, U., & Rand, W. (2015). An Introduction to Agent-Based Modeling: Modeling Natural, Social, and Engineered Complex Systems with NetLogo. MIT Press.",
+    "topic": ["agent-based modeling", "NetLogo", "emergence", "complex systems"],
+    "chapters": [4, 5]
+  },
+  {
+    "id": "tesche2023",
+    "citation": "Tesche, J., et al. (2023). A Toolkit on Modeling the Impacts of Tobacco Taxes. World Bank Group.",
+    "topic": ["tobacco taxes", "policy modeling", "TaXSiM", "TETSiM"],
+    "chapters": [7]
+  },
+  {
+    "id": "levy2008",
+    "citation": "Levy, D. T., et al. (2008). The role of tobacco control policies in reducing smoking and deaths in a middle-income nation: Results from the Thailand SimSmoke simulation model. Tobacco Control, 17(1), 53–59.",
+    "topic": ["tobacco control", "SimSmoke", "Thailand", "policy evaluation"],
+    "chapters": [7]
+  },
+  {
+    "id": "nguyen2024",
+    "citation": "Nguyen, L. K. N., et al. (2024). A framework for conceptualising hybrid system dynamics and agent-based simulation models. European Journal of Operational Research, 315(3), 1153–1166.",
+    "topic": ["hybrid models", "SD-ABM framework", "conceptual modeling"],
+    "chapters": [6]
   },
   {
     "id": "sterman2002",
     "citation": "Sterman, J. D. (2002). System Dynamics: Systems Thinking and Modeling for a Complex World. MIT Engineering Systems Division Working Paper.",
     "topic": ["system dynamics", "systems thinking", "modeling"],
-    "chapters": [1, 2, 5]
-  },
-  {
-    "id": "darabi2020",
-    "citation": "Darabi, N., & Hosseinichimeh, N. (2020). System Dynamics Modeling in Health and Medicine: A Systematic Literature Review.",
-    "topic": ["health", "systematic review", "system dynamics"],
-    "chapters": [5, 6]
-  },
-  {
-    "id": "cassidy2019",
-    "citation": "Cassidy, R., et al. (2019). Mathematical modelling for health systems research: A systematic review of system dynamics and agent-based models.",
-    "topic": ["health systems", "mathematical modeling", "agent-based"],
-    "chapters": [5, 6]
-  },
-  {
-    "id": "nguyen2024",
-    "citation": "Nguyen, T., et al. (2024). A framework for conceptualising hybrid system dynamics and agent-based simulation models.",
-    "topic": ["hybrid models", "framework", "agent-based"],
-    "chapters": [5]
-  },
-  {
-    "id": "radzicki2009",
-    "citation": "Radzicki, M. J., & Tauheed, L. (2009). In Defense of System Dynamics: A Response to Professor Hayden.",
-    "topic": ["system dynamics", "economics", "defense"],
-    "chapters": [1]
-  },
-  {
-    "id": "hill2017",
-    "citation": "Hill, A., & Camacho, O. M. (2017). A system dynamics modelling approach to assess the impact of launching a new nicotine product on population health outcomes.",
-    "topic": ["tobacco", "nicotine", "health outcomes"],
-    "chapters": [6]
-  },
-  {
-    "id": "levy2008",
-    "citation": "Levy, D. T., et al. (2008). The role of tobacco control policies in reducing smoking and deaths in a middle-income nation.",
-    "topic": ["tobacco control", "policy", "smoking"],
-    "chapters": [6]
-  },
-  {
-    "id": "camacho2021",
-    "citation": "Camacho, O. M., et al. (2021). Investigating the Health Effects of 3 Coexisting Tobacco-Related Products: An Italian Population Case Study.",
-    "topic": ["tobacco", "health effects", "case study"],
-    "chapters": [6]
-  },
-  {
-    "id": "chu2020",
-    "citation": "Chu, K. H., et al. (2020). Integrating Social Dynamics Into Modeling Cigarette and E-Cigarette Use.",
-    "topic": ["social dynamics", "cigarette", "e-cigarette"],
-    "chapters": [3, 6]
-  },
-  {
-    "id": "huang2023",
-    "citation": "Huang, J., et al. (2023). Identifying best modelling practices for tobacco control policy simulations.",
-    "topic": ["modeling practices", "tobacco control", "policy simulation"],
-    "chapters": [5, 6]
-  },
-  {
-    "id": "akhavantaheri2023",
-    "citation": "Akhavantaheri, H., et al. (2023). An enterprise network model for understanding and disrupting illicit counterfeit electronic part supply chains.",
-    "topic": ["supply chain", "counterfeit", "network model"],
-    "chapters": [6]
-  },
-  {
-    "id": "hoffer2009",
-    "citation": "Hoffer, L. D., et al. (2009). Researching a Local Heroin Market as a Complex Adaptive System.",
-    "topic": ["complex adaptive system", "heroin", "local market"],
-    "chapters": [6]
-  },
-  {
-    "id": "tesche2023",
-    "citation": "Tesche, J., et al. (2023). A Toolkit on Modeling the Impacts of Tobacco Taxes.",
-    "topic": ["tobacco taxes", "toolkit", "modeling"],
-    "chapters": [5, 6]
-  },
-  {
-    "id": "john2023",
-    "citation": "John, R. M., et al. (2023). Updated Toolkit on Using Household Expenditure Surveys.",
-    "topic": ["household expenditure", "toolkit", "surveys"],
-    "chapters": [6]
-  },
-  {
-    "id": "pavananunt2011",
-    "citation": "Pavananunt, C. (2011). Illicit cigarette trade in Thailand.",
-    "topic": ["illicit trade", "cigarette", "Thailand"],
-    "chapters": [6]
-  },
-  {
-    "id": "who2025",
-    "citation": "World Health Organization. (2025). WHO global report on trends in prevalence of tobacco.",
-    "topic": ["WHO", "tobacco prevalence", "global report"],
-    "chapters": [6]
-  },
-  {
-    "id": "hhs2014",
-    "citation": "U.S. Department of Health and Human Services. (2014). The Health Consequences of Smoking — 50 Years of Progress. Appendix 15.1.",
-    "topic": ["health consequences", "smoking", "US government"],
-    "chapters": [6]
-  },
-  {
-    "id": "zheng2024",
-    "citation": "Zheng, P., et al. (2024). An efficient traceability framework for tobacco market supervision.",
-    "topic": ["traceability", "tobacco market", "supervision"],
-    "chapters": [6]
+    "chapters": [1, 2, 8]
   }
 ]
