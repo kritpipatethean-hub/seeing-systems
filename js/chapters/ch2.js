@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBehaviorPatterns();
   initFishingSim();
   initEscalation();
+  initDriftSim();
   initWealthSim();
 });
 
@@ -897,7 +898,235 @@ function initEscalation() {
 
 
 // =============================================
-// 5. Success to the Successful — Wealth Sim
+// 5. Drift to Low Performance
+// =============================================
+function initDriftSim() {
+  const container = document.getElementById('drift-sim');
+  if (!container) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 500;
+  canvas.height = 300;
+  canvas.style.width = '100%';
+  canvas.style.maxWidth = '500px';
+  canvas.style.height = 'auto';
+  canvas.style.display = 'block';
+  canvas.style.margin = '0 auto';
+
+  const vizArea = container.querySelector('.viz-area') || container;
+  vizArea.innerHTML = '';
+  vizArea.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  const erosionSlider = document.getElementById('drift-erosion-slider');
+  const erosionVal = document.getElementById('drift-erosion-val');
+  const runBtn = document.getElementById('drift-run');
+  const resetBtn = document.getElementById('drift-reset');
+  const resultPanel = document.getElementById('drift-result');
+
+  let simData = null;
+  let animFrame = 0;
+  let isRunning = false;
+
+  erosionSlider?.addEventListener('input', () => erosionVal.textContent = erosionSlider.value + '%');
+
+  function runSim() {
+    const erosion = parseInt(erosionSlider.value) / 100;
+    const steps = 100;
+    const data = { time: [], performance: [], goal: [] };
+
+    let perf = 90;
+    let goal = 90;
+    const originalGoal = 90;
+
+    for (let i = 0; i <= steps; i++) {
+      data.time.push(i);
+      data.performance.push(perf);
+      data.goal.push(goal);
+
+      // Random shocks push performance down
+      const shock = (Math.random() - 0.4) * 3;
+      // Performance tries to reach goal, but slowly
+      perf += (goal - perf) * 0.08 + shock;
+      perf = Math.max(5, Math.min(100, perf));
+
+      // Goal erodes toward current performance when perf < goal
+      if (perf < goal) {
+        goal += (perf - goal) * erosion * 0.06;
+      }
+      goal = Math.max(5, goal);
+    }
+
+    simData = data;
+    animFrame = 0;
+    isRunning = true;
+
+    if (resultPanel) {
+      const isTH = i18n.currentLang === 'th';
+      const finalPerf = data.performance[data.performance.length - 1];
+      const finalGoal = data.goal[data.goal.length - 1];
+      const drop = originalGoal - finalPerf;
+      let verdict, color;
+      if (drop < 10) {
+        verdict = isTH ? '✓ มาตรฐานคงอยู่ — ผลงานลดลงเพียง ' + drop.toFixed(0) + ' จุด' : '✓ Standards held — performance dropped only ' + drop.toFixed(0) + ' points';
+        color = '#06d6a0';
+      } else if (drop < 30) {
+        verdict = isTH ? '⚠ มาตรฐานกร่อน — ผลงานลดลง ' + drop.toFixed(0) + ' จุด' : '⚠ Standards eroding — performance dropped ' + drop.toFixed(0) + ' points';
+        color = '#ffd166';
+      } else {
+        verdict = isTH ? '✗ ล่มสลาย! — ผลงานลดลง ' + drop.toFixed(0) + ' จุด จากเดิม ' + originalGoal : '✗ Collapsed! — performance dropped ' + drop.toFixed(0) + ' points from ' + originalGoal;
+        color = '#e94560';
+      }
+      resultPanel.innerHTML = `<strong>${verdict}</strong>`;
+      resultPanel.style.display = 'block';
+      resultPanel.style.borderLeftColor = color;
+      resultPanel.style.background = `${color}15`;
+    }
+
+    animateDrift();
+  }
+
+  function animateDrift() {
+    if (!isRunning || !simData) return;
+    animFrame = Math.min(animFrame + 1, simData.time.length);
+    drawDrift(animFrame);
+    if (animFrame < simData.time.length) requestAnimationFrame(animateDrift);
+  }
+
+  function drawDrift(frameCount) {
+    const w = canvas.width, h = canvas.height;
+    const pad = { top: 35, right: 20, bottom: 40, left: 50 };
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#16213e';
+    ctx.fillRect(0, 0, w, h);
+
+    if (!simData || frameCount === 0) {
+      ctx.fillStyle = '#a0aec0';
+      ctx.font = '14px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(i18n.currentLang === 'th' ? 'กดปุ่ม "เริ่มจำลอง"' : 'Press "Run Simulation"', w / 2, h / 2);
+      return;
+    }
+
+    const n = Math.min(frameCount, simData.time.length);
+    const plotW = w - pad.left - pad.right;
+    const plotH = h - pad.top - pad.bottom;
+    const maxTime = simData.time[simData.time.length - 1];
+
+    // Original goal reference line
+    const origY = pad.top + plotH - (90 / 100) * plotH;
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, origY);
+    ctx.lineTo(w - pad.right, origY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.font = '9px sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(i18n.currentLang === 'th' ? 'มาตรฐานเดิม (90)' : 'Original Standard (90)', pad.left + 5, origY - 3);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(74,85,104,0.2)';
+    ctx.lineWidth = 0.5;
+    for (let v = 0; v <= 100; v += 25) {
+      const y = pad.top + plotH - (v / 100) * plotH;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(w - pad.right, y);
+      ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = '#4a5568';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, pad.top);
+    ctx.lineTo(pad.left, h - pad.bottom);
+    ctx.lineTo(w - pad.right, h - pad.bottom);
+    ctx.stroke();
+
+    // Y ticks
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#4a5568';
+    ctx.font = '10px sans-serif';
+    for (let v = 0; v <= 100; v += 25) {
+      const y = pad.top + plotH - (v / 100) * plotH;
+      ctx.fillText(v.toString(), pad.left - 8, y + 4);
+    }
+
+    ctx.fillStyle = '#a0aec0';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(i18n.currentLang === 'th' ? 'เวลา' : 'Time', pad.left + plotW / 2, h - 5);
+
+    // Goal line (dashed yellow)
+    ctx.strokeStyle = '#ffd166';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 3]);
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const x = pad.left + (simData.time[i] / maxTime) * plotW;
+      const y = pad.top + plotH - (simData.goal[i] / 100) * plotH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Performance line (solid cyan)
+    ctx.strokeStyle = '#06d6a0';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const x = pad.left + (simData.time[i] / maxTime) * plotW;
+      const y = pad.top + plotH - (simData.performance[i] / 100) * plotH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Legend
+    ctx.textAlign = 'left';
+    ctx.font = '11px sans-serif';
+    const perfLabel = i18n.currentLang === 'th' ? 'ผลงานจริง' : 'Performance';
+    const goalLabel = i18n.currentLang === 'th' ? 'เป้าหมาย/มาตรฐาน' : 'Goal/Standard';
+
+    ctx.strokeStyle = '#06d6a0'; ctx.lineWidth = 3; ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(pad.left + 10, pad.top - 15); ctx.lineTo(pad.left + 30, pad.top - 15); ctx.stroke();
+    ctx.fillStyle = '#edf2f7'; ctx.fillText(perfLabel, pad.left + 35, pad.top - 11);
+
+    ctx.strokeStyle = '#ffd166'; ctx.lineWidth = 2; ctx.setLineDash([6, 3]);
+    ctx.beginPath(); ctx.moveTo(pad.left + 160, pad.top - 15); ctx.lineTo(pad.left + 180, pad.top - 15); ctx.stroke();
+    ctx.setLineDash([]); ctx.fillText(goalLabel, pad.left + 185, pad.top - 11);
+
+    // Y-axis label
+    ctx.save();
+    ctx.translate(12, pad.top + plotH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillStyle = '#a0aec0';
+    ctx.textAlign = 'center';
+    ctx.fillText(i18n.currentLang === 'th' ? 'คุณภาพ' : 'Quality', 0, 0);
+    ctx.restore();
+  }
+
+  drawDrift(0);
+
+  runBtn?.addEventListener('click', runSim);
+  resetBtn?.addEventListener('click', () => {
+    simData = null;
+    isRunning = false;
+    animFrame = 0;
+    erosionSlider.value = 50;
+    erosionVal.textContent = '50%';
+    if (resultPanel) resultPanel.style.display = 'none';
+    drawDrift(0);
+  });
+}
+
+
+// =============================================
+// 6. Success to the Successful — Wealth Sim
 // =============================================
 function initWealthSim() {
   const container = document.getElementById('wealth-sim');

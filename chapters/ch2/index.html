@@ -259,7 +259,44 @@
       </div>
     </div>
 
-    <!-- Section 5: Success to the Successful Interactive -->
+    <!-- Section 5: Drift to Low Performance Interactive -->
+    <div class="section-block">
+      <h3 style="color: var(--accent-3); margin-top: 10px;" data-i18n-en="Try It: Drift to Low Performance" data-i18n-th="ลองเลย: เลื่อนไหลสู่ผลงานต่ำ">Try It: Drift to Low Performance</h3>
+
+      <div class="content-row">
+        <div class="content-text">
+          <p data-i18n-en="Imagine a school where quality starts high. When performance dips, instead of fixing the root cause, the standard is quietly <em>lowered</em> to match. Each small adjustment feels reasonable — but over time, both performance and expectations erode together. This is the boiled frog effect." data-i18n-th="ลองจินตนาการโรงเรียนที่เริ่มต้นคุณภาพสูง เมื่อผลงานลดลง แทนที่จะแก้ต้นเหตุ มาตรฐานถูก<em>ลดลง</em>เงียบๆ ให้ตรงกับความเป็นจริง การปรับเล็กๆ แต่ละครั้งดูสมเหตุสมผล — แต่เมื่อเวลาผ่านไป ทั้งผลงานและความคาดหวังกร่อนไปด้วยกัน นี่คือปรากฏการณ์กบต้ม">Imagine a school where quality starts high.</p>
+
+          <div class="slider-group">
+            <label data-i18n-en="Goal Erosion Rate" data-i18n-th="อัตราการกร่อนของเป้าหมาย">Goal Erosion Rate</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;" data-i18n-en="Fixed" data-i18n-th="คงที่">Fixed</span>
+              <input type="range" id="drift-erosion-slider" min="0" max="100" value="50" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;" data-i18n-en="Eroding" data-i18n-th="กร่อนเร็ว">Eroding</span>
+              <span id="drift-erosion-val" style="min-width: 40px; text-align: center; color: var(--accent-3); font-weight: bold;">50%</span>
+            </div>
+          </div>
+
+          <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn btn-primary" id="drift-run" data-i18n="interactive.run">Run Simulation</button>
+            <button class="btn btn-secondary" id="drift-reset" data-i18n="interactive.reset">Reset</button>
+          </div>
+
+          <div id="drift-result" style="display:none; margin-top: 15px; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.9rem;"></div>
+        </div>
+
+        <div class="content-interactive" id="drift-sim">
+          <div class="interactive-title" style="color: var(--accent-3);" data-i18n-en="Drift to Low Performance" data-i18n-th="เลื่อนไหลสู่ผลงานต่ำ">Drift to Low Performance</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top: 20px; border-left-color: var(--accent-3);">
+        <p data-i18n-en="<strong>Try it:</strong> Set erosion to 0% — performance recovers to the original standard. Then try 80% — watch how both lines sink together. The same pattern explains eroding infrastructure, declining education quality, and regulatory capture. <strong>The way out:</strong> Anchor goals to an absolute standard, not to recent performance." data-i18n-th="<strong>ลองดู:</strong> ตั้งอัตราการกร่อน 0% — ผลงานฟื้นตัวสู่มาตรฐานเดิม จากนั้นลอง 80% — ดูว่าทั้งสองเส้นจมลงด้วยกัน รูปแบบเดียวกันอธิบายโครงสร้างพื้นฐานเสื่อมสภาพ คุณภาพการศึกษาลดลง และการถูกครอบงำโดยผู้ถูกกำกับ <strong>ทางออก:</strong> ยึดเป้าหมายไว้กับมาตรฐานสัมบูรณ์ ไม่ใช่ผลงานล่าสุด"><strong>Try it:</strong> Set erosion to 0% vs 80%.</p>
+      </div>
+    </div>
+
+    <!-- Section 6: Success to the Successful Interactive -->
     <div class="section-block">
       <h3 style="color: var(--ch5-color); margin-top: 10px;" data-i18n-en="Try It: Success to the Successful" data-i18n-th="ลองเลย: ผู้ชนะได้ทุกอย่าง">Try It: Success to the Successful</h3>
 
