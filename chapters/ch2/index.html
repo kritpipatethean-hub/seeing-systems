@@ -84,19 +84,21 @@
 
     <!-- Section 1: Stocks & Flows -->
     <div id="stocks-flows" class="section-block">
-      <h2 data-i18n-en="Stocks & Flows: The Building Blocks" data-i18n-th="สต็อกและกระแส: องค์ประกอบพื้นฐาน">Stocks & Flows: The Building Blocks</h2>
+      <h2 data-i18n-en="Stocks & Flows" data-i18n-th="สต็อกและกระแส">Stocks & Flows</h2>
 
-      <p data-i18n-en="A <strong>stock</strong> is anything you can see, count, or measure at a given moment — water in a bathtub, money in a bank, population of a city. A <strong>flow</strong> is the rate that changes the stock over time — the faucet filling or drain emptying." data-i18n-th="<strong>สต็อก</strong>คือสิ่งที่คุณเห็น นับ หรือวัดได้ ณ เวลาใดเวลาหนึ่ง — น้ำในอ่าง เงินในธนาคาร ประชากรของเมือง <strong>กระแส</strong>คืออัตราที่เปลี่ยนแปลงสต็อกตามเวลา — ก๊อกน้ำเติมหรือท่อระบาย">A <strong>stock</strong> is anything you can see, count, or measure at a given moment.</p>
+      <p data-i18n-en="Every system has something that accumulates — water in a bathtub, money in a savings account, carbon in the atmosphere. In System Dynamics, we call this a <strong>stock</strong>. It is anything you can measure at a single point in time." data-i18n-th="ทุกระบบมีสิ่งที่สะสมอยู่ — น้ำในอ่างอาบน้ำ เงินในบัญชีออมทรัพย์ คาร์บอนในชั้นบรรยากาศ ในพลวัตระบบ เราเรียกสิ่งนี้ว่า <strong>สต็อก</strong> คือสิ่งใดก็ตามที่คุณวัดได้ ณ จุดเวลาหนึ่ง">Every system has something that accumulates.</p>
+
+      <p data-i18n-en="What changes a stock? <strong>Flows</strong> — the streams that fill it up or drain it away. A faucet is an inflow. A drain is an outflow. The stock <strong>rises</strong> when inflow exceeds outflow, <strong>falls</strong> when outflow exceeds inflow, and holds steady when they balance — a state called <strong>dynamic equilibrium</strong>." data-i18n-th="อะไรเปลี่ยนสต็อก? <strong>กระแส</strong> — สายน้ำที่เติมหรือระบายออก ก๊อกน้ำคือกระแสเข้า ท่อระบายคือกระแสออก สต็อก<strong>เพิ่มขึ้น</strong>เมื่อกระแสเข้ามากกว่ากระแสออก <strong>ลดลง</strong>เมื่อกระแสออกมากกว่า และคงที่เมื่อทั้งสองเท่ากัน — สภาวะที่เรียกว่า <strong>ดุลยภาพเชิงพลวัต</strong>">What changes a stock? <strong>Flows</strong>.</p>
+
+      <p data-i18n-en="This simple idea — stock plus flows — is the foundation of every System Dynamics model. The equation below says exactly the same thing, just in the language of mathematics:" data-i18n-th="แนวคิดง่ายๆ นี้ — สต็อกกับกระแส — คือรากฐานของทุกแบบจำลองพลวัตระบบ สมการด้านล่างพูดสิ่งเดียวกัน แค่อยู่ในภาษาคณิตศาสตร์:">This simple idea is the foundation of every SD model.</p>
 
       <div class="equation">
         $$\text{Stock}(t) = \text{Stock}(t_0) + \int_{t_0}^{t} [\text{Inflow}(s) - \text{Outflow}(s)] \, ds$$
       </div>
 
-      <p data-i18n-en="In simple terms: a stock <strong>rises</strong> when inflow exceeds outflow, <strong>falls</strong> when outflow exceeds inflow, and reaches <strong>dynamic equilibrium</strong> when they are equal." data-i18n-th="พูดง่ายๆ: สต็อก<strong>เพิ่มขึ้น</strong>เมื่อกระแสเข้ามากกว่ากระแสออก <strong>ลดลง</strong>เมื่อกระแสออกมากกว่ากระแสเข้า และถึง<strong>ดุลยภาพเชิงพลวัต</strong>เมื่อเท่ากัน">In simple terms: a stock rises when inflow exceeds outflow.</p>
-
       <div class="content-row">
         <div class="content-text">
-          <p data-i18n-en="Try the <strong>bathtub model</strong> — the most fundamental SD example. Adjust the faucet (inflow) and drain (outflow) rates to see how the water level (stock) changes in real-time." data-i18n-th="ลอง<strong>แบบจำลองอ่างอาบน้ำ</strong> — ตัวอย่าง SD พื้นฐานที่สุด ปรับก๊อกน้ำ (กระแสเข้า) และท่อระบาย (กระแสออก) เพื่อดูว่าระดับน้ำ (สต็อก) เปลี่ยนแบบเรียลไทม์">Try the <strong>bathtub model</strong>.</p>
+          <p data-i18n-en="Adjust the faucet and drain below to see how the water level responds. Notice how the stock can't jump instantly — it always changes <em>gradually</em>, because flows take time. This is why cutting a government deficit doesn't fix debt overnight, and why a population keeps growing even after birth rates fall." data-i18n-th="ลองปรับก๊อกน้ำและท่อระบายด้านล่างเพื่อดูว่าระดับน้ำตอบสนองอย่างไร สังเกตว่าสต็อกกระโดดทันทีไม่ได้ — มันเปลี่ยนอย่าง<em>ค่อยเป็นค่อยไป</em>เสมอ เพราะกระแสต้องใช้เวลา นี่คือเหตุผลที่การลดการขาดดุลไม่ได้แก้หนี้ข้ามคืน และประชากรยังเติบโตต่อแม้อัตราเกิดจะลดลง">Adjust the faucet and drain below.</p>
 
           <div class="slider-group">
             <label data-i18n-en="Inflow (faucet)" data-i18n-th="กระแสเข้า (ก๊อกน้ำ)">Inflow (faucet)</label>
@@ -127,16 +129,15 @@
         </div>
       </div>
 
-      <div class="info-box" style="margin-top: 20px;">
-        <p data-i18n-en="<strong>Key Insight:</strong> Stocks change <em>slowly</em> because flows take time. This is why policies don't produce instant results — there is always momentum. A population can't stop growing instantly even if birth rates drop today." data-i18n-th="<strong>ข้อค้นพบสำคัญ:</strong> สต็อกเปลี่ยน<em>ช้า</em>เพราะกระแสต้องใช้เวลา นี่คือเหตุผลที่นโยบายไม่ให้ผลทันที — มีแรงเฉื่อยอยู่เสมอ ประชากรไม่สามารถหยุดเติบโตทันทีแม้อัตราเกิดลดลงวันนี้"><strong>Key Insight:</strong> Stocks change <em>slowly</em> because flows take time.</p>
-      </div>
     </div>
 
     <!-- Section 2: Behavior Patterns -->
     <div id="behavior-patterns" class="section-block">
-      <h2 data-i18n-en="Behavior Patterns: What Systems Do" data-i18n-th="รูปแบบพฤติกรรม: ระบบทำอะไรบ้าง">Behavior Patterns: What Systems Do</h2>
+      <h2 data-i18n-en="Behavior Patterns" data-i18n-th="รูปแบบพฤติกรรม">Behavior Patterns</h2>
 
-      <p data-i18n-en="Every system produces a recognizable <strong>behavior pattern</strong> over time. These patterns emerge from the feedback loop structure. Click each pattern to see its shape and learn what causes it:" data-i18n-th="ทุกระบบสร้าง<strong>รูปแบบพฤติกรรม</strong>ที่จดจำได้ตามเวลา รูปแบบเหล่านี้เกิดจากโครงสร้างวงจรป้อนกลับ คลิกแต่ละรูปแบบเพื่อดูรูปร่างและเรียนรู้สาเหตุ:">Every system produces a recognizable <strong>behavior pattern</strong> over time.</p>
+      <p data-i18n-en="Every system tells a story through its behavior over time. Plot any stock on a graph and you will see one of a few recognizable shapes. These are <strong>behavior patterns</strong> — and each one is a signature of the feedback structure underneath." data-i18n-th="ทุกระบบเล่าเรื่องผ่านพฤติกรรมตามเวลา ลองนำสต็อกใดก็ตามมาพล็อตบนกราฟ คุณจะเห็นรูปร่างที่จดจำได้ไม่กี่แบบ สิ่งเหล่านี้คือ <strong>รูปแบบพฤติกรรม</strong> — แต่ละรูปแบบคือลายเซ็นของโครงสร้างป้อนกลับที่อยู่เบื้องหลัง">Every system tells a story through its behavior over time.</p>
+
+      <p data-i18n-en="Understanding these patterns is like learning to read an EKG: once you recognize the shape, you immediately know what kind of feedback loop is driving the system. Click each pattern below to see its shape and explore what causes it." data-i18n-th="การเข้าใจรูปแบบเหล่านี้เหมือนการเรียนอ่านคลื่นหัวใจ: เมื่อจำรูปร่างได้ คุณจะรู้ทันทีว่าวงจรป้อนกลับแบบไหนกำลังขับเคลื่อนระบบ คลิกแต่ละรูปแบบด้านล่างเพื่อดูรูปร่างและสำรวจว่าอะไรเป็นสาเหตุ">Understanding these patterns is like reading an EKG.</p>
 
       <div id="pattern-selector" style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
         <button class="btn btn-secondary pattern-btn active" data-pattern="exponential" data-i18n-en="Exponential Growth" data-i18n-th="เติบโตแบบทวีคูณ">Exponential Growth</button>
@@ -161,7 +162,7 @@
     <div id="system-traps" class="section-block">
       <h2 data-i18n-en="System Traps: When Structure Creates Problems" data-i18n-th="กับดักของระบบ: เมื่อโครงสร้างสร้างปัญหา">System Traps: When Structure Creates Problems</h2>
 
-      <p data-i18n-en="Certain feedback structures repeatedly produce problematic behavior — Meadows calls these <strong>system traps</strong>. The same patterns appear in economics, ecology, politics, and business. Recognizing the trap is the first step to escaping it." data-i18n-th="โครงสร้างป้อนกลับบางอย่างสร้างพฤติกรรมที่เป็นปัญหาซ้ำแล้วซ้ำเล่า — Meadows เรียกว่า<strong>กับดักของระบบ</strong> รูปแบบเดียวกันปรากฏในเศรษฐศาสตร์ นิเวศวิทยา การเมือง และธุรกิจ การจดจำกับดักคือก้าวแรกสู่การหลุดพ้น">Certain feedback structures repeatedly produce problematic behavior.</p>
+      <p data-i18n-en="Certain feedback structures repeatedly produce problematic behavior. These recurring patterns are known as <strong>system traps</strong> — and they appear everywhere: in economics, ecology, politics, and business. Recognizing the trap is the first step to escaping it." data-i18n-th="โครงสร้างป้อนกลับบางอย่างสร้างพฤติกรรมที่เป็นปัญหาซ้ำแล้วซ้ำเล่า รูปแบบที่เกิดขึ้นซ้ำเหล่านี้เรียกว่า <strong>กับดักของระบบ</strong> — และพบได้ทุกที่: ในเศรษฐศาสตร์ นิเวศวิทยา การเมือง และธุรกิจ การจดจำกับดักคือก้าวแรกสู่การหลุดพ้น">Certain feedback structures repeatedly produce problematic behavior.</p>
 
       <h3 style="color: var(--accent-1); margin-top: 25px;" data-i18n-en="Tragedy of the Commons" data-i18n-th="โศกนาฏกรรมของทรัพยากรร่วม">Tragedy of the Commons</h3>
 
