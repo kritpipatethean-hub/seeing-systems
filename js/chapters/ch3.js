@@ -63,7 +63,7 @@ function initGoodwin() {
     simData = runGoodwinSim();
     animFrame = 0;
     isRunning = true;
-    if (resultPanel) resultPanel.innerHTML = '';
+    if (resultPanel) { resultPanel.innerHTML = ''; resultPanel.style.display = 'none'; }
     animate();
   });
 
@@ -75,7 +75,7 @@ function initGoodwin() {
     isRunning = false;
     if (wageSlider) { wageSlider.value = DEFAULTS.wage; if (wageVal) wageVal.textContent = DEFAULTS.wage; }
     if (prodSlider) { prodSlider.value = DEFAULTS.prod; if (prodVal) prodVal.textContent = DEFAULTS.prod; }
-    if (resultPanel) resultPanel.innerHTML = '';
+    if (resultPanel) { resultPanel.innerHTML = ''; resultPanel.style.display = 'none'; }
     draw();
   });
 
@@ -148,6 +148,7 @@ function initGoodwin() {
 
   function showGoodwinResult() {
     if (!resultPanel || !simData) return;
+    resultPanel.style.display = 'block';
     const isTH = typeof i18n !== 'undefined' && i18n.currentLang === 'th';
     const lambdas = simData.lambdaHist;
     const omegas = simData.omegaHist;
@@ -578,7 +579,7 @@ function initMinsky() {
     simData = runMinskySim();
     animFrame = 0;
     isRunning = true;
-    if (resultPanel) resultPanel.innerHTML = '';
+    if (resultPanel) { resultPanel.innerHTML = ''; resultPanel.style.display = 'none'; }
     animate();
   });
 
@@ -588,7 +589,7 @@ function initMinsky() {
     simData = null;
     animFrame = 0;
     isRunning = false;
-    if (resultPanel) resultPanel.innerHTML = '';
+    if (resultPanel) { resultPanel.innerHTML = ''; resultPanel.style.display = 'none'; }
     draw();
   });
 
@@ -682,6 +683,7 @@ function initMinsky() {
 
   function showMinskyResult() {
     if (!resultPanel || !simData) return;
+    resultPanel.style.display = 'block';
     const isTH = typeof i18n !== 'undefined' && i18n.currentLang === 'th';
 
     const maxDebt = Math.max(...simData.debtToGDP);
@@ -993,7 +995,7 @@ function initSectoral() {
     simData = runSectoralSim();
     animFrame = 0;
     isRunning = true;
-    if (resultPanel) resultPanel.innerHTML = '';
+    if (resultPanel) { resultPanel.innerHTML = ''; resultPanel.style.display = 'none'; }
     animate();
   });
 
@@ -1003,7 +1005,7 @@ function initSectoral() {
     simData = null;
     animFrame = 0;
     isRunning = false;
-    if (resultPanel) resultPanel.innerHTML = '';
+    if (resultPanel) { resultPanel.innerHTML = ''; resultPanel.style.display = 'none'; }
     draw();
   });
 
@@ -1077,6 +1079,7 @@ function initSectoral() {
 
   function showSectoralResult() {
     if (!resultPanel || !simData) return;
+    resultPanel.style.display = 'block';
     const isTH = typeof i18n !== 'undefined' && i18n.currentLang === 'th';
 
     // Average private balance
