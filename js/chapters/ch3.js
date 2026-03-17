@@ -106,9 +106,13 @@ function initGoodwin() {
     const lambdaStar = (c + alpha) / d;
     const omegaStar = (a - alpha) / b;
 
-    // Start displaced from equilibrium — scale displacement to available room
-    const dispL = Math.max(0.02, Math.min(0.10, (0.95 - lambdaStar) * 0.6, (lambdaStar - 0.05) * 0.6));
-    const dispO = Math.max(0.02, Math.min(0.06, (omegaStar - 0.05) * 0.6, (0.95 - omegaStar) * 0.6));
+    // Start displaced from equilibrium — scale with wageSens AND boundary room
+    const wageScale = wageSens / 1.5;  // 0.33 at min, 1.0 at default, 2.0 at max
+    const roomL = Math.min(0.95 - lambdaStar, lambdaStar - 0.05);
+    const roomO = Math.min(0.95 - omegaStar, omegaStar - 0.05);
+    const roomScale = Math.min(roomL / 0.20, roomO / 0.20, 1.0);
+    const dispL = Math.min(Math.max(0.01, 0.08 * roomScale * wageScale), roomL * 0.7);
+    const dispO = Math.min(Math.max(0.01, 0.05 * roomScale * wageScale), roomO * 0.7);
     let lambda = lambdaStar + dispL;
     let omega = omegaStar - dispO;
 
@@ -220,10 +224,15 @@ function initGoodwin() {
         : '💡 Try increasing wage sensitivity for a clearer cycle';
     }
 
+    const metricsLine = diverging ? '' : (isTH
+      ? '📊 คาบ = ระยะเวลาครบ 1 รอบ จากเฟื่องฟูถึงถดถอยแล้ววนกลับ | แกว่ง % = ช่วงห่างระหว่างจุดสูงสุดกับต่ำสุดของการจ้างงาน/ค่าจ้าง'
+      : '📊 Period = time for one full boom-to-bust cycle. Swing % = gap between the highest and lowest points of employment/wages.');
+
     resultPanel.innerHTML = `
       <div style="padding:12px 14px;border-left:4px solid ${diverging ? '#e94560' : '#06d6a0'};background:rgba(22,33,62,0.7);border-radius:6px;">
         <div style="font-size:0.95rem;margin-bottom:6px;">${statsLine}</div>
         <div style="font-size:0.85rem;color:#a0aec0;">${narrativeLine}</div>
+        ${metricsLine ? `<div style="font-size:0.78rem;color:#718096;margin-top:6px;">${metricsLine}</div>` : ''}
       </div>`;
   }
 
