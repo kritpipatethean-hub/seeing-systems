@@ -65,12 +65,16 @@ function initPopulationSim() {
       data.quality.push(quality);
 
       const housingRatio = Math.min(housing / pop, 1.5);
-      const attractiveness = (housingRatio * 0.5 + quality * 0.5);
-      const migration = pop * (attractiveness - 0.5) * 0.05;
+      // Policy "announcement effect": high investment attracts people directly
+      const policySignal = housingPolicy * 0.4;
+      const attractiveness = housingRatio * 0.2 + quality * 0.3 + policySignal;
+      const migration = pop * (attractiveness - 0.45) * 0.08;
       const births = pop * 0.012;
       const deaths = pop * 0.008;
-      const newHousing = pop * housingPolicy * 0.03;
-      const housingDecay = housing * 0.02;
+      // Housing construction has diminishing returns as city grows
+      const buildCapacity = 1 / (1 + pop / 150000);
+      const newHousing = pop * housingPolicy * 0.025 * buildCapacity;
+      const housingDecay = housing * 0.015;
 
       pop = Math.max(pop + (births - deaths + migration) * dt, 10000);
       housing = Math.max(housing + (newHousing - housingDecay) * dt, 10000);
