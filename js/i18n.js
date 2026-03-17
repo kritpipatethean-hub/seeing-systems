@@ -26,7 +26,7 @@ const i18n = {
     'ch1.title': { en: 'Thinking in Systems', th: 'การคิดเชิงระบบ' },
     'ch1.desc': {
       en: 'Understand what systems are, how stocks, flows, and feedback loops work, and why complex systems behave in counterintuitive ways.',
-      th: 'ทำความเข้าใจว่าระบบคืออะไร สต็อก กระแส และวงจรป้อนกลับทำงานอย่างไร และทำไมระบบที่ซับซ้อนถึงมีพฤติกรรมที่ขัดกับสัญชาตญาณ'
+      th: 'เรียนรู้ว่าระบบคืออะไร สต็อก การไหล และวงจรป้อนกลับทำงานอย่างไร แล้วทำไมระบบซับซ้อนถึงมักทำตัวตรงข้ามกับที่คิด'
     },
 
     'ch2.label': { en: 'Chapter 2', th: 'บทที่ 2' },
@@ -82,44 +82,44 @@ const i18n = {
     'ch1.intro.title': { en: 'What is System Dynamics?', th: 'พลวัตระบบคืออะไร?' },
     'ch1.intro.p1': {
       en: 'System Dynamics is a methodology for understanding how complex systems change over time. Founded by Jay W. Forrester at MIT in the 1950s, it uses computer simulation to reveal how the structure of a system—its feedback loops, delays, and nonlinearities—determines its behavior.',
-      th: 'พลวัตระบบเป็นวิธีการทำความเข้าใจว่าระบบที่ซับซ้อนเปลี่ยนแปลงอย่างไรตามเวลา ก่อตั้งโดย Jay W. Forrester ที่ MIT ในทศวรรษ 1950 โดยใช้การจำลองด้วยคอมพิวเตอร์เพื่อเผยให้เห็นว่าโครงสร้างของระบบ—วงจรป้อนกลับ ความล่าช้า และความไม่เป็นเชิงเส้น—กำหนดพฤติกรรมของระบบอย่างไร'
+      th: '<strong>พลวัตระบบ (System Dynamics)</strong> คือวิธีทำความเข้าใจว่าระบบซับซ้อนเปลี่ยนแปลงอย่างไรเมื่อเวลาผ่านไป Jay W. Forrester แห่ง MIT พัฒนาขึ้นในทศวรรษ 1950 โดยใช้การจำลองด้วยคอมพิวเตอร์เพื่อให้เห็นว่าโครงสร้างของระบบ — วงจรป้อนกลับ ความล่าช้า และความไม่เป็นเส้นตรง — เป็นตัวกำหนดพฤติกรรม'
     },
     'ch1.intro.p2': {
       en: 'Unlike traditional approaches that break problems into isolated parts, System Dynamics looks at the whole system and how its parts interact to create patterns of behavior over time.',
-      th: 'ต่างจากวิธีดั้งเดิมที่แยกปัญหาออกเป็นส่วนๆ พลวัตระบบมองภาพรวมของระบบทั้งหมดและว่าส่วนต่างๆ มีปฏิสัมพันธ์กันสร้างรูปแบบพฤติกรรมตามเวลาอย่างไร'
+      th: 'วิธีคิดแบบเดิมมักแยกปัญหาออกเป็นชิ้นๆ แล้วแก้ทีละชิ้น แต่พลวัตระบบมองภาพรวมทั้งหมด — ดูว่าส่วนต่างๆ ส่งผลต่อกันอย่างไร จนเกิดเป็นรูปแบบพฤติกรรมที่เปลี่ยนไปตามเวลา'
     },
 
-    'ch1.counterintuitive.title': { en: 'Counterintuitive Behavior', th: 'พฤติกรรมที่ขัดสัญชาตญาณ' },
+    'ch1.counterintuitive.title': { en: 'Counterintuitive Behavior', th: 'เมื่อระบบทำตัวตรงข้ามกับที่คิด' },
     'ch1.counterintuitive.p1': {
       en: 'One of the most important insights from System Dynamics is that complex systems often behave in ways that are counterintuitive. As Forrester (1971) observed, policies designed to fix social problems frequently make them worse.',
-      th: 'หนึ่งในข้อค้นพบที่สำคัญที่สุดจากพลวัตระบบคือ ระบบที่ซับซ้อนมักมีพฤติกรรมที่ขัดกับสัญชาตญาณ ดังที่ Forrester (1971) สังเกต นโยบายที่ออกแบบมาเพื่อแก้ปัญหาสังคมมักทำให้ปัญหาแย่ลง'
+      th: 'บทเรียนสำคัญที่สุดอย่างหนึ่งจากพลวัตระบบคือ ระบบซับซ้อนมักทำตัวตรงข้ามกับที่เราคิด Forrester (1971) พบว่า นโยบายที่ตั้งใจแก้ปัญหาสังคม กลับทำให้ปัญหาแย่ลงเสียอีก'
     },
     'ch1.counterintuitive.p2': {
       en: 'Try the simulation below: you are managing a city\'s population. Use the sliders to set policies and see how the system responds—often in unexpected ways!',
-      th: 'ลองจำลองด้านล่าง: คุณกำลังบริหารประชากรเมือง ใช้สไลเดอร์ตั้งค่านโยบายและดูว่าระบบตอบสนองอย่างไร—มักจะเป็นแบบที่คาดไม่ถึง!'
+      th: 'ลองเล่นจำลองด้านล่าง: สมมติคุณบริหารเมือง ปรับสไลเดอร์ตั้งนโยบาย แล้วดูว่าระบบตอบสนองอย่างไร — มักจะเป็นแบบที่คาดไม่ถึง!'
     },
 
-    'ch1.mental.title': { en: 'Mental Models & System Thinking', th: 'แบบจำลองทางจิตและการคิดเชิงระบบ' },
+    'ch1.mental.title': { en: 'Mental Models & System Thinking', th: 'แบบจำลองในหัว กับการคิดเชิงระบบ' },
     'ch1.mental.p1': {
       en: 'Every decision we make is based on mental models—our internal pictures of how the world works. System Dynamics makes these mental models explicit through diagrams and equations, allowing us to test our assumptions with simulation.',
-      th: 'ทุกการตัดสินใจของเราขึ้นอยู่กับแบบจำลองทางจิต—ภาพในใจของเราว่าโลกทำงานอย่างไร พลวัตระบบทำให้แบบจำลองทางจิตเหล่านี้ชัดเจนผ่านแผนภาพและสมการ ช่วยให้เราทดสอบสมมติฐานด้วยการจำลอง'
+      th: 'ทุกครั้งที่เราตัดสินใจ เราใช้ "แบบจำลองในหัว" — ภาพในใจที่บอกเราว่าโลกทำงานอย่างไร พลวัตระบบช่วยเอาแบบจำลองเหล่านี้ออกมาให้เห็นชัดๆ ผ่านแผนภาพและสมการ เพื่อให้เราทดสอบสมมติฐานด้วยการจำลองได้'
     },
     'ch1.mental.p2': {
       en: 'As Sterman (2000) argues, "the most important thing we can do is improve the mental models of decision makers." Click on the diagram elements below to explore how a simple causal loop works.',
-      th: 'ดังที่ Sterman (2000) โต้แย้ง "สิ่งสำคัญที่สุดที่เราทำได้คือปรับปรุงแบบจำลองทางจิตของผู้ตัดสินใจ" คลิกที่องค์ประกอบในแผนภาพด้านล่างเพื่อสำรวจว่าวงจรเหตุ-ผลอย่างง่ายทำงานอย่างไร'
+      th: 'Sterman (2000) เคยบอกว่า "สิ่งสำคัญที่สุดที่เราทำได้คือ ปรับปรุงแบบจำลองในหัวของผู้ตัดสินใจ" ลองคลิกที่แผนภาพด้านล่างเพื่อดูว่าวงจรเหตุ-ผลอย่างง่ายทำงานอย่างไร'
     },
 
     // Interactive labels
     'interactive.population': { en: 'Population Simulation', th: 'จำลองประชากร' },
     'interactive.housing': { en: 'Housing Investment', th: 'การลงทุนด้านที่อยู่อาศัย' },
-    'interactive.jobs': { en: 'Job Creation Programs', th: 'โปรแกรมสร้างงาน' },
+    'interactive.jobs': { en: 'Job Creation Programs', th: 'นโยบายสร้างงาน' },
     'interactive.run': { en: 'Run Simulation', th: 'เริ่มจำลอง' },
     'interactive.reset': { en: 'Reset', th: 'รีเซ็ต' },
     'interactive.population.label': { en: 'Population', th: 'ประชากร' },
-    'interactive.attractiveness': { en: 'City Attractiveness', th: 'ความน่าสนใจของเมือง' },
+    'interactive.attractiveness': { en: 'City Attractiveness', th: 'ความน่าอยู่ของเมือง' },
     'interactive.time': { en: 'Time (years)', th: 'เวลา (ปี)' },
     'interactive.causal': { en: 'Causal Loop Diagram', th: 'แผนภาพวงจรเหตุ-ผล' },
-    'interactive.click_node': { en: 'Click on any node to learn more', th: 'คลิกที่โหนดใดก็ได้เพื่อเรียนรู้เพิ่มเติม' },
+    'interactive.click_node': { en: 'Click on any node to learn more', th: 'คลิกที่จุดใดก็ได้เพื่อดูรายละเอียด' },
 
     // Footer
     'footer.text': {

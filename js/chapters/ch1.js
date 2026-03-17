@@ -123,7 +123,7 @@ function initPopulationSim() {
       ctx.fillStyle = '#a0aec0';
       ctx.font = '14px sans-serif';
       ctx.textAlign = 'center';
-      const msg = i18n.currentLang === 'th' ? 'กดปุ่ม "เริ่มจำลอง" เพื่อดูผลลัพธ์' : 'Press "Run Simulation" to see results';
+      const msg = i18n.currentLang === 'th' ? 'กด "เริ่มจำลอง" เพื่อดูผลลัพธ์' : 'Press "Run Simulation" to see results';
       ctx.fillText(msg, w / 2, h / 2);
       return;
     }
@@ -272,7 +272,7 @@ function initReinforcingLoop() {
       label: { en: 'Population', th: 'ประชากร' },
       info: {
         en: 'The total number of people. More people means more births.',
-        th: 'จำนวนคนทั้งหมด คนยิ่งมากยิ่งเกิดมาก'
+        th: 'จำนวนคนทั้งหมดในระบบ ยิ่งคนเยอะ ยิ่งเกิดมาก'
       }
     },
     {
@@ -280,7 +280,7 @@ function initReinforcingLoop() {
       label: { en: 'Births', th: 'การเกิด' },
       info: {
         en: 'The number of new babies born each year. Proportional to population size.',
-        th: 'จำนวนทารกที่เกิดในแต่ละปี สัดส่วนตามขนาดประชากร'
+        th: 'จำนวนเด็กที่เกิดในแต่ละปี เพิ่มขึ้นตามจำนวนประชากร'
       }
     },
     {
@@ -288,7 +288,7 @@ function initReinforcingLoop() {
       label: { en: 'Growth\nRate', th: 'อัตรา\nการเติบโต' },
       info: {
         en: 'More births increase the growth rate, which further increases population.',
-        th: 'การเกิดมากขึ้นทำให้อัตราการเติบโตสูงขึ้น ซึ่งเพิ่มประชากรอีก'
+        th: 'ยิ่งเกิดมาก อัตราเติบโตยิ่งสูง แล้วก็วนกลับไปเพิ่มประชากรอีก'
       }
     }
   ];
@@ -326,7 +326,7 @@ function initBalancingLoop() {
       label: { en: 'Crowding', th: 'ความแออัด' },
       info: {
         en: 'More people relative to housing creates overcrowding.',
-        th: 'คนมากเมื่อเทียบกับที่อยู่อาศัยทำให้เกิดความแออัด'
+        th: 'คนเยอะแต่ที่อยู่มีจำกัด ก็เกิดความแออัด'
       }
     },
     {
@@ -339,10 +339,10 @@ function initBalancingLoop() {
     },
     {
       id: 'attract', x: 110, y: 340,
-      label: { en: 'City\nAttract.', th: 'ความน่าสนใจ\nของเมือง' },
+      label: { en: 'City\nAttract.', th: 'ความน่าอยู่\nของเมือง' },
       info: {
         en: 'Lower quality of life makes the city less attractive, further reducing in-migration.',
-        th: 'คุณภาพชีวิตต่ำลงทำให้เมืองน่าสนใจน้อยลง ลดการอพยพเข้า'
+        th: 'คุณภาพชีวิตตกลง เมืองก็ไม่น่าอยู่ คนจึงไม่อยากย้ายเข้ามา'
       }
     },
     {
@@ -350,7 +350,7 @@ function initBalancingLoop() {
       label: { en: 'Out-\nmigration', th: 'การย้าย\nออก' },
       info: {
         en: 'When quality of life drops, people leave the city.',
-        th: 'เมื่อคุณภาพชีวิตลดลง ผู้คนย้ายออกจากเมือง'
+        th: 'พอคุณภาพชีวิตแย่ลง คนก็เริ่มย้ายออก'
       }
     }
   ];
