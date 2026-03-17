@@ -311,9 +311,10 @@ function initBalancingLoop() {
   const container = document.getElementById('b-loop-diagram');
   if (!container) return;
 
+  // Nodes arranged as pentagon — clockwise causal chain: Pop→Crowding→Quality→Attract→Migration→Pop
   const nodes = [
     {
-      id: 'population', x: 200, y: 50,
+      id: 'population', x: 210, y: 45,
       label: { en: 'Population', th: 'ประชากร' },
       info: {
         en: 'As more people move in, the city becomes crowded.',
@@ -321,7 +322,7 @@ function initBalancingLoop() {
       }
     },
     {
-      id: 'crowding', x: 370, y: 170,
+      id: 'crowding', x: 375, y: 165,
       label: { en: 'Crowding', th: 'ความแออัด' },
       info: {
         en: 'More people relative to housing creates overcrowding.',
@@ -329,7 +330,7 @@ function initBalancingLoop() {
       }
     },
     {
-      id: 'quality', x: 300, y: 320,
+      id: 'quality', x: 310, y: 340,
       label: { en: 'Quality\nof Life', th: 'คุณภาพ\nชีวิต' },
       info: {
         en: 'Overcrowding reduces quality of life — congestion, pollution, resource strain.',
@@ -337,19 +338,19 @@ function initBalancingLoop() {
       }
     },
     {
-      id: 'migration', x: 100, y: 320,
-      label: { en: 'Out-\nmigration', th: 'การย้าย\nออก' },
-      info: {
-        en: 'When quality of life drops, people leave the city.',
-        th: 'เมื่อคุณภาพชีวิตลดลง ผู้คนย้ายออกจากเมือง'
-      }
-    },
-    {
-      id: 'attract', x: 30, y: 170,
+      id: 'attract', x: 110, y: 340,
       label: { en: 'City\nAttract.', th: 'ความน่าสนใจ\nของเมือง' },
       info: {
         en: 'Lower quality of life makes the city less attractive, further reducing in-migration.',
         th: 'คุณภาพชีวิตต่ำลงทำให้เมืองน่าสนใจน้อยลง ลดการอพยพเข้า'
+      }
+    },
+    {
+      id: 'migration', x: 45, y: 165,
+      label: { en: 'Out-\nmigration', th: 'การย้าย\nออก' },
+      info: {
+        en: 'When quality of life drops, people leave the city.',
+        th: 'เมื่อคุณภาพชีวิตลดลง ผู้คนย้ายออกจากเมือง'
       }
     }
   ];
@@ -371,12 +372,12 @@ function initBalancingLoop() {
 // =============================================
 function drawCLD(container, nodes, edges, loopType, loopColor, infoPanelId) {
   const svgNS = 'http://www.w3.org/2000/svg';
-  const w = 420, h = 380;
+  const w = 430, h = 400;
 
   const svg = document.createElementNS(svgNS, 'svg');
   svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
   svg.style.width = '100%';
-  svg.style.maxWidth = '420px';
+  svg.style.maxWidth = '430px';
   svg.style.display = 'block';
   svg.style.margin = '0 auto';
 
@@ -387,13 +388,13 @@ function drawCLD(container, nodes, edges, loopType, loopColor, infoPanelId) {
     const marker = document.createElementNS(svgNS, 'marker');
     marker.setAttribute('id', `arrow-${type}-${loopType}`);
     marker.setAttribute('viewBox', '0 0 10 10');
-    marker.setAttribute('refX', '10');
+    marker.setAttribute('refX', '9');
     marker.setAttribute('refY', '5');
-    marker.setAttribute('markerWidth', '8');
-    marker.setAttribute('markerHeight', '8');
+    marker.setAttribute('markerWidth', '9');
+    marker.setAttribute('markerHeight', '9');
     marker.setAttribute('orient', 'auto');
     const arrowPath = document.createElementNS(svgNS, 'path');
-    arrowPath.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
+    arrowPath.setAttribute('d', 'M 0 1 L 10 5 L 0 9 z');
     arrowPath.setAttribute('fill', type === 'positive' ? '#06d6a0' : '#e94560');
     marker.appendChild(arrowPath);
     defs.appendChild(marker);
@@ -402,49 +403,77 @@ function drawCLD(container, nodes, edges, loopType, loopColor, infoPanelId) {
 
   const infoPanel = document.getElementById(infoPanelId);
 
-  // Draw edges with curves
+  // Calculate center of all nodes (for curve direction)
+  const centerX = nodes.reduce((s, n) => s + n.x, 0) / nodes.length;
+  const centerY = nodes.reduce((s, n) => s + n.y, 0) / nodes.length;
+
+  // Draw edges as curved arrows
   edges.forEach(edge => {
     const fromNode = nodes.find(n => n.id === edge.from);
     const toNode = nodes.find(n => n.id === edge.to);
     const color = edge.sign === '+' ? '#06d6a0' : '#e94560';
     const markerId = edge.sign === '+' ? `arrow-positive-${loopType}` : `arrow-negative-${loopType}`;
 
-    // Calculate offset to not overlap with circles
+    // Direction vector
     const dx = toNode.x - fromNode.x;
     const dy = toNode.y - fromNode.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
-    const r = 32; // node radius
+    const r = 34; // node radius for offset
+
+    // Start/end points offset from circle edge
     const startX = fromNode.x + (dx / dist) * r;
     const startY = fromNode.y + (dy / dist) * r;
     const endX = toNode.x - (dx / dist) * r;
     const endY = toNode.y - (dy / dist) * r;
 
-    const line = document.createElementNS(svgNS, 'line');
-    line.setAttribute('x1', startX);
-    line.setAttribute('y1', startY);
-    line.setAttribute('x2', endX);
-    line.setAttribute('y2', endY);
-    line.setAttribute('stroke', color);
-    line.setAttribute('stroke-width', '2');
-    line.setAttribute('marker-end', `url(#${markerId})`);
-    line.setAttribute('opacity', '0.7');
-    svg.appendChild(line);
-
-    // Sign label
+    // Midpoint of the straight line
     const midX = (startX + endX) / 2;
     const midY = (startY + endY) / 2;
-    // Offset sign label perpendicular to the line
-    const perpX = -(endY - startY) / dist * 12;
-    const perpY = (endX - startX) / dist * 12;
+
+    // Perpendicular direction — curve AWAY from center (outward arc)
+    const perpX = -(endY - startY) / dist;
+    const perpY = (endX - startX) / dist;
+
+    // Determine which side of the line the center is on
+    const toCenterX = centerX - midX;
+    const toCenterY = centerY - midY;
+    const dot = perpX * toCenterX + perpY * toCenterY;
+    const curveDir = dot > 0 ? -1 : 1; // curve away from center
+
+    const curveAmount = 30;
+    const ctrlX = midX + perpX * curveAmount * curveDir;
+    const ctrlY = midY + perpY * curveAmount * curveDir;
+
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', `M ${startX} ${startY} Q ${ctrlX} ${ctrlY} ${endX} ${endY}`);
+    path.setAttribute('stroke', color);
+    path.setAttribute('stroke-width', '2.5');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('marker-end', `url(#${markerId})`);
+    path.setAttribute('opacity', '0.8');
+    svg.appendChild(path);
+
+    // Sign label — positioned at curve midpoint (on the Bezier)
+    const signX = 0.25 * startX + 0.5 * ctrlX + 0.25 * endX;
+    const signY = 0.25 * startY + 0.5 * ctrlY + 0.25 * endY;
+
+    // Background circle behind sign for readability
+    const signBg = document.createElementNS(svgNS, 'circle');
+    signBg.setAttribute('cx', signX);
+    signBg.setAttribute('cy', signY);
+    signBg.setAttribute('r', '11');
+    signBg.setAttribute('fill', '#16213e');
+    signBg.setAttribute('opacity', '0.9');
+    svg.appendChild(signBg);
 
     const signText = document.createElementNS(svgNS, 'text');
-    signText.setAttribute('x', midX + perpX);
-    signText.setAttribute('y', midY + perpY);
+    signText.setAttribute('x', signX);
+    signText.setAttribute('y', signY);
     signText.setAttribute('fill', color);
-    signText.setAttribute('font-size', '18');
+    signText.setAttribute('font-size', '20');
     signText.setAttribute('font-weight', 'bold');
     signText.setAttribute('text-anchor', 'middle');
-    signText.setAttribute('dominant-baseline', 'middle');
+    signText.setAttribute('dominant-baseline', 'central');
     signText.textContent = edge.sign;
     svg.appendChild(signText);
   });
@@ -457,7 +486,7 @@ function drawCLD(container, nodes, edges, loopType, loopColor, infoPanelId) {
     const circle = document.createElementNS(svgNS, 'circle');
     circle.setAttribute('cx', node.x);
     circle.setAttribute('cy', node.y);
-    circle.setAttribute('r', '32');
+    circle.setAttribute('r', '34');
     circle.setAttribute('fill', '#0f3460');
     circle.setAttribute('stroke', loopColor);
     circle.setAttribute('stroke-width', '2');
@@ -467,11 +496,11 @@ function drawCLD(container, nodes, edges, loopType, loopColor, infoPanelId) {
     lines.forEach((line, idx) => {
       const text = document.createElementNS(svgNS, 'text');
       text.setAttribute('x', node.x);
-      text.setAttribute('y', node.y + (idx - (lines.length - 1) / 2) * 13);
+      text.setAttribute('y', node.y + (idx - (lines.length - 1) / 2) * 14);
       text.setAttribute('fill', '#edf2f7');
-      text.setAttribute('font-size', '11');
+      text.setAttribute('font-size', '12');
       text.setAttribute('text-anchor', 'middle');
-      text.setAttribute('dominant-baseline', 'middle');
+      text.setAttribute('dominant-baseline', 'central');
       text.textContent = line;
       g.appendChild(text);
     });
@@ -491,31 +520,39 @@ function drawCLD(container, nodes, edges, loopType, loopColor, infoPanelId) {
       circle.setAttribute('stroke-width', '3');
     });
 
-    g.addEventListener('mouseenter', () => circle.setAttribute('r', '35'));
-    g.addEventListener('mouseleave', () => circle.setAttribute('r', '32'));
+    g.addEventListener('mouseenter', () => circle.setAttribute('r', '37'));
+    g.addEventListener('mouseleave', () => circle.setAttribute('r', '34'));
 
     svg.appendChild(g);
   });
 
-  // Center loop label
-  const cx = nodes.reduce((s, n) => s + n.x, 0) / nodes.length;
-  const cy = nodes.reduce((s, n) => s + n.y, 0) / nodes.length;
-
+  // Center loop label with flow direction
   const loopLabel = document.createElementNS(svgNS, 'text');
-  loopLabel.setAttribute('x', cx);
-  loopLabel.setAttribute('y', cy - 5);
+  loopLabel.setAttribute('x', centerX);
+  loopLabel.setAttribute('y', centerY - 10);
   loopLabel.setAttribute('fill', loopColor);
-  loopLabel.setAttribute('font-size', '22');
+  loopLabel.setAttribute('font-size', '26');
   loopLabel.setAttribute('text-anchor', 'middle');
   loopLabel.setAttribute('font-weight', 'bold');
   loopLabel.textContent = loopType;
   svg.appendChild(loopLabel);
 
+  // Clockwise arrow indicator
+  const flowArrow = document.createElementNS(svgNS, 'text');
+  flowArrow.setAttribute('x', centerX);
+  flowArrow.setAttribute('y', centerY + 16);
+  flowArrow.setAttribute('fill', loopColor);
+  flowArrow.setAttribute('font-size', '18');
+  flowArrow.setAttribute('text-anchor', 'middle');
+  flowArrow.setAttribute('opacity', '0.6');
+  flowArrow.textContent = '↻';
+  svg.appendChild(flowArrow);
+
   const loopDesc = document.createElementNS(svgNS, 'text');
-  loopDesc.setAttribute('x', cx);
-  loopDesc.setAttribute('y', cy + 15);
+  loopDesc.setAttribute('x', centerX);
+  loopDesc.setAttribute('y', centerY + 34);
   loopDesc.setAttribute('fill', '#a0aec0');
-  loopDesc.setAttribute('font-size', '11');
+  loopDesc.setAttribute('font-size', '12');
   loopDesc.setAttribute('text-anchor', 'middle');
   const descEN = loopType === 'R' ? 'Reinforcing' : 'Balancing';
   const descTH = loopType === 'R' ? 'เสริมแรง' : 'สมดุล';
