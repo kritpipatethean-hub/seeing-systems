@@ -106,23 +106,38 @@ function initGoodwin() {
     const lambdaStar = (c + alpha) / d;
     const omegaStar = (a - alpha) / b;
 
-    // Start displaced from equilibrium to produce visible orbit
-    let lambda = Math.min(0.95, lambdaStar + 0.10);
-    let omega = Math.max(0.10, omegaStar - 0.06);
+    // Start displaced from equilibrium — scale displacement to available room
+    const dispL = Math.max(0.02, Math.min(0.10, (0.95 - lambdaStar) * 0.6, (lambdaStar - 0.05) * 0.6));
+    const dispO = Math.max(0.02, Math.min(0.06, (omegaStar - 0.05) * 0.6, (0.95 - omegaStar) * 0.6));
+    let lambda = lambdaStar + dispL;
+    let omega = omegaStar - dispO;
 
     const time = [], lambdaHist = [], omegaHist = [];
+
+    // ODE system for RK4
+    function fLambda(l, o) { return l * (a - b * o - alpha); }
+    function fOmega(l, o) { return o * (-c + d * l - alpha); }
 
     for (let i = 0; i <= steps; i++) {
       time.push(i * dt);
       lambdaHist.push(lambda);
       omegaHist.push(omega);
 
-      // Lotka-Volterra ODEs
-      const dLambda = lambda * (a - b * omega - alpha) * dt;
-      const dOmega  = omega * (-c + d * lambda - alpha) * dt;
+      // 4th-order Runge-Kutta (preserves closed orbits, no numerical drift)
+      const k1l = fLambda(lambda, omega);
+      const k1o = fOmega(lambda, omega);
+      const k2l = fLambda(lambda + 0.5 * dt * k1l, omega + 0.5 * dt * k1o);
+      const k2o = fOmega(lambda + 0.5 * dt * k1l, omega + 0.5 * dt * k1o);
+      const k3l = fLambda(lambda + 0.5 * dt * k2l, omega + 0.5 * dt * k2o);
+      const k3o = fOmega(lambda + 0.5 * dt * k2l, omega + 0.5 * dt * k2o);
+      const k4l = fLambda(lambda + dt * k3l, omega + dt * k3o);
+      const k4o = fOmega(lambda + dt * k3l, omega + dt * k3o);
 
-      lambda = Math.max(0.02, Math.min(0.99, lambda + dLambda));
-      omega  = Math.max(0.02, Math.min(0.99, omega + dOmega));
+      lambda += (dt / 6) * (k1l + 2 * k2l + 2 * k3l + k4l);
+      omega  += (dt / 6) * (k1o + 2 * k2o + 2 * k3o + k4o);
+
+      lambda = Math.max(0.02, Math.min(0.99, lambda));
+      omega  = Math.max(0.02, Math.min(0.99, omega));
     }
 
     return {
