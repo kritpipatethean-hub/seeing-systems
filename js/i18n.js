@@ -39,8 +39,8 @@ const i18n = {
     'ch3.label': { en: 'Chapter 3', th: 'บทที่ 3' },
     'ch3.title': { en: 'SD for Economics', th: 'พลวัตระบบสำหรับเศรษฐศาสตร์' },
     'ch3.desc': {
-      en: 'Apply System Dynamics to economic modeling — Minsky cycles, debt dynamics, disequilibrium economics, and financial crisis prediction.',
-      th: 'ประยุกต์พลวัตระบบกับการสร้างแบบจำลองเศรษฐกิจ — วัฏจักร Minsky พลวัตหนี้ เศรษฐศาสตร์ไม่สมดุล และการพยากรณ์วิกฤตการเงิน'
+      en: 'Apply System Dynamics to economics — the Goodwin growth cycle, Minsky\'s debt instability, sectoral balances, and the credit accelerator.',
+      th: 'ประยุกต์พลวัตระบบกับเศรษฐศาสตร์ — วัฏจักรกูดวิน ความไม่เสถียรของหนี้แบบมินสกี ดุลภาคส่วน และตัวเร่งสินเชื่อ'
     },
 
     'ch4.label': { en: 'Chapter 4', th: 'บทที่ 4' },

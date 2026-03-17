@@ -5,29 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chapter 3: SD for Economics — Seeing Systems</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
   <style>
     .chapter-page { background: linear-gradient(180deg, #0a1628 0%, #1a1a2e 30%); }
     .chapter-header { border-bottom: 3px solid var(--ch3-color); }
-    .coming-soon-container {
-      text-align: center;
-      padding: 80px 20px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .coming-soon-container .icon {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      opacity: 0.6;
-    }
-    .coming-soon-container h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      color: var(--ch3-color);
-    }
-    .coming-soon-container p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
+    .phase-hedge { color: #06d6a0; }
+    .phase-speculative { color: #ffd166; }
+    .phase-ponzi { color: #e94560; }
   </style>
 </head>
 <body class="chapter-page fade-in">
@@ -74,28 +61,248 @@
     <p class="ch-desc" data-i18n="ch3.desc">Apply System Dynamics to economic modeling — Minsky cycles, debt dynamics, and disequilibrium economics.</p>
   </header>
 
-  <!-- Coming Soon Content -->
+  <!-- Topic Cards -->
   <section class="chapter-sections">
-    <div class="coming-soon-container">
-      <div class="icon">🚧</div>
-      <h2 data-i18n="coming_soon">Coming Soon</h2>
-      <p data-i18n="ch3.desc">Apply System Dynamics to economic modeling — Minsky cycles, debt dynamics, and disequilibrium economics.</p>
+    <div class="topic-cards">
+      <a href="#goodwin-cycle" class="topic-card">
+        <div class="topic-icon" style="background: var(--ch3-color);">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+        </div>
+        <div><h4 data-i18n-en="Goodwin Growth Cycle" data-i18n-th="วัฏจักรกูดวิน">Goodwin Growth Cycle</h4></div>
+      </a>
+      <a href="#minsky-cycle" class="topic-card">
+        <div class="topic-icon" style="background: var(--accent-4);">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+        </div>
+        <div><h4 data-i18n-en="Minsky's Financial Instability" data-i18n-th="ความไม่เสถียรของมินสกี">Minsky's Financial Instability</h4></div>
+      </a>
+      <a href="#sectoral-balances" class="topic-card">
+        <div class="topic-icon" style="background: var(--accent-3);">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+        </div>
+        <div><h4 data-i18n-en="Why SD for Economics?" data-i18n-th="ทำไมต้อง SD?">Why SD for Economics?</h4></div>
+      </a>
     </div>
 
-    <!-- Navigation -->
-    <div style="text-align: center; margin-top: 40px;">
-      <a href="../ch2/index.html" class="btn btn-secondary" style="padding: 14px 40px; font-size: 1rem;">
-        ← <span data-i18n="ch2.label">Chapter 2</span>: <span data-i18n="ch2.title">SD: The Language of Feedback</span>
+    <!-- Opening Hook -->
+    <div class="section-block">
+      <p data-i18n-en="In 2005, almost no mainstream economist predicted the biggest financial crisis since the Great Depression. But a handful of economists using System Dynamics and stock-flow models saw it coming — because they were watching the <em>structure</em> of the economy, not just its surface numbers." data-i18n-th="ปี 2005 แทบไม่มีนักเศรษฐศาสตร์กระแสหลักทำนายวิกฤตการเงินครั้งใหญ่ที่สุดนับแต่ Great Depression ได้ แต่นักเศรษฐศาสตร์กลุ่มเล็กๆ ที่ใช้พลวัตระบบและแบบจำลองสต็อก-โฟลว์มองเห็นล่วงหน้า — เพราะพวกเขาจับตา<em>โครงสร้าง</em>ของเศรษฐกิจ ไม่ใช่แค่ตัวเลขผิวเผิน">In 2005, almost no mainstream economist predicted the biggest financial crisis since the Great Depression.</p>
+
+      <p data-i18n-en="In Chapter 2, you learned to read the language of System Dynamics — stocks, flows, feedback loops, and system traps. Now we apply that language to the most complex system humans have created: <strong>the economy</strong>." data-i18n-th="ในบทที่ 2 คุณเรียนรู้ภาษาของพลวัตระบบ — สต็อก การไหล วงจรป้อนกลับ และกับดักของระบบ ตอนนี้เราจะเอาภาษานั้นมาอ่านระบบที่ซับซ้อนที่สุดที่มนุษย์สร้างขึ้น: <strong>เศรษฐกิจ</strong>">In Chapter 2, you learned to read the language of System Dynamics.</p>
+    </div>
+
+    <!-- Section 1: Goodwin Growth Cycle -->
+    <div id="goodwin-cycle" class="section-block">
+      <h2 data-i18n-en="The Goodwin Growth Cycle" data-i18n-th="วัฏจักรกูดวิน">The Goodwin Growth Cycle</h2>
+
+      <p data-i18n-en="The economy naturally oscillates — not because of random shocks, but because of its own feedback structure. Employment, wages, and profits are locked in a <strong>predator-prey dance</strong>, just like wolves and rabbits in ecology." data-i18n-th="เศรษฐกิจแกว่งตัวตามธรรมชาติ — ไม่ใช่เพราะเหตุสุ่มจากภายนอก แต่เพราะโครงสร้างป้อนกลับของมันเอง การจ้างงาน ค่าจ้าง และกำไร ถูกล็อกไว้ใน<strong>วงจรนักล่า-เหยื่อ</strong> เหมือนหมาป่ากับกระต่ายในระบบนิเวศ">The economy naturally oscillates.</p>
+
+      <p data-i18n-en="Here's the cycle: high employment → workers demand higher wages → profits shrink → firms invest less → employment falls → wages drop → profits recover → investment rises → and the cycle repeats. This is the <strong>Goodwin Growth Cycle</strong> (1967) — the simplest SD model that produces realistic economic oscillations." data-i18n-th="นี่คือวัฏจักร: การจ้างงานสูง → คนงานเรียกร้องค่าจ้างสูงขึ้น → กำไรหด → บริษัทลงทุนน้อยลง → การจ้างงานตก → ค่าจ้างลด → กำไรฟื้น → การลงทุนเพิ่ม → แล้ววนรอบ นี่คือ<strong>วัฏจักรกูดวิน (Goodwin Growth Cycle, 1967)</strong> — แบบจำลอง SD ที่เรียบง่ายที่สุดที่สร้างการแกว่งตัวทางเศรษฐกิจได้สมจริง">Here's the cycle: high employment leads to higher wages.</p>
+
+      <p data-i18n-en="Remember the <em>oscillation</em> pattern from Chapter 2? Here it is in the real world. The math describes two stocks — employment rate (λ) and wage share (ω) — chasing each other in circles:" data-i18n-th="จำรูปแบบ<em>การแกว่ง</em>จากบทที่ 2 ได้ไหม? นี่คือมันในโลกจริง สมการอธิบายสต็อกสองตัว — อัตราการจ้างงาน (λ) และสัดส่วนค่าจ้าง (ω) — ที่ไล่ล่ากันเป็นวงกลม:">Remember the oscillation pattern from Chapter 2?</p>
+
+      <div class="equation">
+        $$\frac{d\lambda}{dt} = \lambda \left[ \frac{\kappa(1-\omega)}{v} - (\alpha + \beta) \right]$$
+        $$\frac{d\omega}{dt} = \omega \left[ \Phi(\lambda) - \alpha \right]$$
+      </div>
+
+      <div class="content-row">
+        <div class="content-text">
+          <p data-i18n-en="Adjust wage sensitivity and productivity growth below to see how the cycle changes. Higher wage sensitivity creates larger swings:" data-i18n-th="ลองปรับความไวของค่าจ้างและอัตราเติบโตผลิตภาพด้านล่าง แล้วดูว่าวัฏจักรเปลี่ยนอย่างไร ค่าจ้างไวมาก = วงจรแกว่งกว้างกว่า:">Adjust wage sensitivity and productivity growth below.</p>
+
+          <div class="slider-group">
+            <label data-i18n-en="Wage Sensitivity" data-i18n-th="ความไวของค่าจ้าง">Wage Sensitivity</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">0.5</span>
+              <input type="range" id="goodwin-wage-sensitivity" min="0.5" max="3" step="0.1" value="1.5" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">3</span>
+              <span id="goodwin-wage-val" style="min-width: 30px; text-align: center; color: var(--accent-3); font-weight: bold;">1.5</span>
+            </div>
+          </div>
+
+          <div class="slider-group">
+            <label data-i18n-en="Productivity Growth" data-i18n-th="การเติบโตของผลิตภาพ">Productivity Growth</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">0%</span>
+              <input type="range" id="goodwin-productivity" min="0" max="5" step="0.5" value="2" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">5%</span>
+              <span id="goodwin-prod-val" style="min-width: 30px; text-align: center; color: var(--accent-4); font-weight: bold;">2</span>
+            </div>
+          </div>
+
+          <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn btn-primary" id="goodwin-run" data-i18n="interactive.run">Run Simulation</button>
+            <button class="btn btn-secondary" id="goodwin-reset" data-i18n="interactive.reset">Reset</button>
+          </div>
+
+          <div id="goodwin-result" class="result-panel" style="display:none; margin-top: 15px; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.9rem;"></div>
+        </div>
+
+        <div class="content-interactive" id="goodwin-sim">
+          <div class="interactive-title" style="color: var(--ch3-color);" data-i18n-en="Goodwin Growth Cycle" data-i18n-th="วัฏจักรกูดวิน">Goodwin Growth Cycle</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+
+      <div class="info-box warning" style="margin-top: 20px;">
+        <p data-i18n-en="<strong>Try it:</strong> Run with default settings to see the natural oscillation. Then increase wage sensitivity to 2.5 — watch the swings get wild. Set productivity to 0% — see the economy stagnate. The same predator-prey dynamic drives real business cycles." data-i18n-th="<strong>ลองดู:</strong> กดจำลองด้วยค่าเริ่มต้นเพื่อดูการแกว่งตามธรรมชาติ จากนั้นเพิ่มความไวค่าจ้างเป็น 2.5 — ดูวงจรแกว่งรุนแรง ตั้งผลิตภาพเป็น 0% — ดูเศรษฐกิจซบเซา พลวัตนักล่า-เหยื่อแบบเดียวกันนี้ขับเคลื่อนวัฏจักรธุรกิจจริง"><strong>Try it:</strong> Run with default settings to see the natural oscillation.</p>
+      </div>
+    </div>
+
+    <!-- Section 2: Minsky's Financial Instability -->
+    <div id="minsky-cycle" class="section-block">
+      <h2 data-i18n-en="Minsky's Financial Instability" data-i18n-th="ความไม่เสถียรทางการเงินของมินสกี">Minsky's Financial Instability</h2>
+
+      <p data-i18n-en="Think of the bathtub from Chapter 2. <strong>Debt is a stock.</strong> Borrowing is the inflow. Repayment is the outflow. When borrowing exceeds repayment year after year, debt rises — slowly at first, then explosively." data-i18n-th="นึกถึงอ่างน้ำจากบทที่ 2 <strong>หนี้คือสต็อก</strong> การกู้ยืมคือน้ำไหลเข้า การชำระคืนคือน้ำไหลออก เมื่อกู้มากกว่าชำระปีแล้วปีเล่า หนี้ก็สะสม — ช้าๆ ในตอนแรก แล้วก็ระเบิด">Think of the bathtub from Chapter 2. Debt is a stock.</p>
+
+      <p data-i18n-en="Hyman Minsky (1992) identified three phases of financing that economies cycle through: <strong class='phase-hedge'>Hedge</strong> (income covers all debt payments — safe), <strong class='phase-speculative'>Speculative</strong> (income covers interest but not principal — risky), and <strong class='phase-ponzi'>Ponzi</strong> (income can't even cover interest — must borrow more to survive). The terrifying insight: <em>stability itself breeds instability</em>, because success makes people take bigger risks." data-i18n-th="Hyman Minsky (1992) ระบุ 3 ระยะของการกู้ยืมที่เศรษฐกิจวนผ่าน: <strong class='phase-hedge'>Hedge</strong> (รายได้ครอบคลุมหนี้ทั้งหมด — ปลอดภัย) <strong class='phase-speculative'>Speculative</strong> (รายได้พอจ่ายดอกเบี้ย แต่ไม่พอจ่ายเงินต้น — เสี่ยง) และ <strong class='phase-ponzi'>Ponzi</strong> (รายได้ไม่พอแม้แต่จ่ายดอกเบี้ย — ต้องกู้เพิ่มเพื่ออยู่รอด) ข้อค้นพบที่น่ากลัวคือ: <em>เสถียรภาพเองนั่นแหละที่ก่อความไม่เสถียร</em> เพราะความสำเร็จทำให้คนกล้าเสี่ยงมากขึ้น">Hyman Minsky identified three phases of financing.</p>
+
+      <p data-i18n-en="The debt dynamics are captured in a simple stock-flow equation — the same language you learned in Chapter 2:" data-i18n-th="พลวัตของหนี้ถูกจับด้วยสมการสต็อก-โฟลว์อย่างง่าย — ภาษาเดียวกับที่เรียนในบทที่ 2:">The debt dynamics are captured in a simple stock-flow equation.</p>
+
+      <div class="equation">
+        $$\frac{dD}{dt} = I - \Pi \quad \text{(Debt = Investment − Profits)}$$
+        $$d = \frac{D}{Y}, \quad \frac{dd}{dt} = d(r - g) + \left(\frac{I}{Y} - \frac{\Pi}{Y}\right)$$
+      </div>
+
+      <div class="content-row">
+        <div class="content-text">
+          <p data-i18n-en="Control the <strong>animal spirits</strong> (investment confidence) and <strong>interest rate</strong>. Watch how the economy transitions through Minsky's three phases:" data-i18n-th="ควบคุม<strong>จิตวิญญาณสัตว์ (Animal Spirits)</strong> ความมั่นใจในการลงทุน และ<strong>อัตราดอกเบี้ย</strong> ดูว่าเศรษฐกิจเปลี่ยนผ่าน 3 ระยะของมินสกีอย่างไร:">Control the animal spirits and interest rate.</p>
+
+          <div class="slider-group">
+            <label data-i18n-en="Animal Spirits" data-i18n-th="Animal Spirits (ความมั่นใจ)">Animal Spirits</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">0.5</span>
+              <input type="range" id="minsky-animal-spirits" min="0.5" max="2" step="0.1" value="1" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">2</span>
+              <span id="minsky-spirits-val" style="min-width: 30px; text-align: center; color: var(--accent-4); font-weight: bold;">1</span>
+            </div>
+          </div>
+
+          <div class="slider-group">
+            <label data-i18n-en="Interest Rate" data-i18n-th="อัตราดอกเบี้ย">Interest Rate</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">1%</span>
+              <input type="range" id="minsky-interest" min="1" max="10" step="0.5" value="3" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">10%</span>
+              <span id="minsky-interest-val" style="min-width: 30px; text-align: center; color: var(--accent-1); font-weight: bold;">3</span>
+            </div>
+          </div>
+
+          <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn btn-primary" id="minsky-run" data-i18n="interactive.run">Run Simulation</button>
+            <button class="btn btn-secondary" id="minsky-reset" data-i18n="interactive.reset">Reset</button>
+          </div>
+
+          <div id="minsky-result" class="result-panel" style="display:none; margin-top: 15px; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.9rem;"></div>
+        </div>
+
+        <div class="content-interactive" id="minsky-sim">
+          <div class="interactive-title" style="color: var(--accent-4);" data-i18n-en="Minsky Debt Cycle" data-i18n-th="วัฏจักรหนี้มินสกี">Minsky Debt Cycle</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+
+      <div class="info-box warning" style="margin-top: 20px;">
+        <p data-i18n-en="<strong>Try it:</strong> Set animal spirits to 1.0, interest 3% — stable growth for decades. Now push animal spirits to 1.8 — watch the economy boom, then crash as debt explodes. Try interest rate at 8% — crisis comes even faster. The 2008 financial crisis was not a black swan; it was a bathtub overflowing." data-i18n-th="<strong>ลองดู:</strong> ตั้ง Animal Spirits 1.0 ดอกเบี้ย 3% — เศรษฐกิจโตสวยหลายสิบปี ลองดัน Animal Spirits เป็น 1.8 — ดูเศรษฐกิจบูม แล้วพังเมื่อหนี้ระเบิด ลองดอกเบี้ย 8% — วิกฤตมาเร็วกว่าเดิม วิกฤตการเงิน 2008 ไม่ใช่หงส์ดำ แต่เป็นอ่างน้ำที่ล้น"><strong>Try it:</strong> Set animal spirits to 1.0, interest 3%.</p>
+      </div>
+    </div>
+
+    <!-- Section 3: Why SD for Economics? / Sectoral Balances -->
+    <div id="sectoral-balances" class="section-block">
+      <h2 data-i18n-en="Why SD for Economics?" data-i18n-th="ทำไมต้อง SD สำหรับเศรษฐศาสตร์?">Why SD for Economics?</h2>
+
+      <p data-i18n-en="Mainstream economics studies the bathtub only when the water is perfectly still. System Dynamics says: <strong>the water is never still.</strong> Inflows and outflows are always changing, delays are everywhere, and feedback loops drive everything." data-i18n-th="เศรษฐศาสตร์กระแสหลักศึกษาอ่างน้ำเฉพาะตอนที่น้ำนิ่งสนิท พลวัตระบบบอกว่า: <strong>น้ำไม่เคยนิ่ง</strong> น้ำไหลเข้าไหลออกเปลี่ยนตลอด ความล่าช้ามีอยู่ทุกที่ และวงจรป้อนกลับขับเคลื่อนทุกอย่าง">Mainstream economics studies the bathtub only when the water is still.</p>
+
+      <p data-i18n-en="One powerful tool is the <strong>Sectoral Balances Identity</strong>: the government balance + trade balance + private balance must ALWAYS equal zero. This is not theory — it's accounting arithmetic. If the government runs a surplus while trade is balanced, the private sector <em>must</em> run a deficit. No exceptions." data-i18n-th="เครื่องมือทรงพลังอย่างหนึ่งคือ<strong>เอกลักษณ์ดุลภาคส่วน (Sectoral Balances)</strong>: ดุลภาครัฐ + ดุลการค้า + ดุลภาคเอกชน ต้องเท่ากับศูนย์<em>เสมอ</em> นี่ไม่ใช่ทฤษฎี — มันคือเลขคณิตทางบัญชี ถ้ารัฐเกินดุลขณะที่การค้าสมดุล ภาคเอกชน<em>ต้อง</em>ขาดดุล ไม่มีข้อยกเว้น">One powerful tool is the Sectoral Balances Identity.</p>
+
+      <p data-i18n-en="Another key insight from Steve Keen (2013): it's not the <em>level</em> of debt that predicts crises, but the <strong>acceleration</strong> of credit — how fast borrowing is speeding up. This <strong>Credit Accelerator</strong> correlates strongly with employment and asset prices." data-i18n-th="อีกข้อค้นพบสำคัญจาก Steve Keen (2013): ไม่ใช่<em>ระดับ</em>หนี้ที่ทำนายวิกฤต แต่เป็น<strong>อัตราเร่ง</strong>ของสินเชื่อ — การกู้ยืมเร่งตัวเร็วแค่ไหน <strong>ตัวเร่งสินเชื่อ (Credit Accelerator)</strong> นี้สัมพันธ์อย่างแน่นกับการจ้างงานและราคาสินทรัพย์">Another key insight from Steve Keen (2013).</p>
+
+      <div class="equation">
+        $$(G - T) + (X - M) + (S - I) = 0$$
+      </div>
+
+      <div class="content-row">
+        <div class="content-text">
+          <p data-i18n-en="Adjust government spending and private credit growth. Watch how the sectors balance — and how credit acceleration drives the economy:" data-i18n-th="ลองปรับการใช้จ่ายภาครัฐและการเติบโตของสินเชื่อภาคเอกชน ดูว่าภาคส่วนต่างๆ สมดุลกันอย่างไร — และอัตราเร่งสินเชื่อขับเคลื่อนเศรษฐกิจอย่างไร:">Adjust government spending and private credit growth.</p>
+
+          <div class="slider-group">
+            <label data-i18n-en="Government Spending Growth" data-i18n-th="การเติบโตรายจ่ายภาครัฐ">Government Spending Growth</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">-2%</span>
+              <input type="range" id="sectoral-govt" min="-2" max="5" step="0.5" value="2" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">5%</span>
+              <span id="sectoral-govt-val" style="min-width: 30px; text-align: center; color: var(--accent-3); font-weight: bold;">2</span>
+            </div>
+          </div>
+
+          <div class="slider-group">
+            <label data-i18n-en="Credit Growth" data-i18n-th="การเติบโตสินเชื่อ">Credit Growth</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">-5%</span>
+              <input type="range" id="sectoral-credit" min="-5" max="10" step="0.5" value="3" style="flex:1;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">10%</span>
+              <span id="sectoral-credit-val" style="min-width: 30px; text-align: center; color: var(--accent-4); font-weight: bold;">3</span>
+            </div>
+          </div>
+
+          <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn btn-primary" id="sectoral-run" data-i18n="interactive.run">Run Simulation</button>
+            <button class="btn btn-secondary" id="sectoral-reset" data-i18n="interactive.reset">Reset</button>
+          </div>
+
+          <div id="sectoral-result" class="result-panel" style="display:none; margin-top: 15px; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.9rem;"></div>
+        </div>
+
+        <div class="content-interactive" id="sectoral-sim">
+          <div class="interactive-title" style="color: var(--accent-3);" data-i18n-en="Sectoral Balances & Credit Accelerator" data-i18n-th="ดุลภาคส่วนและตัวเร่งสินเชื่อ">Sectoral Balances & Credit Accelerator</div>
+          <div class="viz-area"></div>
+        </div>
+      </div>
+
+      <div class="info-box warning" style="margin-top: 20px;">
+        <p data-i18n-en="<strong>Try it:</strong> Set government spending to 3% — notice the private sector runs a surplus. Now cut to -1% (austerity) — private sector is forced into deficit. Increase credit growth to 8% — watch employment boom, then bust as acceleration reverses. <strong>Key lesson:</strong> One sector's surplus is always another's deficit." data-i18n-th="<strong>ลองดู:</strong> ตั้งรายจ่ายรัฐ 3% — สังเกตว่าภาคเอกชนเกินดุล ลองตัดเหลือ -1% (รัดเข็มขัด) — ภาคเอกชนถูกบังคับให้ขาดดุล เพิ่มสินเชื่อเป็น 8% — ดูการจ้างงานบูม แล้วพังเมื่ออัตราเร่งกลับทิศ <strong>บทเรียนสำคัญ:</strong> เกินดุลของภาคหนึ่ง คือขาดดุลของอีกภาคเสมอ"><strong>Try it:</strong> Set government spending to 3%.</p>
+      </div>
+    </div>
+
+    <!-- Key Insight Box -->
+    <div class="section-block">
+      <div class="info-box" style="border-left-color: var(--ch3-color);">
+        <p data-i18n-en="<strong>Key Insight:</strong> System Dynamics reveals what equilibrium economics misses — the accumulation of stocks like debt, the feedback loops between confidence and leverage, and the delays that make crashes inevitable. The economy is not a machine seeking balance. It is a living system driven by reinforcing and balancing feedback loops." data-i18n-th="<strong>หลักสำคัญ:</strong> พลวัตระบบเผยให้เห็นสิ่งที่เศรษฐศาสตร์ดุลยภาพมองไม่เห็น — การสะสมของสต็อกอย่างหนี้ วงจรป้อนกลับระหว่างความมั่นใจกับการก่อหนี้ และความล่าช้าที่ทำให้วิกฤตหลีกเลี่ยงไม่ได้ เศรษฐกิจไม่ใช่เครื่องจักรที่แสวงหาสมดุล แต่เป็นระบบมีชีวิตที่ถูกขับเคลื่อนด้วยวงจรเสริมแรงและวงจรสมดุล"><strong>Key Insight:</strong> System Dynamics reveals what equilibrium economics misses.</p>
+      </div>
+
+      <div class="info-box" style="margin-top: 20px; border-left-color: var(--accent-2);">
+        <p data-i18n-en="SD models the economy from the top down — aggregate stocks and flows. But what if we modeled individual workers, firms, and banks making decisions from the bottom up? That is <strong>Agent-Based Modeling</strong>, the subject of Chapter 4." data-i18n-th="SD จำลองเศรษฐกิจจากบนลงล่าง — สต็อกและโฟลว์ในภาพรวม แต่ถ้าเราจำลองคนงาน บริษัท และธนาคารแต่ละรายตัดสินใจจากล่างขึ้นบนล่ะ? นั่นคือ <strong>การจำลองฐานตัวแทน (Agent-Based Modeling)</strong> เนื้อหาของบทที่ 4">SD models the economy from the top down. But what about the bottom up?</p>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="references">
+      <h3 data-i18n="nav.references">References</h3>
+      <ol>
+        <li>Goodwin, R. M. (1967). A Growth Cycle. In C. H. Feinstein (Ed.), <em>Socialism, Capitalism, and Economic Growth</em> (pp. 54–58). Cambridge University Press.</li>
+        <li>Minsky, H. P. (1992). The Financial Instability Hypothesis. <em>Working Paper No. 74</em>, Levy Economics Institute.</li>
+        <li>Keen, S. (2013). Predicting the 'Global Financial Crisis': Post-Keynesian Macroeconomics. <em>Economic Record</em>, 89(285), 228–254.</li>
+        <li>Radzicki, M. J., & Tauheed, L. (2009). In Defense of System Dynamics. <em>Journal of Economic Issues</em>, 43(1), 209–221.</li>
+      </ol>
+    </div>
+
+    <!-- Chapter Navigation -->
+    <div style="display: flex; justify-content: space-between; margin-top: 60px; flex-wrap: wrap; gap: 10px;">
+      <a href="../ch2/index.html" class="btn btn-secondary" style="padding: 14px 30px; font-size: 1rem;">
+        ← <span data-i18n="ch2.label">Chapter 2</span>
+      </a>
+      <a href="../ch4/index.html" class="btn btn-primary" style="padding: 14px 30px; font-size: 1rem;">
+        <span data-i18n="ch4.label">Chapter 4</span>: <span data-i18n="ch4.title">ABM: Thinking from the Bottom Up</span> →
       </a>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2026 Seeing Systems. <span data-i18n="footer.text">Built for learning System Dynamics.</span></p>
   </footer>
 
   <script src="../../js/i18n.js"></script>
   <script src="../../js/main.js"></script>
+  <script src="../../js/chapters/ch3.js"></script>
 </body>
 </html>

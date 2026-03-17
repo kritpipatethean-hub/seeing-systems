@@ -18,6 +18,18 @@
     "chapters": [2, 3]
   },
   {
+    "id": "goodwin1967",
+    "citation": "Goodwin, R. M. (1967). A Growth Cycle. In C. H. Feinstein (Ed.), Socialism, Capitalism, and Economic Growth (pp. 54–58). Cambridge University Press.",
+    "topic": ["growth cycle", "predator-prey", "employment", "wage share"],
+    "chapters": [3]
+  },
+  {
+    "id": "minsky1992",
+    "citation": "Minsky, H. P. (1992). The Financial Instability Hypothesis. Working Paper No. 74, Levy Economics Institute of Bard College.",
+    "topic": ["financial instability", "Ponzi finance", "debt dynamics", "business cycles"],
+    "chapters": [3]
+  },
+  {
     "id": "keen2013",
     "citation": "Keen, S. (2013). Predicting the 'Global Financial Crisis': Post-Keynesian Macroeconomics. Economic Record, 89(285), 228–254.",
     "topic": ["post-Keynesian", "financial crisis", "Minsky", "debt dynamics"],
