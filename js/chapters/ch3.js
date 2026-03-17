@@ -590,6 +590,8 @@ function initMinsky() {
     simData = null;
     animFrame = 0;
     isRunning = false;
+    if (spiritsSlider) { spiritsSlider.value = 1; if (spiritsVal) spiritsVal.textContent = '1'; }
+    if (interestSlider) { interestSlider.value = 3; if (interestVal) interestVal.textContent = '3'; }
     if (resultPanel) { resultPanel.innerHTML = ''; resultPanel.style.display = 'none'; }
     draw();
   });
@@ -597,14 +599,14 @@ function initMinsky() {
   function runMinskySim() {
     const animalSpirits = parseFloat(spiritsSlider?.value || 1.0);
     const interestRate = parseFloat(interestSlider?.value || 3);
-    const v = 3.0;
-    const dt = 0.5;
+    const v = 3.0;        // capital-output ratio
+    const dt = 0.25;      // smaller step for stability
     const totalYears = 50;
     const steps = Math.floor(totalYears / dt);
 
-    let Y = 100;  // GDP
-    let D = 30;   // Debt
-    let omega = 0.6; // Wage share
+    let Y = 100;          // GDP
+    let D = 20;            // Debt (lower start to show accumulation)
+    let omega = 0.75;      // Wage share (higher = thinner profit margins)
 
     const time = [];
     const gdpGrowth = [];
@@ -615,28 +617,31 @@ function initMinsky() {
     for (let i = 0; i <= steps; i++) {
       const t = i * dt;
 
-      // Compute metrics
+      // Profits are what remains after wages
       const profits = (1 - omega) * Y;
       const profitRate = profits / (v * Y);
 
-      // Investment depends on profit rate and animal spirits
-      const investRate = 0.05 + animalSpirits * 0.1 * Math.tanh(5 * (profitRate - 0.04));
+      // Investment: animal spirits amplifies response to profit rate
+      const investRate = 0.03 + animalSpirits * 0.08 * (1 + Math.tanh(8 * (profitRate - 0.05)));
       const investment = investRate * Y;
 
-      // Debt accumulates
+      // Interest payments on existing debt
       const interestPayment = (interestRate / 100) * D;
-      const borrowing = Math.max(0, investment - profits) + interestPayment * 0.3;
-      const repayment = 0.05 * D;
+
+      // Firms borrow when investment + interest > profits
+      const netNeed = investment + interestPayment - profits;
+      const borrowing = Math.max(0, netNeed);
+      const repayment = 0.04 * D;
       const dD = borrowing - repayment;
 
-      // GDP growth
-      const g = investment / (v * Y) - 0.03; // minus depreciation
-      const dtgGrowth = g * 100; // as percentage
+      // GDP growth from capital accumulation minus depreciation
+      const g = investment / (v * Y) - 0.03;
+      const dtgGrowth = g * 100;
 
       // Debt-to-GDP ratio
       const ratio = (D / Math.max(Y, 1)) * 100;
 
-      // Phase classification
+      // Phase classification (Minsky's Financial Instability Hypothesis)
       let phase;
       if (profits > interestPayment + repayment) {
         phase = 'hedge';
@@ -655,8 +660,16 @@ function initMinsky() {
       // Update state
       D = Math.max(0, D + dD * dt);
       Y = Math.max(1, Y * (1 + g * dt));
-      omega += 0.01 * (0.6 - omega) * dt; // mean-reverting
-      omega = Math.max(0.1, Math.min(0.9, omega));
+
+      // Wage share dynamics (Phillips curve style):
+      // Strong growth -> tight labor -> rising wages -> squeezed profits
+      omega += 0.015 * (g - 0.005) * dt;
+      omega = Math.max(0.4, Math.min(0.95, omega));
+
+      // Debt crisis feedback: when interest exceeds profits, GDP contracts
+      if (interestPayment > profits && D > 0) {
+        Y *= (1 - 0.01 * dt);
+      }
 
       // Safety clamps
       if (!isFinite(D)) D = 1000;
@@ -793,7 +806,7 @@ function initMinsky() {
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = 'rgba(233,69,96,0.7)';
-    ctx.font = '9px Arial';
+    ctx.font = '10px Arial';
     ctx.textAlign = 'left';
     ctx.fillText(isTH ? 'เขตอันตราย 150%' : 'Danger 150%', px + 4, dangerY - 4);
 
@@ -853,7 +866,7 @@ function initMinsky() {
 
     // Left Y-axis labels (GDP Growth %)
     ctx.fillStyle = '#06d6a0';
-    ctx.font = '9px Arial';
+    ctx.font = '10px Arial';
     ctx.textAlign = 'right';
     const gdpTicks = [-10, -5, 0, 5, 10, 15];
     for (const val of gdpTicks) {
@@ -876,6 +889,7 @@ function initMinsky() {
 
     // X-axis labels
     ctx.fillStyle = '#aaa';
+    ctx.font = '10px Arial';
     ctx.textAlign = 'center';
     for (let i = 0; i <= 5; i++) {
       ctx.fillText((i * 10).toString(), px + (i / 5) * plotW, py + plotH + 15);
@@ -887,7 +901,7 @@ function initMinsky() {
     ctx.translate(12, h / 2);
     ctx.rotate(-Math.PI / 2);
     ctx.fillStyle = '#06d6a0';
-    ctx.font = '10px Arial';
+    ctx.font = '11px Arial';
     ctx.textAlign = 'center';
     ctx.fillText(isTH ? 'การเติบโต GDP (%)' : 'GDP Growth (%)', 0, 0);
     ctx.restore();
@@ -896,7 +910,7 @@ function initMinsky() {
     ctx.translate(w - 8, h / 2);
     ctx.rotate(Math.PI / 2);
     ctx.fillStyle = '#ffd166';
-    ctx.font = '10px Arial';
+    ctx.font = '11px Arial';
     ctx.textAlign = 'center';
     ctx.fillText(isTH ? 'หนี้/GDP (%)' : 'Debt/GDP (%)', 0, 0);
     ctx.restore();
@@ -905,40 +919,40 @@ function initMinsky() {
     const lx = px + 8;
     const ly = py + 8;
     ctx.fillStyle = 'rgba(22,33,62,0.85)';
-    ctx.fillRect(lx, ly, 140, 60);
+    ctx.fillRect(lx, ly, 130, 80);
     ctx.strokeStyle = 'rgba(255,255,255,0.15)';
     ctx.lineWidth = 1;
-    ctx.strokeRect(lx, ly, 140, 60);
+    ctx.strokeRect(lx, ly, 130, 80);
 
-    ctx.font = '9px Arial';
+    ctx.font = '10px Arial';
     ctx.textAlign = 'left';
 
-    // GDP Growth
+    // GDP Growth line
     ctx.strokeStyle = '#06d6a0';
     ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(lx + 5, ly + 12); ctx.lineTo(lx + 20, ly + 12); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(lx + 5, ly + 13); ctx.lineTo(lx + 20, ly + 13); ctx.stroke();
     ctx.fillStyle = '#06d6a0';
-    ctx.fillText(isTH ? 'การเติบโต GDP' : 'GDP Growth', lx + 25, ly + 15);
+    ctx.fillText(isTH ? 'การเติบโต GDP' : 'GDP Growth', lx + 25, ly + 16);
 
-    // Debt/GDP
+    // Debt/GDP line
     ctx.strokeStyle = '#ffd166';
     ctx.lineWidth = 2.5;
-    ctx.beginPath(); ctx.moveTo(lx + 5, ly + 26); ctx.lineTo(lx + 20, ly + 26); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(lx + 5, ly + 28); ctx.lineTo(lx + 20, ly + 28); ctx.stroke();
     ctx.fillStyle = '#ffd166';
-    ctx.fillText(isTH ? 'หนี้/GDP' : 'Debt/GDP', lx + 25, ly + 29);
+    ctx.fillText(isTH ? 'หนี้/GDP' : 'Debt/GDP', lx + 25, ly + 31);
 
-    // Phase legend
-    const phaseColors = { hedge: '#06d6a0', speculative: '#ffd166', ponzi: '#e94560' };
-    const phaseLabels = isTH
-      ? { hedge: 'Hedge', speculative: 'Speculative', ponzi: 'Ponzi' }
-      : { hedge: 'Hedge', speculative: 'Speculative', ponzi: 'Ponzi' };
-    let phx = lx + 5;
-    const phy = ly + 42;
-    for (const [key, color] of Object.entries(phaseColors)) {
-      ctx.fillStyle = color;
-      ctx.fillRect(phx, phy - 4, 8, 8);
-      ctx.fillText(phaseLabels[key], phx + 12, phy + 4);
-      phx += 44;
+    // Phase legend — vertical layout (no overlap)
+    const phaseItems = [
+      { color: '#06d6a0', label: 'Hedge' },
+      { color: '#ffd166', label: 'Speculative' },
+      { color: '#e94560', label: 'Ponzi' }
+    ];
+    let phaseY = ly + 45;
+    for (const item of phaseItems) {
+      ctx.fillStyle = item.color;
+      ctx.fillRect(lx + 5, phaseY - 4, 8, 8);
+      ctx.fillText(item.label, lx + 17, phaseY + 4);
+      phaseY += 12;
     }
   }
 
