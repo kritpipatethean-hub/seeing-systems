@@ -91,11 +91,12 @@ function initGoodwin() {
     const totalYears = 40;
     const steps = Math.floor(totalYears / dt);
 
-    // Base parameters → equilibrium at λ*≈0.75, ω*≈0.60 when α=0.02
-    const a = 0.08;     // base growth potential
-    const b = 0.10;     // profit-squeeze coefficient
-    const c0 = 0.075;   // base wage decline rate
-    const d0 = 0.10;    // employment-to-wage boost
+    // Base parameters → equilibrium at λ*≈0.73, ω*≈0.64 when α=0.02
+    // Larger values = faster oscillation (~12 yr period at default)
+    const a = 0.50;     // base growth potential
+    const b = 0.75;     // profit-squeeze coefficient
+    const c0 = 0.35;    // base wage decline rate
+    const d0 = 0.50;    // employment-to-wage boost
 
     // wageSens scales the wage response speed (c and d together, preserving λ*)
     const c = c0 * wageSens;
@@ -106,8 +107,8 @@ function initGoodwin() {
     const omegaStar = (a - alpha) / b;
 
     // Start displaced from equilibrium to produce visible orbit
-    let lambda = Math.min(0.95, lambdaStar + 0.07);
-    let omega = Math.max(0.10, omegaStar - 0.04);
+    let lambda = Math.min(0.95, lambdaStar + 0.10);
+    let omega = Math.max(0.10, omegaStar - 0.06);
 
     const time = [], lambdaHist = [], omegaHist = [];
 
@@ -134,7 +135,7 @@ function initGoodwin() {
 
   function animate() {
     if (!simData || !isRunning) return;
-    animFrame += 4;
+    animFrame += 8;
     if (animFrame >= simData.totalFrames) {
       animFrame = simData.totalFrames - 1;
       isRunning = false;
@@ -157,12 +158,12 @@ function initGoodwin() {
     const ampL = ((maxL - minL) * 100).toFixed(0);
     const ampO = ((maxO - minO) * 100).toFixed(0);
 
-    // Find peaks for cycle period
+    // Find peaks for cycle period (smaller gap for faster cycles)
     const peaks = [];
-    for (let i = 20; i < lambdas.length - 20; i++) {
-      if (lambdas[i] > lambdas[i - 10] && lambdas[i] > lambdas[i + 10] &&
+    for (let i = 15; i < lambdas.length - 15; i++) {
+      if (lambdas[i] > lambdas[i - 8] && lambdas[i] > lambdas[i + 8] &&
           lambdas[i] >= lambdas[i - 1] && lambdas[i] >= lambdas[i + 1]) {
-        if (peaks.length === 0 || i - peaks[peaks.length - 1] > 50) peaks.push(i);
+        if (peaks.length === 0 || i - peaks[peaks.length - 1] > 30) peaks.push(i);
       }
     }
 
