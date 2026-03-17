@@ -30,10 +30,10 @@ const i18n = {
     },
 
     'ch2.label': { en: 'Chapter 2', th: 'บทที่ 2' },
-    'ch2.title': { en: 'SD: The Language of Feedback', th: 'พลวัตระบบ: ภาษาแห่งการป้อนกลับ' },
+    'ch2.title': { en: 'SD: The Language of Feedback', th: 'พลวัตระบบ: ภาษาของวงจรป้อนกลับ' },
     'ch2.desc': {
       en: 'Master the tools and language of System Dynamics — stock-flow diagrams, behavior patterns, system archetypes, and leverage points.',
-      th: 'เชี่ยวชาญเครื่องมือและภาษาของพลวัตระบบ — แผนภาพสต็อก-กระแส รูปแบบพฤติกรรม อาร์คีไทป์ของระบบ และจุดงัด'
+      th: 'เรียนรู้เครื่องมือหลักของพลวัตระบบ — แผนภาพสต็อก-โฟลว์ รูปแบบพฤติกรรม กับดักของระบบ และจุดงัด'
     },
 
     'ch3.label': { en: 'Chapter 3', th: 'บทที่ 3' },

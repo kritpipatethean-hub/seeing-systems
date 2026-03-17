@@ -66,13 +66,13 @@
         <div class="topic-icon" style="background: var(--ch2-color);">
           <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 6V4h10v2M7 18v2h10v-2"/></svg>
         </div>
-        <div><h4 data-i18n-en="Stocks & Flows" data-i18n-th="สต็อกและกระแส">Stocks & Flows</h4></div>
+        <div><h4 data-i18n-en="Stocks & Flows" data-i18n-th="ตัวสะสมและการไหล">Stocks & Flows</h4></div>
       </a>
       <a href="#behavior-patterns" class="topic-card">
         <div class="topic-icon" style="background: var(--accent-4);">
           <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
         </div>
-        <div><h4 data-i18n-en="Behavior Patterns" data-i18n-th="รูปแบบพฤติกรรม">Behavior Patterns</h4></div>
+        <div><h4 data-i18n-en="Behavior Patterns" data-i18n-th="รูปแบบพฤติกรรมของระบบ">Behavior Patterns</h4></div>
       </a>
       <a href="#system-traps" class="topic-card">
         <div class="topic-icon" style="background: var(--accent-1);">
@@ -84,13 +84,13 @@
 
     <!-- Section 1: Stocks & Flows -->
     <div id="stocks-flows" class="section-block">
-      <h2 data-i18n-en="Stocks & Flows" data-i18n-th="สต็อกและกระแส">Stocks & Flows</h2>
+      <h2 data-i18n-en="Stocks & Flows" data-i18n-th="ตัวสะสมและการไหล">Stocks & Flows</h2>
 
-      <p data-i18n-en="Every system has something that accumulates — water in a bathtub, money in a savings account, carbon in the atmosphere. In System Dynamics, we call this a <strong>stock</strong>. It is anything you can measure at a single point in time." data-i18n-th="ทุกระบบมีสิ่งที่สะสมอยู่ — น้ำในอ่างอาบน้ำ เงินในบัญชีออมทรัพย์ คาร์บอนในชั้นบรรยากาศ ในพลวัตระบบ เราเรียกสิ่งนี้ว่า <strong>สต็อก</strong> คือสิ่งใดก็ตามที่คุณวัดได้ ณ จุดเวลาหนึ่ง">Every system has something that accumulates.</p>
+      <p data-i18n-en="Every system has something that accumulates — water in a bathtub, money in a savings account, carbon in the atmosphere. In System Dynamics, we call this a <strong>stock</strong>. It is anything you can measure at a single point in time." data-i18n-th="ทุกระบบมีบางอย่างที่ค่อยๆ สะสม — น้ำในอ่าง เงินในบัญชี คาร์บอนในชั้นบรรยากาศ ในพลวัตระบบ เราเรียกสิ่งนี้ว่า <strong>สต็อก (Stock)</strong> คือปริมาณที่วัดได้ ณ เวลาใดเวลาหนึ่ง">Every system has something that accumulates.</p>
 
-      <p data-i18n-en="What changes a stock? <strong>Flows</strong> — the streams that fill it up or drain it away. A faucet is an inflow. A drain is an outflow. The stock <strong>rises</strong> when inflow exceeds outflow, <strong>falls</strong> when outflow exceeds inflow, and holds steady when they balance — a state called <strong>dynamic equilibrium</strong>." data-i18n-th="อะไรเปลี่ยนสต็อก? <strong>กระแส</strong> — สายน้ำที่เติมหรือระบายออก ก๊อกน้ำคือกระแสเข้า ท่อระบายคือกระแสออก สต็อก<strong>เพิ่มขึ้น</strong>เมื่อกระแสเข้ามากกว่ากระแสออก <strong>ลดลง</strong>เมื่อกระแสออกมากกว่า และคงที่เมื่อทั้งสองเท่ากัน — สภาวะที่เรียกว่า <strong>ดุลยภาพเชิงพลวัต</strong>">What changes a stock? <strong>Flows</strong>.</p>
+      <p data-i18n-en="What changes a stock? <strong>Flows</strong> — the streams that fill it up or drain it away. A faucet is an inflow. A drain is an outflow. The stock <strong>rises</strong> when inflow exceeds outflow, <strong>falls</strong> when outflow exceeds inflow, and holds steady when they balance — a state called <strong>dynamic equilibrium</strong>." data-i18n-th="แล้วอะไรทำให้สต็อกเปลี่ยน? คำตอบคือ <strong>การไหล (Flow)</strong> — สิ่งที่ไหลเข้าหรือไหลออก ก๊อกน้ำคือการไหลเข้า ท่อระบายคือการไหลออก สต็อก<strong>เพิ่มขึ้น</strong>เมื่อไหลเข้ามากกว่าไหลออก <strong>ลดลง</strong>เมื่อไหลออกมากกว่า และ<strong>คงที่</strong>เมื่อทั้งสองเท่ากัน — เราเรียกสภาวะนี้ว่า <strong>ดุลยภาพพลวัต</strong>">What changes a stock? <strong>Flows</strong>.</p>
 
-      <p data-i18n-en="This simple idea — stock plus flows — is the foundation of every System Dynamics model. The equation below says exactly the same thing, just in the language of mathematics:" data-i18n-th="แนวคิดง่ายๆ นี้ — สต็อกกับกระแส — คือรากฐานของทุกแบบจำลองพลวัตระบบ สมการด้านล่างพูดสิ่งเดียวกัน แค่อยู่ในภาษาคณิตศาสตร์:">This simple idea is the foundation of every SD model.</p>
+      <p data-i18n-en="This simple idea — stock plus flows — is the foundation of every System Dynamics model. The equation below says exactly the same thing, just in the language of mathematics:" data-i18n-th="แค่ &quot;สต็อก + การไหล&quot; แนวคิดง่ายๆ นี้คือหัวใจของทุกแบบจำลองพลวัตระบบ สมการด้านล่างพูดสิ่งเดียวกัน แค่เขียนในภาษาคณิตศาสตร์:">This simple idea is the foundation of every SD model.</p>
 
       <div class="equation">
         $$\text{Stock}(t) = \text{Stock}(t_0) + \int_{t_0}^{t} [\text{Inflow}(s) - \text{Outflow}(s)] \, ds$$
@@ -98,10 +98,10 @@
 
       <div class="content-row">
         <div class="content-text">
-          <p data-i18n-en="Adjust the faucet and drain below to see how the water level responds. Notice how the stock can't jump instantly — it always changes <em>gradually</em>, because flows take time. This is why cutting a government deficit doesn't fix debt overnight, and why a population keeps growing even after birth rates fall." data-i18n-th="ลองปรับก๊อกน้ำและท่อระบายด้านล่างเพื่อดูว่าระดับน้ำตอบสนองอย่างไร สังเกตว่าสต็อกกระโดดทันทีไม่ได้ — มันเปลี่ยนอย่าง<em>ค่อยเป็นค่อยไป</em>เสมอ เพราะกระแสต้องใช้เวลา นี่คือเหตุผลที่การลดการขาดดุลไม่ได้แก้หนี้ข้ามคืน และประชากรยังเติบโตต่อแม้อัตราเกิดจะลดลง">Adjust the faucet and drain below.</p>
+          <p data-i18n-en="Adjust the faucet and drain below to see how the water level responds. Notice how the stock can't jump instantly — it always changes <em>gradually</em>, because flows take time. This is why cutting a government deficit doesn't fix debt overnight, and why a population keeps growing even after birth rates fall." data-i18n-th="ลองปรับก๊อกน้ำ (ไหลเข้า) กับท่อระบาย (ไหลออก) ด้านล่าง สังเกตว่าระดับน้ำ<em>กระโดดทันทีไม่ได้</em> — มันค่อยๆ เปลี่ยนเสมอ เพราะการไหลต้องใช้เวลา นี่คือเหตุผลที่ลดการขาดดุลแล้วหนี้ไม่หายข้ามคืน และประชากรยังโตต่อแม้อัตราเกิดจะลดลงแล้ว">Adjust the faucet and drain below.</p>
 
           <div class="slider-group">
-            <label data-i18n-en="Inflow (faucet)" data-i18n-th="กระแสเข้า (ก๊อกน้ำ)">Inflow (faucet)</label>
+            <label data-i18n-en="Inflow (faucet)" data-i18n-th="ไหลเข้า (ก๊อกน้ำ)">Inflow (faucet)</label>
             <div style="display: flex; align-items: center; gap: 10px;">
               <span style="color: var(--text-muted); font-size: 0.8rem;">0</span>
               <input type="range" id="bathtub-inflow" min="0" max="100" value="60" style="flex:1;">
@@ -111,7 +111,7 @@
           </div>
 
           <div class="slider-group">
-            <label data-i18n-en="Outflow (drain)" data-i18n-th="กระแสออก (ท่อระบาย)">Outflow (drain)</label>
+            <label data-i18n-en="Outflow (drain)" data-i18n-th="ไหลออก (ท่อระบาย)">Outflow (drain)</label>
             <div style="display: flex; align-items: center; gap: 10px;">
               <span style="color: var(--text-muted); font-size: 0.8rem;">0</span>
               <input type="range" id="bathtub-outflow" min="0" max="100" value="40" style="flex:1;">
@@ -124,7 +124,7 @@
         </div>
 
         <div class="content-interactive" id="bathtub-sim">
-          <div class="interactive-title" style="color: var(--ch2-color);" data-i18n-en="Bathtub Model" data-i18n-th="แบบจำลองอ่างอาบน้ำ">Bathtub Model</div>
+          <div class="interactive-title" style="color: var(--ch2-color);" data-i18n-en="Bathtub Model" data-i18n-th="แบบจำลองอ่างน้ำ">Bathtub Model</div>
           <div class="viz-area"></div>
         </div>
       </div>
@@ -133,17 +133,17 @@
 
     <!-- Section 2: Behavior Patterns -->
     <div id="behavior-patterns" class="section-block">
-      <h2 data-i18n-en="Behavior Patterns" data-i18n-th="รูปแบบพฤติกรรม">Behavior Patterns</h2>
+      <h2 data-i18n-en="Behavior Patterns" data-i18n-th="รูปแบบพฤติกรรม: ระบบทำอะไรได้บ้าง">Behavior Patterns</h2>
 
-      <p data-i18n-en="Every system tells a story through its behavior over time. Plot any stock on a graph and you will see one of a few recognizable shapes. These are <strong>behavior patterns</strong> — and each one is a signature of the feedback structure underneath." data-i18n-th="ทุกระบบเล่าเรื่องผ่านพฤติกรรมตามเวลา ลองนำสต็อกใดก็ตามมาพล็อตบนกราฟ คุณจะเห็นรูปร่างที่จดจำได้ไม่กี่แบบ สิ่งเหล่านี้คือ <strong>รูปแบบพฤติกรรม</strong> — แต่ละรูปแบบคือลายเซ็นของโครงสร้างป้อนกลับที่อยู่เบื้องหลัง">Every system tells a story through its behavior over time.</p>
+      <p data-i18n-en="Every system tells a story through its behavior over time. Plot any stock on a graph and you will see one of a few recognizable shapes. These are <strong>behavior patterns</strong> — and each one is a signature of the feedback structure underneath." data-i18n-th="ทุกระบบบอกเล่าเรื่องราวผ่านพฤติกรรมของมันในแต่ละช่วงเวลา ลองเอาสต็อกตัวไหนก็ได้มาพล็อตกราฟ แล้วจะเห็นว่ามีรูปทรงซ้ำๆ อยู่ไม่กี่แบบ นี่คือ <strong>รูปแบบพฤติกรรม</strong> — แต่ละแบบเป็นเหมือนลายนิ้วมือของวงจรป้อนกลับที่ซ่อนอยู่เบื้องหลัง">Every system tells a story through its behavior over time.</p>
 
-      <p data-i18n-en="Understanding these patterns is like learning to read an EKG: once you recognize the shape, you immediately know what kind of feedback loop is driving the system. Click each pattern below to see its shape and explore what causes it." data-i18n-th="การเข้าใจรูปแบบเหล่านี้เหมือนการเรียนอ่านคลื่นหัวใจ: เมื่อจำรูปร่างได้ คุณจะรู้ทันทีว่าวงจรป้อนกลับแบบไหนกำลังขับเคลื่อนระบบ คลิกแต่ละรูปแบบด้านล่างเพื่อดูรูปร่างและสำรวจว่าอะไรเป็นสาเหตุ">Understanding these patterns is like reading an EKG.</p>
+      <p data-i18n-en="Understanding these patterns is like learning to read an EKG: once you recognize the shape, you immediately know what kind of feedback loop is driving the system. Click each pattern below to see its shape and explore what causes it." data-i18n-th="เข้าใจรูปแบบเหล่านี้ก็เหมือนเรียนอ่านคลื่นไฟฟ้าหัวใจ — เห็นรูปร่างปุ๊บ ก็รู้ทันทีว่าวงจรป้อนกลับแบบไหนกำลังทำงาน กดแต่ละรูปแบบด้านล่างเพื่อดูกราฟและเรียนรู้ว่าเกิดจากอะไร">Understanding these patterns is like reading an EKG.</p>
 
       <div id="pattern-selector" style="display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-        <button class="btn btn-secondary pattern-btn active" data-pattern="exponential" data-i18n-en="Exponential Growth" data-i18n-th="เติบโตแบบทวีคูณ">Exponential Growth</button>
-        <button class="btn btn-secondary pattern-btn" data-pattern="goal-seeking" data-i18n-en="Goal-Seeking" data-i18n-th="แสวงหาเป้าหมาย">Goal-Seeking</button>
-        <button class="btn btn-secondary pattern-btn" data-pattern="oscillation" data-i18n-en="Oscillation" data-i18n-th="การแกว่ง">Oscillation</button>
-        <button class="btn btn-secondary pattern-btn" data-pattern="s-shaped" data-i18n-en="S-Shaped Growth" data-i18n-th="เติบโตแบบ S">S-Shaped Growth</button>
+        <button class="btn btn-secondary pattern-btn active" data-pattern="exponential" data-i18n-en="Exponential Growth" data-i18n-th="โตแบบทวีคูณ">Exponential Growth</button>
+        <button class="btn btn-secondary pattern-btn" data-pattern="goal-seeking" data-i18n-en="Goal-Seeking" data-i18n-th="มุ่งสู่เป้าหมาย">Goal-Seeking</button>
+        <button class="btn btn-secondary pattern-btn" data-pattern="oscillation" data-i18n-en="Oscillation" data-i18n-th="แกว่งไปมา">Oscillation</button>
+        <button class="btn btn-secondary pattern-btn" data-pattern="s-shaped" data-i18n-en="S-Shaped Growth" data-i18n-th="โตแบบตัว S">S-Shaped Growth</button>
       </div>
 
       <div class="content-row">
@@ -160,19 +160,19 @@
 
     <!-- Section 3: System Traps -->
     <div id="system-traps" class="section-block">
-      <h2 data-i18n-en="System Traps: When Structure Creates Problems" data-i18n-th="กับดักของระบบ: เมื่อโครงสร้างสร้างปัญหา">System Traps: When Structure Creates Problems</h2>
+      <h2 data-i18n-en="System Traps: When Structure Creates Problems" data-i18n-th="กับดักของระบบ: เมื่อโครงสร้างเป็นตัวสร้างปัญหา">System Traps: When Structure Creates Problems</h2>
 
-      <p data-i18n-en="Certain feedback structures repeatedly produce problematic behavior. These recurring patterns are known as <strong>system traps</strong> — and they appear everywhere: in economics, ecology, politics, and business. Recognizing the trap is the first step to escaping it." data-i18n-th="โครงสร้างป้อนกลับบางอย่างสร้างพฤติกรรมที่เป็นปัญหาซ้ำแล้วซ้ำเล่า รูปแบบที่เกิดขึ้นซ้ำเหล่านี้เรียกว่า <strong>กับดักของระบบ</strong> — และพบได้ทุกที่: ในเศรษฐศาสตร์ นิเวศวิทยา การเมือง และธุรกิจ การจดจำกับดักคือก้าวแรกสู่การหลุดพ้น">Certain feedback structures repeatedly produce problematic behavior.</p>
+      <p data-i18n-en="Certain feedback structures repeatedly produce problematic behavior. These recurring patterns are known as <strong>system traps</strong> — and they appear everywhere: in economics, ecology, politics, and business. Recognizing the trap is the first step to escaping it." data-i18n-th="โครงสร้างป้อนกลับบางแบบทำให้เกิดปัญหาซ้ำแล้วซ้ำเล่า รูปแบบเหล่านี้เรียกว่า <strong>กับดักของระบบ</strong> — พบได้ทุกที่ ทั้งในเศรษฐศาสตร์ ระบบนิเวศ การเมือง และธุรกิจ รู้จักกับดักคือก้าวแรกของการหลุดพ้น">Certain feedback structures repeatedly produce problematic behavior.</p>
 
-      <h3 style="color: var(--accent-1); margin-top: 25px;" data-i18n-en="Tragedy of the Commons" data-i18n-th="โศกนาฏกรรมของทรัพยากรร่วม">Tragedy of the Commons</h3>
+      <h3 style="color: var(--accent-1); margin-top: 25px;" data-i18n-en="Tragedy of the Commons" data-i18n-th="โศกนาฏกรรมของส่วนรวม">Tragedy of the Commons</h3>
 
       <div class="content-row">
         <div class="content-text">
-          <p data-i18n-en="Some resources belong to no one and everyone at the same time — a shared lake, the atmosphere, a public grazing field. Each user gains the <em>full benefit</em> of taking more, but the <em>cost</em> of overuse is split across everyone. This creates a dangerous asymmetry: the rational choice for each individual is to take as much as possible." data-i18n-th="ทรัพยากรบางอย่างไม่เป็นของใครแต่เป็นของทุกคนพร้อมกัน — ทะเลสาบ ชั้นบรรยากาศ ทุ่งหญ้าสาธารณะ ผู้ใช้แต่ละคนได้<em>ประโยชน์เต็มที่</em>จากการเอามากขึ้น แต่<em>ต้นทุน</em>ของการใช้เกินถูกหารเฉลี่ยให้ทุกคน สิ่งนี้สร้างความไม่สมดุลที่อันตราย: ทางเลือกที่สมเหตุสมผลของแต่ละคนคือเอาให้มากที่สุด">Some resources belong to no one and everyone.</p>
+          <p data-i18n-en="Some resources belong to no one and everyone at the same time — a shared lake, the atmosphere, a public grazing field. Each user gains the <em>full benefit</em> of taking more, but the <em>cost</em> of overuse is split across everyone. This creates a dangerous asymmetry: the rational choice for each individual is to take as much as possible." data-i18n-th="ทรัพยากรบางอย่างไม่มีใครเป็นเจ้าของ แต่ทุกคนใช้ได้ — ทะเลสาบ ชั้นบรรยากาศ ทุ่งหญ้าสาธารณะ คนแต่ละคนได้<em>ผลตอบแทนเต็มๆ</em> จากการใช้มากขึ้น แต่<em>ต้นทุน</em>ของการใช้เกินถูกหารเฉลี่ยให้ทุกคนแบก จึงเกิดความไม่สมดุลที่อันตราย: ทางเลือกที่ &quot;สมเหตุสมผล&quot; ของแต่ละคนคือเอาให้มากที่สุด">Some resources belong to no one and everyone.</p>
 
-          <p data-i18n-en="The result? When everyone acts rationally, the shared resource collapses — and <em>everyone</em> loses. This is the <strong>Tragedy of the Commons</strong>, one of the most powerful system traps. You see it in overfishing, carbon emissions, groundwater depletion, and antibiotic resistance." data-i18n-th="ผลลัพธ์? เมื่อทุกคนทำตามเหตุผล ทรัพยากรร่วมล่มสลาย — และ<em>ทุกคน</em>สูญเสีย นี่คือ <strong>โศกนาฏกรรมของทรัพยากรร่วม</strong> หนึ่งในกับดักของระบบที่ทรงพลังที่สุด เราเห็นมันในการจับปลาเกิน การปล่อยคาร์บอน การสูบน้ำบาดาลหมด และการดื้อยาปฏิชีวนะ">The result? The shared resource collapses.</p>
+          <p data-i18n-en="The result? When everyone acts rationally, the shared resource collapses — and <em>everyone</em> loses. This is the <strong>Tragedy of the Commons</strong>, one of the most powerful system traps. You see it in overfishing, carbon emissions, groundwater depletion, and antibiotic resistance." data-i18n-th="แล้วผลลัพธ์ล่ะ? เมื่อทุกคนคิดแบบนี้ ทรัพยากรร่วมก็ล่มสลาย — และ<em>ทุกคน</em>เสียหาย นี่คือ <strong>โศกนาฏกรรมของส่วนรวม</strong> กับดักที่ทรงพลังที่สุดอย่างหนึ่ง เราเห็นมันในการจับปลาจนหมด การปล่อยคาร์บอนเกินขีด การสูบน้ำบาดาลจนแห้ง และการใช้ยาปฏิชีวนะจนดื้อยา">The result? The shared resource collapses.</p>
 
-          <p data-i18n-en="Try it below: you control the number of <strong>fishing boats</strong> on a shared lake. More boats mean more profit — until the fish run out." data-i18n-th="ลองด้านล่าง: คุณควบคุมจำนวน<strong>เรือประมง</strong>ในทะเลสาบร่วม เรือมากขึ้นหมายถึงกำไรมากขึ้น — จนกว่าปลาจะหมด">Try it below: you control the fishing boats.</p>
+          <p data-i18n-en="Try it below: you control the number of <strong>fishing boats</strong> on a shared lake. More boats mean more profit — until the fish run out." data-i18n-th="ลองเล่นด้านล่าง: คุณเป็นคนกำหนดจำนวน<strong>เรือประมง</strong>ในทะเลสาบ ยิ่งเรือมาก กำไรยิ่งเยอะ — จนกว่าปลาจะหมด">Try it below: you control the fishing boats.</p>
 
           <div class="slider-group">
             <label data-i18n-en="Number of Fishing Boats" data-i18n-th="จำนวนเรือประมง">Number of Fishing Boats</label>
@@ -193,13 +193,13 @@
         </div>
 
         <div class="content-interactive" id="fish-sim">
-          <div class="interactive-title" style="color: var(--accent-1);" data-i18n-en="Tragedy of the Commons" data-i18n-th="โศกนาฏกรรมของทรัพยากรร่วม">Tragedy of the Commons</div>
+          <div class="interactive-title" style="color: var(--accent-1);" data-i18n-en="Tragedy of the Commons" data-i18n-th="โศกนาฏกรรมของส่วนรวม">Tragedy of the Commons</div>
           <div class="viz-area"></div>
         </div>
       </div>
 
       <div class="info-box warning" style="margin-top: 20px;">
-        <p data-i18n-en="<strong>Try it:</strong> Run with 20 boats (sustainable), then 60 boats (overshoot), then 90 boats (collapse). The same pattern appears in carbon emissions, groundwater pumping, and antibiotic overuse." data-i18n-th="<strong>ลองดู:</strong> จำลองด้วย 20 ลำ (ยั่งยืน) จากนั้น 60 ลำ (เกินขีดจำกัด) จากนั้น 90 ลำ (ล่มสลาย) รูปแบบเดียวกันปรากฏในการปล่อยคาร์บอน การสูบน้ำบาดาล และการใช้ยาปฏิชีวนะเกิน"><strong>Try it:</strong> Run with 20, then 60, then 90 boats.</p>
+        <p data-i18n-en="<strong>Try it:</strong> Run with 20 boats (sustainable), then 60 boats (overshoot), then 90 boats (collapse). The same pattern appears in carbon emissions, groundwater pumping, and antibiotic overuse." data-i18n-th="<strong>ลองดู:</strong> เริ่มด้วย 20 ลำ (ยั่งยืน) แล้วลอง 60 ลำ (เกินพอดี) แล้วก็ 90 ลำ (ล่มสลาย) รูปแบบเดียวกันนี้เกิดขึ้นกับการปล่อยคาร์บอน การสูบน้ำบาดาล และการใช้ยาปฏิชีวนะพร่ำเพรื่อ"><strong>Try it:</strong> Run with 20, then 60, then 90 boats.</p>
       </div>
 
     </div>
@@ -210,11 +210,11 @@
 
       <div class="content-row">
         <div class="content-text">
-          <p data-i18n-en="When two sides each react to the other's moves, a reinforcing loop of <strong>escalation</strong> takes hold. Country A increases military spending, so Country B spends more to keep up, which makes Country A spend even more. Each response is <em>rational</em> on its own — but the spiral is collectively insane." data-i18n-th="เมื่อสองฝ่ายตอบโต้การเคลื่อนไหวของกันและกัน วงจรเสริมแรงของ<strong>การยกระดับ</strong>เข้าครอบงำ ประเทศ A เพิ่มค่าใช้จ่ายทหาร ประเทศ B จึงใช้มากขึ้นเพื่อตามให้ทัน ซึ่งทำให้ประเทศ A ต้องใช้มากขึ้นอีก การตอบสนองแต่ละครั้ง<em>สมเหตุสมผล</em>ในตัวมันเอง — แต่วงจรทั้งหมดบ้าคลั่ง">When two sides react to each other, escalation takes hold.</p>
+          <p data-i18n-en="When two sides each react to the other's moves, a reinforcing loop of <strong>escalation</strong> takes hold. Country A increases military spending, so Country B spends more to keep up, which makes Country A spend even more. Each response is <em>rational</em> on its own — but the spiral is collectively insane." data-i18n-th="เมื่อสองฝ่ายตอบโต้กันไปมา วงจรเสริมแรงของ<strong>การยกระดับ</strong>ก็เข้าครอบงำ ประเทศ ก เพิ่มงบทหาร ประเทศ ข จึงเพิ่มตาม ซึ่งทำให้ประเทศ ก ต้องเพิ่มอีก แต่ละฝ่ายตอบสนอง<em>อย่างสมเหตุสมผล</em> — แต่ผลรวมของวงจรทั้งหมดกลับบ้าคลั่ง">When two sides react to each other, escalation takes hold.</p>
 
-          <p data-i18n-en="The same pattern appears in price wars between companies, political attack ads during elections, and even social media outrage cycles. Neither side gains a lasting advantage, but both pay an ever-increasing cost." data-i18n-th="รูปแบบเดียวกันปรากฏในสงครามราคาระหว่างบริษัท โฆษณาโจมตีทางการเมืองช่วงเลือกตั้ง และแม้แต่วัฏจักรความโกรธบนโซเชียลมีเดีย ไม่มีฝ่ายใดได้เปรียบอย่างยั่งยืน แต่ทั้งสองจ่ายต้นทุนที่เพิ่มขึ้นเรื่อยๆ">The same pattern appears in price wars and political ads.</p>
+          <p data-i18n-en="The same pattern appears in price wars between companies, political attack ads during elections, and even social media outrage cycles. Neither side gains a lasting advantage, but both pay an ever-increasing cost." data-i18n-th="รูปแบบเดียวกันนี้เกิดขึ้นในสงครามราคาระหว่างบริษัท โฆษณาโจมตีช่วงเลือกตั้ง และวงจรด่ากันบนโซเชียลมีเดีย ไม่มีฝ่ายไหนได้เปรียบจริง แต่ทั้งคู่ต้องจ่ายต้นทุนที่พุ่งขึ้นเรื่อยๆ">The same pattern appears in price wars and political ads.</p>
 
-          <p data-i18n-en="Adjust the aggressiveness below to see how fast the arms race spirals. At low values, spending stays stable. At high values, it explodes." data-i18n-th="ปรับความก้าวร้าวด้านล่างเพื่อดูว่าสงครามอาวุธวนเวียนเร็วแค่ไหน ค่าต่ำ ค่าใช้จ่ายเสถียร ค่าสูง ระเบิด">Adjust aggressiveness to see how fast the spiral grows.</p>
+          <p data-i18n-en="Adjust the aggressiveness below to see how fast the arms race spirals. At low values, spending stays stable. At high values, it explodes." data-i18n-th="ลองปรับระดับความก้าวร้าวด้านล่าง แล้วดูว่าการแข่งอาวุธบานปลายเร็วแค่ไหน ค่าต่ำ = ค่าใช้จ่ายทรงตัว ค่าสูง = ระเบิด">Adjust aggressiveness to see how fast the spiral grows.</p>
 
           <div class="slider-group">
             <label data-i18n-en="Aggressiveness" data-i18n-th="ความก้าวร้าว">Aggressiveness</label>
@@ -241,21 +241,21 @@
       </div>
 
       <div class="info-box" style="margin-top: 20px; border-left-color: var(--accent-4);">
-        <p data-i18n-en="<strong>Try it:</strong> Set aggressiveness to 10% (stable) then to 90% (explosive). The same pattern appears in price wars, political attack ads, and social media outrage cycles. <strong>The way out:</strong> One side must choose to de-escalate unilaterally, or both sides agree to regulate." data-i18n-th="<strong>ลองดู:</strong> ตั้งความก้าวร้าว 10% (เสถียร) จากนั้น 90% (ระเบิด) รูปแบบเดียวกันปรากฏในสงครามราคา โฆษณาโจมตีทางการเมือง และวัฏจักรความโกรธบนโซเชียลมีเดีย <strong>ทางออก:</strong> ฝ่ายหนึ่งต้องเลือกลดระดับฝ่ายเดียว หรือทั้งสองฝ่ายตกลงกำกับดูแล"><strong>Try it:</strong> Set aggressiveness to 10% vs 90%.</p>
+        <p data-i18n-en="<strong>Try it:</strong> Set aggressiveness to 10% (stable) then to 90% (explosive). The same pattern appears in price wars, political attack ads, and social media outrage cycles. <strong>The way out:</strong> One side must choose to de-escalate unilaterally, or both sides agree to regulate." data-i18n-th="<strong>ลองดู:</strong> ตั้งที่ 10% (สงบ) แล้วลอง 90% (ระเบิด) รูปแบบเดียวกันนี้เกิดในสงครามราคา โฆษณาโจมตีการเมือง และดราม่าบนโซเชียลมีเดีย <strong>ทางออก:</strong> ฝ่ายหนึ่งต้องยอมถอยก่อน หรือทั้งคู่ตกลงตั้งกติการ่วมกัน"><strong>Try it:</strong> Set aggressiveness to 10% vs 90%.</p>
       </div>
     </div>
 
     <!-- Section 5: Drift to Low Performance Interactive -->
     <div class="section-block">
-      <h3 style="color: var(--accent-3); margin-top: 10px;" data-i18n-en="Drift to Low Performance" data-i18n-th="เลื่อนไหลสู่ผลงานต่ำ">Drift to Low Performance</h3>
+      <h3 style="color: var(--accent-3); margin-top: 10px;" data-i18n-en="Drift to Low Performance" data-i18n-th="มาตรฐานที่ค่อยๆ ตกต่ำ">Drift to Low Performance</h3>
 
       <div class="content-row">
         <div class="content-text">
-          <p data-i18n-en="This trap is the most insidious because nobody notices it happening. When performance falls short of the goal, instead of working harder to close the gap, we quietly <em>lower the goal</em> to match reality. 'That's just how things are now.' Each adjustment feels small and reasonable." data-i18n-th="กับดักนี้ร้ายกาจที่สุดเพราะไม่มีใครสังเกตว่ามันกำลังเกิดขึ้น เมื่อผลงานต่ำกว่าเป้าหมาย แทนที่จะพยายามมากขึ้นเพื่อปิดช่องว่าง เรากลับ<em>ลดเป้าหมาย</em>เงียบๆ ให้ตรงกับความเป็นจริง 'มันก็แบบนี้แหละ' การปรับแต่ละครั้งดูเล็กน้อยและสมเหตุสมผล">This trap is the most insidious — nobody notices it.</p>
+          <p data-i18n-en="This trap is the most insidious because nobody notices it happening. When performance falls short of the goal, instead of working harder to close the gap, we quietly <em>lower the goal</em> to match reality. 'That's just how things are now.' Each adjustment feels small and reasonable." data-i18n-th="กับดักนี้ร้ายกาจที่สุดเพราะไม่มีใครรู้ตัว เมื่อผลงานต่ำกว่าเป้า แทนที่จะพยายามให้มากขึ้น เรากลับแอบ<em>ลดเป้าหมาย</em>ให้ตรงกับความจริง &quot;มันก็แค่นี้แหละ&quot; การปรับแต่ละครั้งดูเล็กน้อยและสมเหตุสมผล">This trap is the most insidious — nobody notices it.</p>
 
-          <p data-i18n-en="But over time, the goal and performance sink together — like a frog in slowly heating water that never notices the danger. You see this in eroding infrastructure, declining school quality, and organizations that gradually accept mediocrity as the new normal." data-i18n-th="แต่เมื่อเวลาผ่านไป เป้าหมายและผลงานจมลงด้วยกัน — เหมือนกบในน้ำที่ค่อยๆ ร้อนขึ้นจนไม่เคยสังเกตอันตราย เราเห็นสิ่งนี้ในโครงสร้างพื้นฐานเสื่อมสภาพ คุณภาพโรงเรียนลดลง และองค์กรที่ค่อยๆ ยอมรับความธรรมดาเป็นบรรทัดฐานใหม่">Over time, goal and performance sink together — the boiled frog.</p>
+          <p data-i18n-en="But over time, the goal and performance sink together — like a frog in slowly heating water that never notices the danger. You see this in eroding infrastructure, declining school quality, and organizations that gradually accept mediocrity as the new normal." data-i18n-th="แต่เมื่อเวลาผ่านไป เป้าหมายกับผลงานค่อยๆ จมลงด้วยกัน — เหมือนกบในหม้อน้ำที่ค่อยๆ ร้อนขึ้นจนไม่รู้ตัว เราเห็นสิ่งนี้ในถนนที่พังจนชิน โรงเรียนที่คุณภาพลดลงทีละนิด และองค์กรที่ค่อยๆ ยอมรับว่า &quot;ธรรมดา&quot; คือมาตรฐานใหม่">Over time, goal and performance sink together — the boiled frog.</p>
 
-          <p data-i18n-en="Set the goal erosion rate below. At 0%, the standard holds firm and performance recovers. At high rates, watch both lines drift downward together." data-i18n-th="ตั้งอัตราการกร่อนของเป้าหมายด้านล่าง ที่ 0% มาตรฐานยืนหยัดและผลงานฟื้นตัว ที่อัตราสูง ดูทั้งสองเส้นเลื่อนไหลลงด้วยกัน">Set the erosion rate below to see the effect.</p>
+          <p data-i18n-en="Set the goal erosion rate below. At 0%, the standard holds firm and performance recovers. At high rates, watch both lines drift downward together." data-i18n-th="ลองตั้งอัตราการกร่อนของเป้าหมายด้านล่าง ที่ 0% มาตรฐานจะคงที่และผลงานฟื้นตัวได้ แต่ถ้าตั้งสูงๆ ดูทั้งสองเส้นค่อยๆ ไหลลงพร้อมกัน">Set the erosion rate below to see the effect.</p>
 
           <div class="slider-group">
             <label data-i18n-en="Goal Erosion Rate" data-i18n-th="อัตราการกร่อนของเป้าหมาย">Goal Erosion Rate</label>
@@ -276,30 +276,30 @@
         </div>
 
         <div class="content-interactive" id="drift-sim">
-          <div class="interactive-title" style="color: var(--accent-3);" data-i18n-en="Drift to Low Performance" data-i18n-th="เลื่อนไหลสู่ผลงานต่ำ">Drift to Low Performance</div>
+          <div class="interactive-title" style="color: var(--accent-3);" data-i18n-en="Drift to Low Performance" data-i18n-th="มาตรฐานที่ค่อยๆ ตกต่ำ">Drift to Low Performance</div>
           <div class="viz-area"></div>
         </div>
       </div>
 
       <div class="info-box" style="margin-top: 20px; border-left-color: var(--accent-3);">
-        <p data-i18n-en="<strong>Try it:</strong> Set erosion to 0% — performance recovers to the original standard. Then try 80% — watch how both lines sink together. The same pattern explains eroding infrastructure, declining education quality, and regulatory capture. <strong>The way out:</strong> Anchor goals to an absolute standard, not to recent performance." data-i18n-th="<strong>ลองดู:</strong> ตั้งอัตราการกร่อน 0% — ผลงานฟื้นตัวสู่มาตรฐานเดิม จากนั้นลอง 80% — ดูว่าทั้งสองเส้นจมลงด้วยกัน รูปแบบเดียวกันอธิบายโครงสร้างพื้นฐานเสื่อมสภาพ คุณภาพการศึกษาลดลง และการถูกครอบงำโดยผู้ถูกกำกับ <strong>ทางออก:</strong> ยึดเป้าหมายไว้กับมาตรฐานสัมบูรณ์ ไม่ใช่ผลงานล่าสุด"><strong>Try it:</strong> Set erosion to 0% vs 80%.</p>
+        <p data-i18n-en="<strong>Try it:</strong> Set erosion to 0% — performance recovers to the original standard. Then try 80% — watch how both lines sink together. The same pattern explains eroding infrastructure, declining education quality, and regulatory capture. <strong>The way out:</strong> Anchor goals to an absolute standard, not to recent performance." data-i18n-th="<strong>ลองดู:</strong> ตั้ง 0% — ผลงานฟื้นกลับสู่มาตรฐานเดิม ลอง 80% — ดูทั้งสองเส้นจมลงด้วยกัน ตัวอย่างจริง: ถนนพัง โรงเรียนคุณภาพลดลง หน่วยงานรัฐที่ถูกผู้ถูกกำกับครอบงำ <strong>ทางออก:</strong> ยึดเป้าหมายไว้กับมาตรฐานที่แน่นอน อย่าให้ขยับตามผลงานล่าสุด"><strong>Try it:</strong> Set erosion to 0% vs 80%.</p>
       </div>
     </div>
 
     <!-- Section 6: Success to the Successful Interactive -->
     <div class="section-block">
-      <h3 style="color: var(--ch5-color); margin-top: 10px;" data-i18n-en="Success to the Successful" data-i18n-th="ผู้ชนะได้ทุกอย่าง">Success to the Successful</h3>
+      <h3 style="color: var(--ch5-color); margin-top: 10px;" data-i18n-en="Success to the Successful" data-i18n-th="ยิ่งรวยยิ่งได้เปรียบ">Success to the Successful</h3>
 
       <div class="content-row">
         <div class="content-text">
-          <p data-i18n-en="Winners receive rewards that help them win even more. A company with more market share can afford more advertising, which brings more customers, which funds more advertising. The rich get richer — not because of talent or effort, but because of a <strong>reinforcing loop of advantage</strong>." data-i18n-th="ผู้ชนะได้รับรางวัลที่ช่วยให้ชนะมากขึ้น บริษัทที่มีส่วนแบ่งตลาดมากขึ้นจ่ายค่าโฆษณาได้มากขึ้น ซึ่งดึงลูกค้ามากขึ้น ซึ่งจ่ายโฆษณาได้มากขึ้นอีก คนรวยยิ่งรวย — ไม่ใช่เพราะพรสวรรค์หรือความพยายาม แต่เพราะ<strong>วงจรเสริมแรงของความได้เปรียบ</strong>">Winners get rewards that help them win more.</p>
+          <p data-i18n-en="Winners receive rewards that help them win even more. A company with more market share can afford more advertising, which brings more customers, which funds more advertising. The rich get richer — not because of talent or effort, but because of a <strong>reinforcing loop of advantage</strong>." data-i18n-th="ผู้ชนะได้รางวัลที่ช่วยให้ชนะมากขึ้นไปอีก บริษัทที่มีส่วนแบ่งตลาดมากก็มีงบโฆษณามากกว่า ดึงลูกค้าได้มากกว่า แล้วก็มีงบมากขึ้นอีก คนรวยยิ่งรวย — ไม่ใช่เพราะเก่งกว่า แต่เพราะ<strong>วงจรเสริมแรงของความได้เปรียบ</strong>">Winners get rewards that help them win more.</p>
 
-          <p data-i18n-en="Think of a Monopoly game: once one player pulls ahead, they buy more properties, collect more rent, and pull even further ahead. The game is essentially over long before it officially ends. The same dynamic drives wealth inequality, platform monopolies, and social media algorithms that amplify already-popular content." data-i18n-th="ลองนึกถึงเกมเศรษฐี: เมื่อผู้เล่นคนหนึ่งนำ พวกเขาซื้อที่ดินได้มากขึ้น เก็บค่าเช่ามากขึ้น และนำหน้ามากขึ้นไปอีก เกมจบลงจริงๆ นานก่อนที่จะจบอย่างเป็นทางการ พลวัตเดียวกันขับเคลื่อนความเหลื่อมล้ำ การผูกขาดแพลตฟอร์ม และอัลกอริทึมโซเชียลมีเดียที่ขยายเนื้อหาที่นิยมอยู่แล้ว">Think of Monopoly: once one player pulls ahead, it's over.</p>
+          <p data-i18n-en="Think of a Monopoly game: once one player pulls ahead, they buy more properties, collect more rent, and pull even further ahead. The game is essentially over long before it officially ends. The same dynamic drives wealth inequality, platform monopolies, and social media algorithms that amplify already-popular content." data-i18n-th="ลองนึกถึงเกมเศรษฐี: พอผู้เล่นคนหนึ่งนำ ก็ซื้อที่ดินได้มากขึ้น เก็บค่าเช่ามากขึ้น แล้วก็นำหน้ามากขึ้นไปอีก เกมจบจริงๆ ตั้งแต่ตอนกลางเกม พลวัตแบบเดียวกันนี้ขับเคลื่อนความเหลื่อมล้ำ การผูกขาดแพลตฟอร์ม และอัลกอริทึมที่ดันเนื้อหาที่ดังอยู่แล้วให้ดังยิ่งขึ้น">Think of Monopoly: once one player pulls ahead, it's over.</p>
 
-          <p data-i18n-en="Below, two players start with equal wealth. Adjust how much advantage wealth gives — even a small bias compounds into total dominance." data-i18n-th="ด้านล่าง ผู้เล่นสองคนเริ่มด้วยทรัพย์สินเท่ากัน ปรับว่าความร่ำรวยให้ข้อได้เปรียบมากแค่ไหน — แม้แค่เอียงเล็กน้อยก็ทบต้นจนครอบงำทั้งหมด">Two players start equal. Adjust the wealth advantage.</p>
+          <p data-i18n-en="Below, two players start with equal wealth. Adjust how much advantage wealth gives — even a small bias compounds into total dominance." data-i18n-th="ด้านล่าง ผู้เล่นสองคนเริ่มต้นเท่ากัน ลองปรับว่าความร่ำรวยให้ข้อได้เปรียบมากแค่ไหน — แม้เอียงนิดเดียว ก็ทบต้นจนครอบงำทั้งหมดได้">Two players start equal. Adjust the wealth advantage.</p>
 
           <div class="slider-group">
-            <label data-i18n-en="Wealth Advantage" data-i18n-th="ข้อได้เปรียบจากความร่ำรวย">Wealth Advantage</label>
+            <label data-i18n-en="Wealth Advantage" data-i18n-th="ข้อได้เปรียบจากความรวย">Wealth Advantage</label>
             <div style="display: flex; align-items: center; gap: 10px;">
               <span style="color: var(--text-muted); font-size: 0.8rem;" data-i18n-en="Fair" data-i18n-th="ยุติธรรม">Fair</span>
               <input type="range" id="wealth-bias-slider" min="0" max="100" value="40" style="flex:1;">
@@ -317,13 +317,13 @@
         </div>
 
         <div class="content-interactive" id="wealth-sim">
-          <div class="interactive-title" style="color: var(--ch5-color);" data-i18n-en="Success to the Successful" data-i18n-th="ผู้ชนะได้ทุกอย่าง">Success to the Successful</div>
+          <div class="interactive-title" style="color: var(--ch5-color);" data-i18n-en="Success to the Successful" data-i18n-th="ยิ่งรวยยิ่งได้เปรียบ">Success to the Successful</div>
           <div class="viz-area"></div>
         </div>
       </div>
 
       <div class="info-box" style="margin-top: 20px; border-left-color: var(--ch5-color);">
-        <p data-i18n-en="<strong>Try it:</strong> Set advantage to 0% (fair coin) — wealth stays roughly equal. Then try 60% or 80% — one player dominates within a few rounds. The same pattern drives wealth inequality, market monopolies, and social media algorithms that amplify popular content. <strong>The way out:</strong> Redistribution mechanisms (progressive tax, antitrust, platform regulation)." data-i18n-th="<strong>ลองดู:</strong> ตั้งข้อได้เปรียบ 0% (เหรียญยุติธรรม) — ทรัพย์สินอยู่ใกล้เคียงกัน จากนั้นลอง 60% หรือ 80% — ฝ่ายหนึ่งครอบงำภายในไม่กี่รอบ รูปแบบเดียวกันขับเคลื่อนความเหลื่อมล้ำ การผูกขาดตลาด และอัลกอริทึมโซเชียลมีเดียที่ขยายเนื้อหายอดนิยม <strong>ทางออก:</strong> กลไกกระจายรายได้ (ภาษีก้าวหน้า กฎหมายต่อต้านการผูกขาด การกำกับแพลตฟอร์ม)"><strong>Try it:</strong> Set advantage to 0% vs 80%.</p>
+        <p data-i18n-en="<strong>Try it:</strong> Set advantage to 0% (fair coin) — wealth stays roughly equal. Then try 60% or 80% — one player dominates within a few rounds. The same pattern drives wealth inequality, market monopolies, and social media algorithms that amplify popular content. <strong>The way out:</strong> Redistribution mechanisms (progressive tax, antitrust, platform regulation)." data-i18n-th="<strong>ลองดู:</strong> ตั้ง 0% (ยุติธรรม) — ทรัพย์สินอยู่ใกล้เคียงกัน ลอง 60% หรือ 80% — ฝ่ายหนึ่งครอบงำภายในไม่กี่รอบ พลวัตเดียวกันนี้อยู่เบื้องหลังความเหลื่อมล้ำ การผูกขาดตลาด และอัลกอริทึมโซเชียลมีเดีย <strong>ทางออก:</strong> กลไกกระจายรายได้ เช่น ภาษีก้าวหน้า กฎหมายแข่งขัน การกำกับแพลตฟอร์ม"><strong>Try it:</strong> Set advantage to 0% vs 80%.</p>
       </div>
     </div>
 
