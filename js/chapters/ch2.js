@@ -1176,17 +1176,18 @@ function initWealthSim() {
       data.b.push(wB);
 
       const total = wA + wB || 1;
-      // Richer player gets a bias-weighted higher probability
-      const probA = 0.5 + bias * 0.4 * ((wA - wB) / total);
-      const stake = 2 + (wA + wB) * 0.02;
+      const earnings = 5; // total earnings available each round
+      const noise = (Math.random() - 0.5) * 2; // small random shock
+      const wealthGap = (wA - wB) / total; // -1 to +1
 
-      if (Math.random() < probA) {
-        wA += stake;
-        wB = Math.max(0.5, wB - stake);
-      } else {
-        wB += stake;
-        wA = Math.max(0.5, wA - stake);
-      }
+      // At 0% bias: each gets ~50% ± small noise (stays close)
+      // At high bias: whoever is ahead gets more, compounding the gap
+      const aShare = Math.max(0.05, Math.min(0.95,
+        0.5 + noise * 0.08 + bias * wealthGap * 0.45
+      ));
+
+      wA += earnings * aShare;
+      wB += earnings * (1 - aShare);
     }
 
     simData = data;
@@ -1197,19 +1198,30 @@ function initWealthSim() {
       const isTH = i18n.currentLang === 'th';
       const finalA = data.a[data.a.length - 1];
       const finalB = data.b[data.b.length - 1];
+      const winner = finalA >= finalB ? 'A' : 'B';
       const ratio = Math.max(finalA, finalB) / Math.max(0.1, Math.min(finalA, finalB));
-      let verdict, color;
-      if (ratio < 2) {
-        verdict = isTH ? '✓ ค่อนข้างเท่าเทียม — อัตราส่วน ' + ratio.toFixed(1) + ':1' : '✓ Roughly equal — ratio ' + ratio.toFixed(1) + ':1';
+      let verdict, detail, color;
+
+      if (ratio < 1.5) {
+        verdict = isTH ? '✓ เท่าเทียม' : '✓ Fair outcome';
+        detail = isTH
+          ? `ทั้งสองผู้เล่นจบด้วยทรัพย์สินใกล้เคียงกัน (${finalA.toFixed(0)} vs ${finalB.toFixed(0)})`
+          : `Both players ended with similar wealth (${finalA.toFixed(0)} vs ${finalB.toFixed(0)})`;
         color = '#06d6a0';
-      } else if (ratio < 5) {
-        verdict = isTH ? '⚠ ไม่เท่าเทียม — อัตราส่วน ' + ratio.toFixed(1) + ':1' : '⚠ Unequal — ratio ' + ratio.toFixed(1) + ':1';
+      } else if (ratio < 4) {
+        verdict = isTH ? `⚠ ไม่เท่าเทียม — ผู้เล่น ${winner} นำ` : `⚠ Unequal — Player ${winner} ahead`;
+        detail = isTH
+          ? `ข้อได้เปรียบเล็กน้อยทบต้นจนเห็นช่องว่าง (สัดส่วน ${ratio.toFixed(1)}:1)`
+          : `A small advantage compounded into a visible gap (ratio ${ratio.toFixed(1)}:1)`;
         color = '#ffd166';
       } else {
-        verdict = isTH ? '✗ ผูกขาด! — อัตราส่วน ' + ratio.toFixed(0) + ':1' : '✗ Monopoly! — ratio ' + ratio.toFixed(0) + ':1';
+        verdict = isTH ? `✗ ผูกขาด! — ผู้เล่น ${winner} ครอบงำ` : `✗ Monopoly! — Player ${winner} dominates`;
+        detail = isTH
+          ? `คนรวยยิ่งรวย — ข้อได้เปรียบทบต้นจนอีกฝ่ายแทบไม่เหลือ (สัดส่วน ${ratio.toFixed(0)}:1)`
+          : `The rich get richer — advantage compounded until the other is left behind (ratio ${ratio.toFixed(0)}:1)`;
         color = '#e94560';
       }
-      resultPanel.innerHTML = `<strong>${verdict}</strong>`;
+      resultPanel.innerHTML = `<div style="margin-bottom:4px;"><strong>${verdict}</strong></div><div style="font-size:0.85rem;color:#a0aec0;">${detail}</div>`;
       resultPanel.style.display = 'block';
       resultPanel.style.borderLeftColor = color;
       resultPanel.style.background = `${color}15`;
