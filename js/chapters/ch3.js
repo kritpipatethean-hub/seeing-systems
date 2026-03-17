@@ -41,6 +41,9 @@ function initGoodwin() {
   const resetBtn = document.getElementById('goodwin-reset');
   const resultPanel = document.getElementById('goodwin-result');
 
+  // Default values
+  const DEFAULTS = { wage: '1.5', prod: '2' };
+
   let simData = null;
   let animFrame = 0;
   let isRunning = false;
@@ -64,27 +67,29 @@ function initGoodwin() {
     animate();
   });
 
-  // Reset
+  // Reset — restore sliders to defaults + clear canvas
   resetBtn?.addEventListener('click', () => {
     if (rafId) cancelAnimationFrame(rafId);
     simData = null;
     animFrame = 0;
     isRunning = false;
+    if (wageSlider) { wageSlider.value = DEFAULTS.wage; if (wageVal) wageVal.textContent = DEFAULTS.wage; }
+    if (prodSlider) { prodSlider.value = DEFAULTS.prod; if (prodVal) prodVal.textContent = DEFAULTS.prod; }
     if (resultPanel) resultPanel.innerHTML = '';
     draw();
   });
 
+  // ---- MODEL ----
+  // Classic Goodwin: two ODEs for employment rate (λ) and wage share (ω)
+  // Uses a generalized Phillips curve and linear investment function
   function runGoodwinSim() {
-    const wageSensitivity = parseFloat(wageSlider?.value || 1.5);
+    const wageSens = parseFloat(wageSlider?.value || 1.5);
     const alpha = parseFloat(prodSlider?.value || 2) / 100; // productivity growth
-    const beta = 0.02; // population growth
-    const v = 3.0; // capital-output ratio
-    const dt = 0.1;
+    const beta = 0.015; // population growth
+    const v = 3.0;      // capital-output ratio
+    const dt = 0.05;    // small timestep for accuracy
     const totalYears = 40;
     const steps = Math.floor(totalYears / dt);
-
-    // Phillips curve baseline constant
-    const phi0 = 0.04 / Math.pow(1 - 0.04, 2);
 
     let lambda = 0.75; // employment rate
     let omega = 0.60;  // wage share
@@ -94,34 +99,24 @@ function initGoodwin() {
     const omegaHist = [];
 
     for (let i = 0; i <= steps; i++) {
-      const t = i * dt;
-      time.push(t);
+      time.push(i * dt);
       lambdaHist.push(lambda);
       omegaHist.push(omega);
 
-      // Phillips curve: wage growth response to employment
-      const lambdaClamped = Math.min(lambda, 0.98); // prevent division by zero
-      const phi = (phi0 * wageSensitivity) / Math.pow(1 - lambdaClamped, 2) - phi0;
+      // Phillips curve: wage change responds nonlinearly to employment
+      // Phi(λ) = wageSens * (-0.04 + 0.04 / (1 - λ)^2)
+      const lc = Math.min(lambda, 0.97);
+      const phi = wageSens * (-0.04 + 0.04 / ((1 - lc) * (1 - lc)));
 
-      // Investment rate depends on profit share
-      const investRate = 0.05 + 0.05 * (1 - omega);
+      // Investment rate: linear in profit share (1-ω)
+      const kappa = 0.02 + 0.06 * (1 - omega);
 
-      // Differential equations
-      const dLambda = lambda * (investRate / v - alpha - beta) * dt;
-      const dOmega = omega * (phi * wageSensitivity - alpha) * dt;
+      // Goodwin ODEs
+      const dLambda = lambda * (kappa / v - alpha - beta) * dt;
+      const dOmega = omega * (phi - alpha) * dt;
 
-      lambda += dLambda;
-      omega += dOmega;
-
-      // Clamp to prevent divergence
-      lambda = Math.max(0.01, Math.min(0.99, lambda));
-      omega = Math.max(0.01, Math.min(0.99, omega));
-
-      // Check for divergence (stuck at boundary)
-      if (!isFinite(lambda) || !isFinite(omega)) {
-        lambda = Math.max(0.01, Math.min(0.99, lambda || 0.5));
-        omega = Math.max(0.01, Math.min(0.99, omega || 0.5));
-      }
+      lambda = Math.max(0.05, Math.min(0.98, lambda + dLambda));
+      omega = Math.max(0.05, Math.min(0.98, omega + dOmega));
     }
 
     return { time, lambdaHist, omegaHist, totalFrames: time.length };
@@ -129,8 +124,7 @@ function initGoodwin() {
 
   function animate() {
     if (!simData || !isRunning) return;
-    // Advance multiple frames per tick for smoother animation
-    animFrame += 3;
+    animFrame += 4;
     if (animFrame >= simData.totalFrames) {
       animFrame = simData.totalFrames - 1;
       isRunning = false;
@@ -145,42 +139,39 @@ function initGoodwin() {
   function showGoodwinResult() {
     if (!resultPanel || !simData) return;
     const isTH = typeof i18n !== 'undefined' && i18n.currentLang === 'th';
-
     const lambdas = simData.lambdaHist;
     const maxL = Math.max(...lambdas);
     const minL = Math.min(...lambdas);
     const amplitude = ((maxL - minL) * 100).toFixed(1);
 
-    // Estimate cycle period by finding peaks
+    // Find peaks for cycle period
     const peaks = [];
-    for (let i = 2; i < lambdas.length - 2; i++) {
-      if (lambdas[i] > lambdas[i - 1] && lambdas[i] > lambdas[i + 1] &&
-          lambdas[i] > lambdas[i - 2] && lambdas[i] > lambdas[i + 2]) {
-        peaks.push(i);
+    for (let i = 10; i < lambdas.length - 10; i++) {
+      if (lambdas[i] > lambdas[i - 5] && lambdas[i] > lambdas[i + 5] &&
+          lambdas[i] >= lambdas[i - 1] && lambdas[i] >= lambdas[i + 1]) {
+        if (peaks.length === 0 || i - peaks[peaks.length - 1] > 20) peaks.push(i);
       }
     }
 
-    let periodText;
-    const diverging = maxL > 0.97 || minL < 0.05;
+    const diverging = maxL > 0.96 || minL < 0.08;
+    let html;
     if (diverging) {
-      periodText = isTH
-        ? '<span style="color:#e94560;">⚠ ระบบ diverge — ค่าตัวแปรไม่เสถียร!</span>'
-        : '<span style="color:#e94560;">⚠ Warning: System diverging!</span>';
+      html = `<span style="color:#e94560;">⚠ ${isTH ? 'ระบบไม่เสถียร — วงจรแกว่งจนชนขอบ!' : 'System unstable — oscillation hits boundary!'}</span>`;
     } else if (peaks.length >= 2) {
-      const dt = 0.1;
+      const dt = 0.05;
       const period = ((peaks[peaks.length - 1] - peaks[0]) / (peaks.length - 1) * dt).toFixed(1);
-      periodText = isTH
-        ? `คาบวัฏจักร: ~${period} ปี | แอมพลิจูด: ${amplitude}%`
-        : `Cycle period: ~${period} years | Amplitude: ${amplitude}%`;
+      html = isTH
+        ? `✅ คาบวัฏจักร: <strong>~${period} ปี</strong> | แอมพลิจูด: ${amplitude}%`
+        : `✅ Cycle period: <strong>~${period} years</strong> | Amplitude: ${amplitude}%`;
     } else {
-      periodText = isTH
-        ? `วัฏจักรยังไม่สมบูรณ์ | แอมพลิจูด: ${amplitude}%`
-        : `Cycle incomplete | Amplitude: ${amplitude}%`;
+      html = isTH
+        ? `วัฏจักรยังไม่ครบรอบ | แอมพลิจูด: ${amplitude}%`
+        : `Cycle not yet complete | Amplitude: ${amplitude}%`;
     }
-
-    resultPanel.innerHTML = `<div style="padding:8px;border-left:3px solid ${diverging ? '#e94560' : '#06d6a0'};background:rgba(22,33,62,0.6);border-radius:4px;">${periodText}</div>`;
+    resultPanel.innerHTML = `<div style="padding:10px 12px;border-left:3px solid ${diverging ? '#e94560' : '#06d6a0'};background:rgba(22,33,62,0.7);border-radius:4px;font-size:0.95rem;">${html}</div>`;
   }
 
+  // ---- DRAWING ----
   function draw() {
     const w = canvas.width, h = canvas.height;
     ctx.clearRect(0, 0, w, h);
@@ -188,42 +179,54 @@ function initGoodwin() {
     ctx.fillRect(0, 0, w, h);
 
     const isTH = typeof i18n !== 'undefined' && i18n.currentLang === 'th';
+
+    // Title bar
+    ctx.fillStyle = '#ffd166';
+    ctx.font = 'bold 13px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(isTH ? 'วัฏจักรกูดวิน' : 'GOODWIN GROWTH CYCLE', w / 2, 18);
+
     const halfW = Math.floor(w / 2);
+    drawPhasePortrait(ctx, 0, 26, halfW, h - 26, isTH);
 
-    // ---- LEFT PANEL: Phase Portrait ----
-    drawPhasePortrait(ctx, 0, 0, halfW, h, isTH);
-
-    // Divider line
-    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    // Divider
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
     ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(halfW, 0);
-    ctx.lineTo(halfW, h);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(halfW, 26); ctx.lineTo(halfW, h); ctx.stroke();
 
-    // ---- RIGHT PANEL: Time Series ----
-    drawTimeSeries(ctx, halfW, 0, halfW, h, isTH);
+    drawTimeSeries(ctx, halfW, 26, halfW, h - 26, isTH);
   }
 
   function drawPhasePortrait(ctx, ox, oy, pw, ph, isTH) {
-    const pad = { top: 35, bottom: 35, left: 45, right: 15 };
+    const pad = { top: 25, bottom: 40, left: 50, right: 15 };
     const plotW = pw - pad.left - pad.right;
     const plotH = ph - pad.top - pad.bottom;
     const px = ox + pad.left;
     const py = oy + pad.top;
 
-    // Axis ranges for phase portrait
-    const lMin = 0.6, lMax = 0.95;
-    const oMin = 0.4, oMax = 0.8;
+    // Auto-scale based on data, or use defaults
+    let lMin = 0.55, lMax = 0.95, oMin = 0.45, oMax = 0.80;
+    if (simData) {
+      const lArr = simData.lambdaHist;
+      const oArr = simData.omegaHist;
+      const dataLMin = Math.min(...lArr), dataLMax = Math.max(...lArr);
+      const dataOMin = Math.min(...oArr), dataOMax = Math.max(...oArr);
+      const lMargin = Math.max(0.03, (dataLMax - dataLMin) * 0.15);
+      const oMargin = Math.max(0.03, (dataOMax - dataOMin) * 0.15);
+      lMin = Math.max(0, dataLMin - lMargin);
+      lMax = Math.min(1, dataLMax + lMargin);
+      oMin = Math.max(0, dataOMin - oMargin);
+      oMax = Math.min(1, dataOMax + oMargin);
+    }
 
-    // Title
-    ctx.fillStyle = '#e0e0e0';
-    ctx.font = 'bold 11px Arial';
+    // Subtitle
+    ctx.fillStyle = '#ccc';
+    ctx.font = 'bold 10px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText(isTH ? 'ภาพเฟส' : 'Phase Portrait', ox + pw / 2, oy + 16);
+    ctx.fillText(isTH ? 'ภาพเฟส (วงโคจร)' : 'Phase Portrait (Orbit)', ox + pw / 2, oy + 12);
 
     // Grid
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
     ctx.lineWidth = 0.5;
     for (let i = 0; i <= 4; i++) {
       const x = px + (i / 4) * plotW;
@@ -232,179 +235,246 @@ function initGoodwin() {
       ctx.beginPath(); ctx.moveTo(px, y); ctx.lineTo(px + plotW, y); ctx.stroke();
     }
 
-    // Axis labels
-    ctx.fillStyle = '#aaa';
+    // Tick labels
+    ctx.fillStyle = '#888';
     ctx.font = '9px Arial';
     ctx.textAlign = 'center';
     for (let i = 0; i <= 4; i++) {
-      const val = lMin + (i / 4) * (lMax - lMin);
-      ctx.fillText(val.toFixed(2), px + (i / 4) * plotW, py + plotH + 15);
+      ctx.fillText((lMin + (i / 4) * (lMax - lMin)).toFixed(2), px + (i / 4) * plotW, py + plotH + 14);
     }
     ctx.textAlign = 'right';
     for (let i = 0; i <= 4; i++) {
-      const val = oMax - (i / 4) * (oMax - oMin); // inverted Y
-      ctx.fillText(val.toFixed(2), px - 5, py + (i / 4) * plotH + 3);
+      ctx.fillText((oMax - (i / 4) * (oMax - oMin)).toFixed(2), px - 5, py + (i / 4) * plotH + 4);
     }
 
     // Axis titles
     ctx.fillStyle = '#00b4d8';
-    ctx.font = '9px Arial';
+    ctx.font = '10px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText(isTH ? 'อัตราจ้างงาน (λ)' : 'Employment (λ)', ox + pw / 2, oy + ph - 3);
+    ctx.fillText(isTH ? 'อัตราจ้างงาน (λ)' : 'Employment Rate (λ)', ox + pw / 2, oy + ph - 5);
 
     ctx.save();
-    ctx.translate(ox + 10, oy + ph / 2);
+    ctx.translate(ox + 12, oy + pad.top + plotH / 2);
     ctx.rotate(-Math.PI / 2);
     ctx.fillStyle = '#ffd166';
+    ctx.font = '10px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText(isTH ? 'ส่วนแบ่งค่าจ้าง (ω)' : 'Wage Share (ω)', 0, 0);
+    ctx.fillText(isTH ? 'สัดส่วนค่าจ้าง (ω)' : 'Wage Share (ω)', 0, 0);
     ctx.restore();
 
-    // Plot boundary
+    // Border
     ctx.strokeStyle = 'rgba(255,255,255,0.2)';
     ctx.lineWidth = 1;
     ctx.strokeRect(px, py, plotW, plotH);
 
-    if (!simData) return;
+    // Placeholder
+    if (!simData) {
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.font = '11px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText(isTH ? 'กด "เริ่มจำลอง"' : 'Press "Run"', ox + pw / 2, oy + ph / 2);
+      return;
+    }
 
     const n = Math.min(animFrame + 1, simData.totalFrames);
-    const mapX = (v) => px + ((v - lMin) / (lMax - lMin)) * plotW;
-    const mapY = (v) => py + ((oMax - v) / (oMax - oMin)) * plotH;
+    const mapX = (v) => px + Math.max(0, Math.min(plotW, ((v - lMin) / (lMax - lMin)) * plotW));
+    const mapY = (v) => py + Math.max(0, Math.min(plotH, ((oMax - v) / (oMax - oMin)) * plotH));
 
-    // Draw orbit trail
+    // Starting point marker
     ctx.beginPath();
-    ctx.strokeStyle = 'rgba(0, 180, 216, 0.6)';
-    ctx.lineWidth = 1.5;
-    for (let i = 0; i < n; i++) {
-      const x = mapX(simData.lambdaHist[i]);
-      const y = mapY(simData.omegaHist[i]);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.stroke();
+    ctx.arc(mapX(simData.lambdaHist[0]), mapY(simData.omegaHist[0]), 5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.fill();
 
-    // Draw moving dot
+    // Orbit trail with gradient opacity
+    ctx.lineWidth = 2;
+    for (let i = 1; i < n; i++) {
+      const progress = i / simData.totalFrames;
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(0, 180, 216, ${0.15 + 0.6 * progress})`;
+      ctx.moveTo(mapX(simData.lambdaHist[i - 1]), mapY(simData.omegaHist[i - 1]));
+      ctx.lineTo(mapX(simData.lambdaHist[i]), mapY(simData.omegaHist[i]));
+      ctx.stroke();
+    }
+
+    // Moving dot
     if (n > 0) {
       const cx = mapX(simData.lambdaHist[n - 1]);
       const cy = mapY(simData.omegaHist[n - 1]);
+      // Glow
+      ctx.beginPath();
+      ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 209, 102, 0.2)';
+      ctx.fill();
+      // Dot
       ctx.beginPath();
       ctx.arc(cx, cy, 4, 0, Math.PI * 2);
       ctx.fillStyle = '#ffd166';
       ctx.fill();
       ctx.strokeStyle = '#fff';
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 1.5;
       ctx.stroke();
+    }
+
+    // Direction arrow (show clockwise/counter-clockwise)
+    if (n > 50) {
+      const i2 = n - 1, i1 = n - 20;
+      const ax = mapX(simData.lambdaHist[i2]) - mapX(simData.lambdaHist[i1]);
+      const ay = mapY(simData.omegaHist[i2]) - mapY(simData.omegaHist[i1]);
+      const angle = Math.atan2(ay, ax);
+      const tipX = mapX(simData.lambdaHist[i2]);
+      const tipY = mapY(simData.omegaHist[i2]);
+      ctx.save();
+      ctx.translate(tipX, tipY);
+      ctx.rotate(angle);
+      ctx.fillStyle = '#ffd166';
+      ctx.beginPath();
+      ctx.moveTo(6, 0); ctx.lineTo(-4, -4); ctx.lineTo(-4, 4); ctx.closePath();
+      ctx.fill();
+      ctx.restore();
     }
   }
 
   function drawTimeSeries(ctx, ox, oy, pw, ph, isTH) {
-    const pad = { top: 35, bottom: 35, left: 40, right: 15 };
+    const pad = { top: 25, bottom: 40, left: 42, right: 12 };
     const plotW = pw - pad.left - pad.right;
     const plotH = ph - pad.top - pad.bottom;
     const px = ox + pad.left;
     const py = oy + pad.top;
 
-    // Title
-    ctx.fillStyle = '#e0e0e0';
-    ctx.font = 'bold 11px Arial';
+    // Y-axis range: auto-fit or default
+    let yMin = 0.3, yMax = 1.0;
+    if (simData) {
+      const allVals = [...simData.lambdaHist, ...simData.omegaHist];
+      const dMin = Math.min(...allVals), dMax = Math.max(...allVals);
+      const margin = Math.max(0.05, (dMax - dMin) * 0.15);
+      yMin = Math.max(0, Math.floor((dMin - margin) * 10) / 10);
+      yMax = Math.min(1, Math.ceil((dMax + margin) * 10) / 10);
+    }
+
+    // Subtitle
+    ctx.fillStyle = '#ccc';
+    ctx.font = 'bold 10px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText(isTH ? 'อนุกรมเวลา' : 'Time Series', ox + pw / 2, oy + 16);
+    ctx.fillText(isTH ? 'อนุกรมเวลา' : 'Time Series', ox + pw / 2, oy + 12);
 
     // Grid
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
     ctx.lineWidth = 0.5;
-    for (let i = 0; i <= 5; i++) {
-      const x = px + (i / 5) * plotW;
+    const nTicksX = 5;
+    for (let i = 0; i <= nTicksX; i++) {
+      const x = px + (i / nTicksX) * plotW;
       ctx.beginPath(); ctx.moveTo(x, py); ctx.lineTo(x, py + plotH); ctx.stroke();
     }
-    for (let i = 0; i <= 4; i++) {
-      const y = py + (i / 4) * plotH;
+    const nTicksY = 4;
+    for (let i = 0; i <= nTicksY; i++) {
+      const y = py + (i / nTicksY) * plotH;
       ctx.beginPath(); ctx.moveTo(px, y); ctx.lineTo(px + plotW, y); ctx.stroke();
     }
 
-    // Axis labels
-    ctx.fillStyle = '#aaa';
+    // Tick labels
+    ctx.fillStyle = '#888';
     ctx.font = '9px Arial';
     ctx.textAlign = 'center';
-    for (let i = 0; i <= 5; i++) {
-      ctx.fillText((i * 8).toString(), px + (i / 5) * plotW, py + plotH + 14);
+    for (let i = 0; i <= nTicksX; i++) {
+      ctx.fillText((i * 8).toString(), px + (i / nTicksX) * plotW, py + plotH + 14);
     }
     ctx.textAlign = 'right';
-    const yLabels = [1.0, 0.8, 0.6, 0.4, 0.2];
-    for (let i = 0; i < yLabels.length; i++) {
-      ctx.fillText(yLabels[i].toFixed(1), px - 5, py + (i / 4) * plotH + 3);
+    for (let i = 0; i <= nTicksY; i++) {
+      const val = yMax - (i / nTicksY) * (yMax - yMin);
+      ctx.fillText(val.toFixed(1), px - 5, py + (i / nTicksY) * plotH + 4);
     }
 
-    ctx.fillStyle = '#aaa';
-    ctx.font = '9px Arial';
+    // Axis title
+    ctx.fillStyle = '#888';
+    ctx.font = '10px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText(isTH ? 'เวลา (ปี)' : 'Time (years)', ox + pw / 2, oy + ph - 3);
+    ctx.fillText(isTH ? 'เวลา (ปี)' : 'Time (years)', ox + pw / 2, oy + ph - 5);
 
-    // Plot boundary
+    // Border
     ctx.strokeStyle = 'rgba(255,255,255,0.2)';
     ctx.lineWidth = 1;
     ctx.strokeRect(px, py, plotW, plotH);
 
+    // Placeholder
     if (!simData) {
-      // Placeholder text
-      ctx.fillStyle = 'rgba(255,255,255,0.3)';
-      ctx.font = '12px Arial';
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.font = '11px Arial';
       ctx.textAlign = 'center';
-      ctx.fillText(isTH ? 'กด "เริ่ม" เพื่อจำลอง' : 'Press "Run" to simulate', ox + pw / 2, oy + ph / 2);
+      ctx.fillText(isTH ? 'กด "เริ่มจำลอง"' : 'Press "Run"', ox + pw / 2, oy + ph / 2 - 10);
       return;
     }
 
     const n = Math.min(animFrame + 1, simData.totalFrames);
     const totalT = 40;
     const mapX = (t) => px + (t / totalT) * plotW;
-    const mapY = (v) => py + ((1.0 - v) / 0.8) * plotH; // range 0.2 to 1.0
+    const mapY = (v) => py + ((yMax - v) / (yMax - yMin)) * plotH;
 
     // Employment line (cyan)
     ctx.beginPath();
     ctx.strokeStyle = '#00b4d8';
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 2;
     for (let i = 0; i < n; i++) {
       const x = mapX(simData.time[i]);
       const y = mapY(simData.lambdaHist[i]);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     }
     ctx.stroke();
 
     // Wage share line (gold)
     ctx.beginPath();
     ctx.strokeStyle = '#ffd166';
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 2;
     for (let i = 0; i < n; i++) {
       const x = mapX(simData.time[i]);
       const y = mapY(simData.omegaHist[i]);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     }
     ctx.stroke();
 
+    // Current values overlay
+    if (n > 0) {
+      const lastL = simData.lambdaHist[n - 1];
+      const lastO = simData.omegaHist[n - 1];
+      const curX = mapX(simData.time[n - 1]);
+
+      // Vertical cursor line
+      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(curX, py); ctx.lineTo(curX, py + plotH); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Value labels at right
+      ctx.font = 'bold 10px Arial';
+      ctx.textAlign = 'left';
+      const lblX = Math.min(curX + 4, px + plotW - 50);
+      ctx.fillStyle = '#00b4d8';
+      ctx.fillText(`λ=${lastL.toFixed(2)}`, lblX, mapY(lastL) - 5);
+      ctx.fillStyle = '#ffd166';
+      ctx.fillText(`ω=${lastO.toFixed(2)}`, lblX, mapY(lastO) + 14);
+    }
+
     // Legend
-    const lx = px + plotW - 90;
-    const ly = py + 10;
-    ctx.fillStyle = 'rgba(22,33,62,0.8)';
-    ctx.fillRect(lx, ly, 85, 32);
-    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-    ctx.strokeRect(lx, ly, 85, 32);
+    const lx = px + plotW - 95;
+    const ly = py + 8;
+    ctx.fillStyle = 'rgba(22,33,62,0.85)';
+    ctx.fillRect(lx, ly, 90, 36);
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(lx, ly, 90, 36);
 
     ctx.font = '9px Arial';
     ctx.textAlign = 'left';
-    // Employment
-    ctx.strokeStyle = '#00b4d8';
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(lx + 4, ly + 10); ctx.lineTo(lx + 18, ly + 10); ctx.stroke();
+    ctx.strokeStyle = '#00b4d8'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(lx + 5, ly + 11); ctx.lineTo(lx + 20, ly + 11); ctx.stroke();
     ctx.fillStyle = '#00b4d8';
-    ctx.fillText(isTH ? 'จ้างงาน (λ)' : 'Employ (λ)', lx + 22, ly + 13);
-    // Wage share
-    ctx.strokeStyle = '#ffd166';
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(lx + 4, ly + 24); ctx.lineTo(lx + 18, ly + 24); ctx.stroke();
+    ctx.fillText(isTH ? 'จ้างงาน (λ)' : 'Employment (λ)', lx + 24, ly + 14);
+
+    ctx.strokeStyle = '#ffd166'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(lx + 5, ly + 25); ctx.lineTo(lx + 20, ly + 25); ctx.stroke();
     ctx.fillStyle = '#ffd166';
-    ctx.fillText(isTH ? 'ค่าจ้าง (ω)' : 'Wage (ω)', lx + 22, ly + 27);
+    ctx.fillText(isTH ? 'ค่าจ้าง (ω)' : 'Wage Share (ω)', lx + 24, ly + 28);
   }
 
   // Initial draw
