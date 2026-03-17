@@ -1168,7 +1168,7 @@ function initWealthSim() {
     const rounds = 80;
     const data = { round: [], a: [], b: [] };
 
-    let wA = 50, wB = 50;
+    let wA = 52, wB = 48; // A starts slightly ahead
 
     for (let i = 0; i <= rounds; i++) {
       data.round.push(i);
@@ -1176,14 +1176,15 @@ function initWealthSim() {
       data.b.push(wB);
 
       const total = wA + wB || 1;
-      const earnings = 5; // total earnings available each round
-      const noise = (Math.random() - 0.5) * 2; // small random shock
+      const earnings = 5;
+      const noise = (Math.random() - 0.5) * 2;
       const wealthGap = (wA - wB) / total; // -1 to +1
 
-      // At 0% bias: each gets ~50% ± small noise (stays close)
-      // At high bias: whoever is ahead gets more, compounding the gap
+      // bias * 0.12 = direct advantage for A (the "system" favors the leader)
+      // bias * wealthGap * 0.35 = amplifies existing gap (rich get richer)
+      // noise * 0.06 = small randomness (keeps it realistic)
       const aShare = Math.max(0.05, Math.min(0.95,
-        0.5 + noise * 0.08 + bias * wealthGap * 0.45
+        0.5 + noise * 0.06 + bias * 0.12 + bias * wealthGap * 0.35
       ));
 
       wA += earnings * aShare;
