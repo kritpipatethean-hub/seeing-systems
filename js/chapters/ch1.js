@@ -345,16 +345,16 @@ function initBalancingLoop() {
       id: 'attract', x: 110, y: 340,
       label: { en: 'City\nAttract.', th: 'ความน่าอยู่\nของเมือง' },
       info: {
-        en: 'Lower quality of life makes the city less attractive, further reducing in-migration.',
-        th: 'คุณภาพชีวิตตกลง เมืองก็ไม่น่าอยู่ คนจึงไม่อยากย้ายเข้ามา'
+        en: 'When quality of life is high, the city is attractive and draws people in.',
+        th: 'เมื่อคุณภาพชีวิตดี เมืองก็น่าอยู่ ดึงดูดคนให้ย้ายเข้ามา'
       }
     },
     {
       id: 'migration', x: 45, y: 165,
-      label: { en: 'Out-\nmigration', th: 'การย้าย\nออก' },
+      label: { en: 'In-\nmigration', th: 'การย้าย\nเข้า' },
       info: {
-        en: 'When quality of life drops, people leave the city.',
-        th: 'พอคุณภาพชีวิตแย่ลง คนก็เริ่มย้ายออก'
+        en: 'When the city is attractive, more people move in — increasing population.',
+        th: 'เมื่อเมืองน่าอยู่ คนก็อยากย้ายเข้ามา — ทำให้ประชากรเพิ่ม'
       }
     }
   ];
@@ -363,8 +363,8 @@ function initBalancingLoop() {
     { from: 'population', to: 'crowding', sign: '+' },
     { from: 'crowding', to: 'quality', sign: '-' },
     { from: 'quality', to: 'attract', sign: '+' },
-    { from: 'attract', to: 'migration', sign: '-' },
-    { from: 'migration', to: 'population', sign: '-' }
+    { from: 'attract', to: 'migration', sign: '+' },
+    { from: 'migration', to: 'population', sign: '+' }
   ];
 
   drawCLD(container, nodes, edges, 'B', '#e94560', 'b-loop-info');
