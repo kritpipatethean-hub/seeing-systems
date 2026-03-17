@@ -605,8 +605,8 @@ function initMinsky() {
     const steps = Math.floor(totalYears / dt);
 
     let Y = 100;          // GDP
-    let D = 20;            // Debt (lower start to show accumulation)
-    let omega = 0.75;      // Wage share (higher = thinner profit margins)
+    let D = 40;            // Debt stock
+    let omega = 0.82;      // Wage share (higher = thinner profit margins)
 
     const time = [];
     const gdpGrowth = [];
@@ -622,7 +622,7 @@ function initMinsky() {
       const profitRate = profits / (v * Y);
 
       // Investment: animal spirits amplifies response to profit rate
-      const investRate = 0.03 + animalSpirits * 0.08 * (1 + Math.tanh(8 * (profitRate - 0.05)));
+      const investRate = 0.05 + animalSpirits * 0.12 * (1 + Math.tanh(8 * (profitRate - 0.05)));
       const investment = investRate * Y;
 
       // Interest payments on existing debt
@@ -631,7 +631,7 @@ function initMinsky() {
       // Firms borrow when investment + interest > profits
       const netNeed = investment + interestPayment - profits;
       const borrowing = Math.max(0, netNeed);
-      const repayment = 0.04 * D;
+      const repayment = 0.02 * D;
       const dD = borrowing - repayment;
 
       // GDP growth from capital accumulation minus depreciation
@@ -663,7 +663,7 @@ function initMinsky() {
 
       // Wage share dynamics (Phillips curve style):
       // Strong growth -> tight labor -> rising wages -> squeezed profits
-      omega += 0.015 * (g - 0.005) * dt;
+      omega += 0.1 * (g - 0.01) * dt;
       omega = Math.max(0.4, Math.min(0.95, omega));
 
       // Debt crisis feedback: when interest exceeds profits, GDP contracts
