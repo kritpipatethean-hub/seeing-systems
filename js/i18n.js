@@ -81,31 +81,31 @@ const i18n = {
     // Chapter 1 content
     'ch1.intro.title': { en: 'What is System Dynamics?', th: 'พลวัตระบบคืออะไร?' },
     'ch1.intro.p1': {
-      en: 'System Dynamics is a methodology for understanding how complex systems change over time. Founded by Jay W. Forrester at MIT in the 1950s, it uses computer simulation to reveal how the structure of a system—its feedback loops, delays, and nonlinearities—determines its behavior.',
+      en: '<strong>System Dynamics (SD)</strong> is a way of understanding how complex systems change over time. Jay W. Forrester developed it at MIT in the 1950s. The core idea: use computer simulation to see how a system\'s structure — its feedback loops, delays, and nonlinear connections — shapes its behavior.',
       th: '<strong>พลวัตระบบ (System Dynamics)</strong> คือวิธีทำความเข้าใจว่าระบบซับซ้อนเปลี่ยนแปลงอย่างไรเมื่อเวลาผ่านไป Jay W. Forrester แห่ง MIT พัฒนาขึ้นในทศวรรษ 1950 โดยใช้การจำลองด้วยคอมพิวเตอร์เพื่อให้เห็นว่าโครงสร้างของระบบ — วงจรป้อนกลับ ความล่าช้า และความไม่เป็นเส้นตรง — เป็นตัวกำหนดพฤติกรรม'
     },
     'ch1.intro.p2': {
-      en: 'Unlike traditional approaches that break problems into isolated parts, System Dynamics looks at the whole system and how its parts interact to create patterns of behavior over time.',
+      en: 'Most approaches break problems into pieces and study each one separately. System Dynamics does the opposite — it looks at the whole system and asks: how do the pieces interact to create the patterns we see over time?',
       th: 'วิธีคิดแบบเดิมมักแยกปัญหาออกเป็นชิ้นๆ แล้วแก้ทีละชิ้น แต่พลวัตระบบมองภาพรวมทั้งหมด — ดูว่าส่วนต่างๆ ส่งผลต่อกันอย่างไร จนเกิดเป็นรูปแบบพฤติกรรมที่เปลี่ยนไปตามเวลา'
     },
 
     'ch1.counterintuitive.title': { en: 'Counterintuitive Behavior', th: 'เมื่อระบบทำตัวตรงข้ามกับที่คิด' },
     'ch1.counterintuitive.p1': {
-      en: 'One of the most important insights from System Dynamics is that complex systems often behave in ways that are counterintuitive. As Forrester (1971) observed, policies designed to fix social problems frequently make them worse.',
+      en: 'Here\'s the most important lesson from System Dynamics: complex systems often do the opposite of what you\'d expect. Forrester (1971) found that policies designed to fix social problems frequently make them worse.',
       th: 'บทเรียนสำคัญที่สุดอย่างหนึ่งจากพลวัตระบบคือ ระบบซับซ้อนมักทำตัวตรงข้ามกับที่เราคิด Forrester (1971) พบว่า นโยบายที่ตั้งใจแก้ปัญหาสังคม กลับทำให้ปัญหาแย่ลงเสียอีก'
     },
     'ch1.counterintuitive.p2': {
-      en: 'Try the simulation below: you are managing a city\'s population. Use the sliders to set policies and see how the system responds—often in unexpected ways!',
+      en: 'Try the simulation below: you\'re running a city. Adjust the sliders, set your policies, and see how the system responds — often in ways you won\'t see coming!',
       th: 'ลองเล่นจำลองด้านล่าง: สมมติคุณบริหารเมือง ปรับสไลเดอร์ตั้งนโยบาย แล้วดูว่าระบบตอบสนองอย่างไร — มักจะเป็นแบบที่คาดไม่ถึง!'
     },
 
     'ch1.mental.title': { en: 'Mental Models & System Thinking', th: 'แบบจำลองในหัว กับการคิดเชิงระบบ' },
     'ch1.mental.p1': {
-      en: 'Every decision we make is based on mental models—our internal pictures of how the world works. System Dynamics makes these mental models explicit through diagrams and equations, allowing us to test our assumptions with simulation.',
+      en: 'Every decision we make is based on a \'mental model\' — our internal picture of how the world works. System Dynamics takes those invisible models and makes them visible through diagrams and equations, so we can actually test our assumptions with simulation.',
       th: 'ทุกครั้งที่เราตัดสินใจ เราใช้ "แบบจำลองในหัว" — ภาพในใจที่บอกเราว่าโลกทำงานอย่างไร พลวัตระบบช่วยเอาแบบจำลองเหล่านี้ออกมาให้เห็นชัดๆ ผ่านแผนภาพและสมการ เพื่อให้เราทดสอบสมมติฐานด้วยการจำลองได้'
     },
     'ch1.mental.p2': {
-      en: 'As Sterman (2000) argues, "the most important thing we can do is improve the mental models of decision makers." Click on the diagram elements below to explore how a simple causal loop works.',
+      en: 'As Sterman (2000) put it: \'The most important thing we can do is improve the mental models of decision makers.\' Click on the diagram below to explore how a simple causal loop works.',
       th: 'Sterman (2000) เคยบอกว่า "สิ่งสำคัญที่สุดที่เราทำได้คือ ปรับปรุงแบบจำลองในหัวของผู้ตัดสินใจ" ลองคลิกที่แผนภาพด้านล่างเพื่อดูว่าวงจรเหตุ-ผลอย่างง่ายทำงานอย่างไร'
     },
 
